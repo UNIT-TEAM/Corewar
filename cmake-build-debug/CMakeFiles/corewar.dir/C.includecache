@@ -37,12 +37,20 @@ ft_printf.h
 /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/./libft/libft.h
 fcntl.h
 -
+stdio.h
+-
 op.h
 /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/op.h
+
+/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/fill_bot.c
+corewar.h
+/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/corewar.h
 
 /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/main.c
 corewar.h
 /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/corewar.h
+
+/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/map.c
 
 /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/op.h
 

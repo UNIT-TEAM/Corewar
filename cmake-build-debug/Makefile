@@ -123,6 +123,33 @@ corewar/fast:
 	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/build
 .PHONY : corewar/fast
 
+fill_bot.o: fill_bot.c.o
+
+.PHONY : fill_bot.o
+
+# target to build an object file
+fill_bot.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/fill_bot.c.o
+.PHONY : fill_bot.c.o
+
+fill_bot.i: fill_bot.c.i
+
+.PHONY : fill_bot.i
+
+# target to preprocess a source file
+fill_bot.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/fill_bot.c.i
+.PHONY : fill_bot.c.i
+
+fill_bot.s: fill_bot.c.s
+
+.PHONY : fill_bot.s
+
+# target to generate assembly for a file
+fill_bot.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/fill_bot.c.s
+.PHONY : fill_bot.c.s
+
 main.o: main.c.o
 
 .PHONY : main.o
@@ -150,6 +177,33 @@ main.c.s:
 	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/main.c.s
 .PHONY : main.c.s
 
+map.o: map.c.o
+
+.PHONY : map.o
+
+# target to build an object file
+map.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/map.c.o
+.PHONY : map.c.o
+
+map.i: map.c.i
+
+.PHONY : map.i
+
+# target to preprocess a source file
+map.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/map.c.i
+.PHONY : map.c.i
+
+map.s: map.c.s
+
+.PHONY : map.s
+
+# target to generate assembly for a file
+map.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/map.c.s
+.PHONY : map.c.s
+
 # Help Target
 help:
 	@echo "The following are some of the valid targets for this Makefile:"
@@ -159,9 +213,15 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... corewar"
+	@echo "... fill_bot.o"
+	@echo "... fill_bot.i"
+	@echo "... fill_bot.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
+	@echo "... map.o"
+	@echo "... map.i"
+	@echo "... map.s"
 .PHONY : help
 
 

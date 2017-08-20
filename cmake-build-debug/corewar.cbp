@@ -85,10 +85,16 @@
 		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/corewar.h">
 			<Option target="corewar"/>
 		</Unit>
+		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/fill_bot.c">
+			<Option target="corewar"/>
+		</Unit>
 		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/libft/libft.h">
 			<Option target="corewar"/>
 		</Unit>
 		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/main.c">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/map.c">
 			<Option target="corewar"/>
 		</Unit>
 		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/op.h">
