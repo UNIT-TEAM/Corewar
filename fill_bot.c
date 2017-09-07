@@ -5,6 +5,22 @@
 ** flag == 0 for prog_size;
 */
 
+int		check_size(char *av)
+{
+	char	*tmp;
+	int 	fd;
+	int 	i;
+
+	i = 0;
+	tmp = 0;
+	fd = open(av, O_RDONLY);
+	(lseek(fd, CODE_POS, SEEK_SET) < 0) ? ft_error(2, NULL) : 0;
+	while (read(fd, &tmp, 1))
+		i++;
+	close(fd);
+	return (i);
+}
+
 void 	fill_magic(unsigned int *magic_size, char *buf, char *str, int flag)
 {
 	int				k;
@@ -23,14 +39,14 @@ void 	fill_magic(unsigned int *magic_size, char *buf, char *str, int flag)
 	}
 	((*magic_size = arr[0] | arr[1] | arr[2] | arr[3]) != COREWAR_EXEC_MAGIC &&
 		flag) ?	ft_error(3, str) : 0;
-	if ((*magic_size = arr[0] | arr[1] | arr[2] | arr[3]) > CHAMP_MAX_SIZE &&
-	 !flag)
+	if (*magic_size  > CHAMP_MAX_SIZE && !flag)
 	{
 		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has too large a code (%u"\
 		" bytes vs %u bytes)\n", str, *magic_size, CHAMP_MAX_SIZE);
 		exit(1);
 	}
-
+	if (*magic_size != (unsigned int)check_size(str) && !flag)
+		ft_error(4, str);
 }
 
 void 	ft_magic_size(char *av, header_t *p)
@@ -83,14 +99,20 @@ void 	ft_name_comment(char *av, header_t *p, int flag)
 void	ft_instraction(char *av, t_bs *bs, int i)
 {
 	int		fd;
-	int		r;
+	int		k;
 	char 	*tmp;
 
-	tmp = 0;
+	k = 0;
 	fd = open(av, O_RDONLY);
 	(lseek(fd, CODE_POS, SEEK_SET) < 0) ? ft_error(2, NULL) : 0;
 	bs->pftr = (i == 0) ? 0 : bs->pftr + MEM_SIZE / bs->np;
-	r = get_next_line(fd, &tmp);
-	(r <= 0 && !(tmp)) ? ft_error(4, av) : 0;
-	ft_strcpy(bs->map + bs->pftr, tmp);
+	if (!(tmp = (char *)malloc(sizeof(char) * bs->p[i].prog_size)))
+		ft_error(5, av);
+	while (read(fd, &tmp[k], 1))
+		k++;
+	(k == 0) ? ft_error(4, av) : 0;
+	while (k--)
+		(bs->map + bs->pftr)[k] = tmp[k];
+	ft_strdel(&tmp);
+	bs->r[0] = (unsigned int)((i + 1) * -1);
 }
