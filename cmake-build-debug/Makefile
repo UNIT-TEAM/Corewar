@@ -123,6 +123,33 @@ corewar/fast:
 	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/build
 .PHONY : corewar/fast
 
+champion.o: champion.c.o
+
+.PHONY : champion.o
+
+# target to build an object file
+champion.c.o:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/champion.c.o
+.PHONY : champion.c.o
+
+champion.i: champion.c.i
+
+.PHONY : champion.i
+
+# target to preprocess a source file
+champion.c.i:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/champion.c.i
+.PHONY : champion.c.i
+
+champion.s: champion.c.s
+
+.PHONY : champion.s
+
+# target to generate assembly for a file
+champion.c.s:
+	$(MAKE) -f CMakeFiles/corewar.dir/build.make CMakeFiles/corewar.dir/champion.c.s
+.PHONY : champion.c.s
+
 fill_bot.o: fill_bot.c.o
 
 .PHONY : fill_bot.o
@@ -213,6 +240,9 @@ help:
 	@echo "... rebuild_cache"
 	@echo "... edit_cache"
 	@echo "... corewar"
+	@echo "... champion.o"
+	@echo "... champion.i"
+	@echo "... champion.s"
 	@echo "... fill_bot.o"
 	@echo "... fill_bot.i"
 	@echo "... fill_bot.s"

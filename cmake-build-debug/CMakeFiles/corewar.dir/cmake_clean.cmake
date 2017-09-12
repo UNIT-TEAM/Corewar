@@ -2,6 +2,7 @@ file(REMOVE_RECURSE
   "CMakeFiles/corewar.dir/main.c.o"
   "CMakeFiles/corewar.dir/fill_bot.c.o"
   "CMakeFiles/corewar.dir/map.c.o"
+  "CMakeFiles/corewar.dir/champion.c.o"
   "corewar.pdb"
   "corewar"
 )

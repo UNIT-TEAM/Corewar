@@ -1,18 +1,39 @@
-
 #include "corewar.h"
 
 void	base_to_zero(t_bs *bs)
 {
 	int i;
 
+	bs->list_champs = NULL;
 	i = -1;
-	bs->pftr = 0;
 	while (++i < MEM_SIZE)
 		bs->map[i] = 0;
-	i = -1;
-	while (++i < REG_NUMBER)
-		bs->r[i] = 0;
-	bs->plr = NULL;
+	bs->np = 0;
+	bs->pftr = 0;
+	bs->is_dump = 0;
+}
+
+int		check_num_atoi(char *line, unsigned int *num)
+{
+	int		count;
+
+	*num = 0;
+	while (*line == '0')
+		line++;
+	count = 0;
+	while (count <= 10 && line[count])
+		count++;
+	if (count > 10)
+		return (0);
+	if (count == 10 && ft_strncmp(line, "4294967295", 10) > 0)
+		return (0);
+	while (count > 0)
+	{
+		*num = (*num * 10) + (*line - '0');
+		count--;
+		line++;
+	}
+	return (1);
 }
 
 /*
@@ -47,31 +68,36 @@ void	ft_error(int i, char *str)
 	else if (i == 7)
 		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles]"RC\
 		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+	else if (i == 8)
+		ft_printf(RED"Error:"BLU" %s"RC" is not unsigned int\n",
+				  str);
+	//видалити всі лісти
 	exit(1);
 }
 
-int		parse_flags(char *av, char *number, int *n, int *p)
+int		parse_flags(char *flag, char *number, unsigned int *num_player,
+					   unsigned int *count)
 {
 	int i;
 
-	i = -1;
-	if (ft_strequ(av, "-n"))
-	{
-		while (number[++i])
-			(ft_isdigit(number[i])) ? 0 : ft_error(6, number);
-//		як правильно проходить нумерація гравців чи треба перевірка на макисману кількість гравців
-		if ((*n = ft_atoi(number)) > MAX_PLAYERS)
-			ft_error(6, number);
-		return (1);
-	}
-	else if (ft_strequ(av, "-dump"))
+	if (ft_strequ(flag, "-n"))
 	{
 		i = -1;
 		while (number[++i])
-			(ft_isdigit(number[i])) ? 0 : ft_error(7, number);
-//		чи потрібно робити перевірку на інт
-//		яке максимальне число операцій? якого типу буде змінна головного ціклу?
-		*p = ft_atoi(number);
+			if (!ft_isdigit(number[i]))
+				ft_error(6, number);
+		if (!check_num_atoi(number, num_player))
+			ft_error(8, "number");
+		return (1);
+	}
+	else if (ft_strequ(flag, "-dump"))
+	{
+		i = -1;
+		while (number[++i])
+			if (!ft_isdigit(number[i]))
+				ft_error(7, number);
+		if (!check_num_atoi(number, count))
+			ft_error(8, "nbr_cycles");
 		return (1);
 	}
 	return (0);
@@ -79,29 +105,39 @@ int		parse_flags(char *av, char *number, int *n, int *p)
 
 void	ft_sprint(t_bs *base, char **av, int ac)
 {
-	int	i;
+	int				i;
+	unsigned int	num_player;
 
-	i = 0;
-	base->np = ac - 1;
-	while (++i < ac)
+	i = 1;
+	num_player = 0;
+	while (i < ac)
 	{
-		if (i + 1 < ac - 1 && parse_flags(av[i], av[i + 1], &base->tmpn, \
-		&base->tmpd))
-				if ((i += 2) == ac)
-					break;
+		if (i + 1 < ac - 1 &&
+			parse_flags(av[i], av[i + 1], &num_player, &base->dump))
+		{
+			if ((i += 2) == ac && base->np == 0)
+				ft_error(1, NULL);
+			else
+				continue ;
+		}
+		//TODO num_player доробити
+		//TODO is_dump кудись прикрутити
 //		перевірку на i + 1, перед тим як передавати в парсинг
-		ft_magic_size(av[i], &base->p[i - 1]);
-		ft_name_comment(av[i], &base->p[i - 1], 0);
-		ft_name_comment(av[i], &base->p[i - 1], 1);
-		ft_instraction(av[i], base, i - 1);
+		add_new_champ(&base->list_champs, num_player);
+		ft_magic_size(av[i], &base->list_champs->head);
+		ft_name_comment(av[i], &base->list_champs->head, 0);
+		ft_name_comment(av[i], &base->list_champs->head, 1);
+		ft_instraction(av[i], base);
+		i++;
+		num_player = 0;
 	}
 	ft_printf(YEL"Introducing contestants...\n"RC);
-	i = 0;
+	/*i = 0;
 	while (++i < ac)
 		ft_printf("\t* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
 				  i, base->p[i - 1].prog_size, base->p[i - 1].prog_name,
 				  base->p[i - 1].comment);
-
+*/
 //	ft_code();
 }
 
@@ -113,10 +149,11 @@ int 	main(int argc, char **argv)
 		ft_error(1, NULL);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
+	ft_fill_map(&base);
 	ft_printf("sum = %d\n", 2089 % 4);
 	return 0;
 }
-
+//
 // зчитування імені
 /*
 

@@ -82,6 +82,9 @@
 				</MakeCommands>
 			</Target>
 		</Build>
+		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/champion.c">
+			<Option target="corewar"/>
+		</Unit>
 		<Unit filename="/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/corewar.h">
 			<Option target="corewar"/>
 		</Unit>

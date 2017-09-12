@@ -4,6 +4,7 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_C
+  "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/champion.c" "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles/corewar.dir/champion.c.o"
   "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/fill_bot.c" "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles/corewar.dir/fill_bot.c.o"
   "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/main.c" "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles/corewar.dir/main.c.o"
   "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/map.c" "/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles/corewar.dir/map.c.o"
