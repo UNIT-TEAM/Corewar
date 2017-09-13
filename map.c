@@ -5,9 +5,10 @@ void	global_cycles(t_bs *bs)
 	unsigned int cycle_to_die;
 
 	cycle_to_die = CYCLE_TO_DIE;
-	while (cycle_to_die != 0)
+	while (cycle_to_die != 0)//зробити правельну перевірку для виходу з циклу при відніманні дельта
 	{
 		g_count++;
+		//
 		cycle_to_die -= CYCLE_DELTA;
 	}
 }
@@ -37,3 +38,4 @@ void	ft_fill_map(t_bs *bs)
 //TODO зробити загалиний цикл
 //TODO потім інші всі цикли і процеси. спочатку процесів скільки ж як гравців
 //TODO переробити список структур в масив струтук
+//TODO функція перевірки гравців на кількість життів
