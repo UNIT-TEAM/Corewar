@@ -43,10 +43,10 @@ RM = /Applications/CLion.app/Contents/bin/cmake/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar
+CMAKE_SOURCE_DIR = /nfs/2016/y/ysavenko/CLionProjects/cor
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug
+CMAKE_BINARY_DIR = /nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/corewar.dir/depend.make
@@ -59,16 +59,16 @@ include CMakeFiles/corewar.dir/flags.make
 
 CMakeFiles/corewar.dir/main.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/main.c.o: ../main.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/corewar.dir/main.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/main.c.o   -c /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/main.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building C object CMakeFiles/corewar.dir/main.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/main.c.o   -c /nfs/2016/y/ysavenko/CLionProjects/cor/main.c
 
 CMakeFiles/corewar.dir/main.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/main.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/main.c > CMakeFiles/corewar.dir/main.c.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/y/ysavenko/CLionProjects/cor/main.c > CMakeFiles/corewar.dir/main.c.i
 
 CMakeFiles/corewar.dir/main.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/main.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/main.c -o CMakeFiles/corewar.dir/main.c.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/y/ysavenko/CLionProjects/cor/main.c -o CMakeFiles/corewar.dir/main.c.s
 
 CMakeFiles/corewar.dir/main.c.o.requires:
 
@@ -83,16 +83,16 @@ CMakeFiles/corewar.dir/main.c.o.provides.build: CMakeFiles/corewar.dir/main.c.o
 
 CMakeFiles/corewar.dir/fill_bot.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/fill_bot.c.o: ../fill_bot.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/corewar.dir/fill_bot.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/fill_bot.c.o   -c /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/fill_bot.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building C object CMakeFiles/corewar.dir/fill_bot.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/fill_bot.c.o   -c /nfs/2016/y/ysavenko/CLionProjects/cor/fill_bot.c
 
 CMakeFiles/corewar.dir/fill_bot.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/fill_bot.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/fill_bot.c > CMakeFiles/corewar.dir/fill_bot.c.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/y/ysavenko/CLionProjects/cor/fill_bot.c > CMakeFiles/corewar.dir/fill_bot.c.i
 
 CMakeFiles/corewar.dir/fill_bot.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/fill_bot.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/fill_bot.c -o CMakeFiles/corewar.dir/fill_bot.c.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/y/ysavenko/CLionProjects/cor/fill_bot.c -o CMakeFiles/corewar.dir/fill_bot.c.s
 
 CMakeFiles/corewar.dir/fill_bot.c.o.requires:
 
@@ -107,16 +107,16 @@ CMakeFiles/corewar.dir/fill_bot.c.o.provides.build: CMakeFiles/corewar.dir/fill_
 
 CMakeFiles/corewar.dir/map.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/map.c.o: ../map.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/corewar.dir/map.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/map.c.o   -c /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/map.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building C object CMakeFiles/corewar.dir/map.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/map.c.o   -c /nfs/2016/y/ysavenko/CLionProjects/cor/map.c
 
 CMakeFiles/corewar.dir/map.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/map.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/map.c > CMakeFiles/corewar.dir/map.c.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/y/ysavenko/CLionProjects/cor/map.c > CMakeFiles/corewar.dir/map.c.i
 
 CMakeFiles/corewar.dir/map.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/map.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/map.c -o CMakeFiles/corewar.dir/map.c.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/y/ysavenko/CLionProjects/cor/map.c -o CMakeFiles/corewar.dir/map.c.s
 
 CMakeFiles/corewar.dir/map.c.o.requires:
 
@@ -131,16 +131,16 @@ CMakeFiles/corewar.dir/map.c.o.provides.build: CMakeFiles/corewar.dir/map.c.o
 
 CMakeFiles/corewar.dir/champion.c.o: CMakeFiles/corewar.dir/flags.make
 CMakeFiles/corewar.dir/champion.c.o: ../champion.c
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/corewar.dir/champion.c.o"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/champion.c.o   -c /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/champion.c
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building C object CMakeFiles/corewar.dir/champion.c.o"
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -o CMakeFiles/corewar.dir/champion.c.o   -c /nfs/2016/y/ysavenko/CLionProjects/cor/champion.c
 
 CMakeFiles/corewar.dir/champion.c.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing C source to CMakeFiles/corewar.dir/champion.c.i"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/champion.c > CMakeFiles/corewar.dir/champion.c.i
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -E /nfs/2016/y/ysavenko/CLionProjects/cor/champion.c > CMakeFiles/corewar.dir/champion.c.i
 
 CMakeFiles/corewar.dir/champion.c.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling C source to assembly CMakeFiles/corewar.dir/champion.c.s"
-	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/champion.c -o CMakeFiles/corewar.dir/champion.c.s
+	/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/cc  $(C_DEFINES) $(C_INCLUDES) $(C_FLAGS) -S /nfs/2016/y/ysavenko/CLionProjects/cor/champion.c -o CMakeFiles/corewar.dir/champion.c.s
 
 CMakeFiles/corewar.dir/champion.c.o.requires:
 
@@ -170,7 +170,7 @@ corewar: CMakeFiles/corewar.dir/champion.c.o
 corewar: CMakeFiles/corewar.dir/build.make
 corewar: ../libft/libft.a
 corewar: CMakeFiles/corewar.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable corewar"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking C executable corewar"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/corewar.dir/link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -190,6 +190,6 @@ CMakeFiles/corewar.dir/clean:
 .PHONY : CMakeFiles/corewar.dir/clean
 
 CMakeFiles/corewar.dir/depend:
-	cd /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug /nfs/2016/t/tgogol/tgogol/ClionProjects/corewar/cmake-build-debug/CMakeFiles/corewar.dir/DependInfo.cmake --color=$(COLOR)
+	cd /nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug && $(CMAKE_COMMAND) -E cmake_depends "Unix Makefiles" /nfs/2016/y/ysavenko/CLionProjects/cor /nfs/2016/y/ysavenko/CLionProjects/cor /nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug /nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug /nfs/2016/y/ysavenko/CLionProjects/cor/cmake-build-debug/CMakeFiles/corewar.dir/DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/corewar.dir/depend
 

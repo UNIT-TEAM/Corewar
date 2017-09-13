@@ -151,6 +151,16 @@ int 	main(int argc, char **argv)
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
 	ft_printf("sum = %d\n", 2089 % 4);
+    int a = 1;
+    while (a <= 4096)
+    {
+       printf("%hx",base.map[a]);
+        if ((a+1)%4 == 0)
+            printf(" ");
+        if ((a+1)%64 == 0)
+           printf("\n");
+        a++;
+    }
 	return 0;
 }
 //
