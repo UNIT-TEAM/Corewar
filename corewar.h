@@ -25,8 +25,9 @@ unsigned int 		g_count;
 
 typedef struct 		s_proc
 {
-	unsigned char	*pc;
+	unsigned int	pc;
 	unsigned int	regs[REG_NUMBER];
+	char 			carry;
 	struct s_chmp	*next;
 }					t_proc;
 
@@ -34,7 +35,6 @@ typedef struct		s_chmp
 {
 	header_t		head;
 	int 			live;
-	char 			carry;
 	unsigned int 	num;
 	t_proc			*proc_1;
 	unsigned char	*instructions;
@@ -62,7 +62,7 @@ void	ft_instraction(char *av, t_bs *bs);
 
 void	add_new_champ(t_chmp **first, unsigned int num_player);
 
-void	ft_fill_map(t_bs *bs);
+void ft_fill_map(t_bs *bs);
 
 
 

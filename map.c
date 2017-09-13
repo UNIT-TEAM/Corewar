@@ -1,48 +1,39 @@
 #include "corewar.h"
 
-void	fill_inst_and_code(t_chmp *champs, unsigned char **inst_cmp,
-		unsigned int *code_size, int l)
+void	global_cycles(t_bs *bs)
 {
-	t_chmp	*tmp;
-	int 	i;
+	unsigned int cycle_to_die;
 
-	i = -1;
-	tmp = champs;
-	while (tmp && ++i != l)
-		tmp->next = champs;
-	/*if (tmp && !(*inst_cmp = (unsigned char *)malloc(sizeof(unsigned char) *
-													  tmp->head.prog_size)))
-		ft_error(5, NULL);
-	*/
-	if (tmp)
+	cycle_to_die = CYCLE_TO_DIE;
+	while (cycle_to_die != 0)
 	{
-		*inst_cmp = tmp->instructions;
-		*code_size = tmp->head.prog_size;
+		g_count++;
+		cycle_to_die -= CYCLE_DELTA;
 	}
 }
 
 void	ft_fill_map(t_bs *bs)
 {
-	int				i;
+	int 			i;
 	unsigned int	pftr;
 	int 			k;
-	unsigned char	*inst_cmp;
-	unsigned int	code_size;
+	t_chmp			*tmp;
 
 	i = -1;
-	k = -1;
 	pftr = 0;
+	tmp = bs->list_champs;
 	while (++i < bs->np)
 	{
-		fill_inst_and_code(bs->list_champs, &inst_cmp, &code_size, i);
 		pftr = (i == 0) ? 0 : pftr + MEM_SIZE / bs->np;
-		while (++k < code_size)
-			bs->map[pftr + k] = inst_cmp[k];
+		tmp->proc_1->pc = pftr;
+		k = -1;
+		while (++k < tmp->head.prog_size)
+			bs->map[pftr + k] = tmp->instructions[k];
+		tmp = tmp->next;
 	}
-
+	global_cycles(bs);
 }
 
 //TODO зробити загалиний цикл
 //TODO потім інші всі цикли і процеси. спочатку процесів скільки ж як гравців
 //TODO переробити список структур в масив струтук
-//TODO записати PC в цій же функції

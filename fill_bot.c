@@ -119,8 +119,6 @@ void	ft_instraction(char *av, t_bs *bs)
 		k++;
 	close(fd);
 	(k == 0) ? ft_error(4, av) : 0;
-	if (!(bs->list_champs->proc_1 = (t_proc *)malloc(sizeof(t_proc))))
-		ft_error(5, av);
 	bs->np++;
 	bs->list_champs->proc_1->regs[0] = (unsigned int)(bs->np * -1);
 

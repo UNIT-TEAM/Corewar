@@ -11,6 +11,7 @@ void	base_to_zero(t_bs *bs)
 	bs->np = 0;
 	bs->pftr = 0;
 	bs->is_dump = 0;
+	g_count = 0;
 }
 
 int		check_num_atoi(char *line, unsigned int *num)
@@ -151,6 +152,11 @@ int 	main(int argc, char **argv)
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
 	ft_printf("sum = %d\n", 2089 % 4);
+	while(base.list_champs)
+	{
+		ft_printf("%u\n",base.list_champs->proc_1->pc);
+		base.list_champs = base.list_champs->next;
+	}
 	return 0;
 }
 //
