@@ -49,6 +49,8 @@ typedef	struct		s_bs
 	int				pftr;
 	unsigned int 	dump;
 	char 			is_dump;
+	unsigned int	dump_go;
+	char 			is_dump_go;
 }					t_bs;
 
 void 	ft_error(int i, char *str);

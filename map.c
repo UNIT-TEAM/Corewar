@@ -1,15 +1,60 @@
 #include "corewar.h"
 
+int 	check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
+							unsigned int *max_check)
+{
+	t_chmp			*tmp;
+	unsigned int	nbr_live;
+
+	nbr_live = 0;
+	tmp = players;
+	while (tmp)
+	{
+		if (tmp->live != 0)
+			nbr_live += tmp->live;
+		tmp = tmp->next;
+	}
+	if (g_count % CYCLE_TO_DIE == 0)
+	{
+		if (nbr_live >= NBR_LIVE) {
+			nbr_live = 0;
+			*cycle_to_die -= CYCLE_DELTA;
+		}
+		else if (*max_check == 0)
+			return (1);
+		else if (nbr_live < NBR_LIVE)
+		{
+			nbr_live = 0;
+			*max_check--;
+		}
+		else if (nbr_live >= NBR_LIVE)
+		{
+			nbr_live = 0;
+			*max_check = MAX_CHECKS;
+			*cycle_to_die -= CYCLE_DELTA;
+		}
+	}
+	return 0;
+}
+
 void	global_cycles(t_bs *bs)
 {
 	unsigned int cycle_to_die;
+	unsigned int max_check;
 
 	cycle_to_die = CYCLE_TO_DIE;
-	while (cycle_to_die != 0)//зробити правельну перевірку для виходу з циклу при відніманні дельта
+	max_check = MAX_CHECKS;
+	while (cycle_to_die != 0 && cycle_to_die < CYCLE_DELTA && max_check > 0)//зробити правельну перевірку для виходу з циклу при відніманні дельта
 	{
+		//TODO перевірка інструкцій
+		//if (bs->is_dump && bs->dump == g_count)
+			//TODO вивести карту і завершити програму
+		//if (bs->is_dump_go && bs->dump_go % g_count == 0)
+			//TODO виведемо карту на циклі dump_go і продовжимо програму
+
+		if (check_cycle_to_die(bs->list_champs, &cycle_to_die, &max_check))
+			break;
 		g_count++;
-		//
-		cycle_to_die -= CYCLE_DELTA;
 	}
 }
 
