@@ -1,5 +1,6 @@
 #include "corewar.h"
 
+
 void	base_to_zero(t_bs *bs)
 {
 	int i;
@@ -34,6 +35,7 @@ int		check_num_atoi(char *line, unsigned int *num)
 		count--;
 		line++;
 	}
+
 	return (1);
 }
 
@@ -51,27 +53,32 @@ int		check_num_atoi(char *line, unsigned int *num)
 void	ft_error(int i, char *str)
 {
 	if (i == 1)
-		ft_printf(RED"Usage:"RC"\n\t./corewar [-dump nbr_cycles] [[-n number] "\
+		//printf(RED"Usage:"RC"\n\t./corewar [-dump nbr_cycles] [[-n number] "\
 		"champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+        printf("usage");
 	else if (i == 2)
 		perror("error");
 	else if (i == 3)
-		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has an invalid magic name\n",
-				  str);
+		//printf(RED"Error:"RC" File "BLU"%s"RC" has an invalid magic name\n",str);
+        printf("error");
 	else if (i == 4)
-		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has a code size that differ"\
+		//printf(RED"Error:"RC" File "BLU"%s"RC" has a code size that differ"\
 		"from what its header says\n", str);
+        printf("error");
 	else if (i == 5)
-		ft_printf(RED"Error:"RC" in malloc\n");
+		//printf(RED"Error:"RC" in malloc\n");
+        printf("error");
 	else if (i == 6)
-		ft_printf(RED"Usage:"RC"\n\t./corewar [-dump nbr_cycles] ["RED\
+		//printf(RED"Usage:"RC"\n\t./corewar [-dump nbr_cycles] ["RED\
 		"[-n number]"RC" champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+        printf("error");
 	else if (i == 7)
-		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles]"RC\
+		//printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles]"RC\
 		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+        printf("error");
 	else if (i == 8)
-		ft_printf(RED"Error:"BLU" %s"RC" is not unsigned int\n",
-				  str);
+		//printf(RED"Error:"BLU" %s"RC" is not unsigned int\n",str);
+    printf("error");
 	//видалити всі лісти
 	exit(1);
 }
@@ -117,14 +124,20 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 			parse_flags(av[i], av[i + 1], &num_player, &base->dump))
 		{
 			if ((i += 2) == ac && base->np == 0)
-				ft_error(1, NULL);
+            {
+                ft_error(1, NULL);
+            }
 			else
-				continue ;
+            {
+                continue;
+            }
+
 		}
 		//TODO num_player доробити
 		//TODO is_dump кудись прикрутити
 //		перевірку на i + 1, перед тим як передавати в парсинг
 		add_new_champ(&base->list_champs, num_player);
+        printf("av = %s", av[i]);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
 		ft_name_comment(av[i], &base->list_champs->head, 1);
@@ -132,10 +145,11 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		i++;
 		num_player = 0;
 	}
-	ft_printf(YEL"Introducing contestants...\n"RC);
+	//printf(YEL"Introducing contestants...\n"RC);
+    printf("introducting");
 	/*i = 0;
 	while (++i < ac)
-		ft_printf("\t* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
+		printf("\t* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
 				  i, base->p[i - 1].prog_size, base->p[i - 1].prog_name,
 				  base->p[i - 1].comment);
 */
@@ -146,15 +160,18 @@ int 	main(int argc, char **argv)
 {
 	t_bs		base;
 
+    printf("err = %d\n", argc);
 	if (argc == 1)
 		ft_error(1, NULL);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	ft_printf("sum = %d\n", 2089 % 4);
+	//printf("sum = %d\n", 2089 % 4);
+	print_map(base);
+    printf("\n");
 	while(base.list_champs)
 	{
-		ft_printf("%u\n",base.list_champs->proc_1->pc);
+		printf("%u\n",base.list_champs->proc_1->pc);
 		base.list_champs = base.list_champs->next;
 	}
 	return 0;
@@ -181,8 +198,8 @@ int 	main(int argc, char **argv)
 
 
 while (++i < 4)
-ft_printf("s = %X\n", buf[i]);
-ft_printf("sum = %u\n", s);
+printf("s = %X\n", buf[i]);
+printf("sum = %u\n", s);
 return 0;
 
 */

@@ -1,5 +1,6 @@
 #include "corewar.h"
 
+
 /*
 ** flag == 1 for magic;
 ** flag == 0 for prog_size;
@@ -44,7 +45,7 @@ void 	fill_magic(unsigned int *magic_size, unsigned char *buf, char *str,
 	(*magic_size != COREWAR_EXEC_MAGIC && flag) ?	ft_error(3, str) : 0;
 	if (*magic_size  > CHAMP_MAX_SIZE && !flag)
 	{
-		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has too large a code (%u"\
+		//printf(RED"Error:"RC" File "BLU"%s"RC" has too large a code (%u"\
 		" bytes vs %u bytes)\n", str, *magic_size, CHAMP_MAX_SIZE);
 		exit(1);
 	}

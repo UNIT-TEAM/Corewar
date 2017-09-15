@@ -1,7 +1,7 @@
 #ifndef COREWAR_H
 #define COREWAR_H
 
-# include "./libft/libft.h"
+# include "./libft/includes/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include "op.h"
@@ -65,6 +65,7 @@ void	ft_instraction(char *av, t_bs *bs);
 void	add_new_champ(t_chmp **first, unsigned int num_player);
 
 void ft_fill_map(t_bs *bs);
+void print_map(t_bs base);
 
 
 
