@@ -58,6 +58,21 @@ void	global_cycles(t_bs *bs)
 	}
 }
 
+void    add_map_mapstr(t_bs *bs){
+    int a;
+
+    a = 0;
+    bs->map_state = malloc(sizeof(t_map));
+    bs->map_state->cycle_n = g_count;
+    bs->map_state->map = malloc(sizeof(unsigned char)*MEM_SIZE);
+    while (a < MEM_SIZE)
+    {
+        bs->map_state->map[a] = bs->map[a];
+        a++;
+    }
+
+}
+
 void	ft_fill_map(t_bs *bs)
 {
 	int 			i;
@@ -77,10 +92,11 @@ void	ft_fill_map(t_bs *bs)
 			bs->map[pftr + k] = tmp->instructions[k];
 		tmp = tmp->next;
 	}
+    add_map_mapstr(bs);
 	global_cycles(bs);
 }
 
 //TODO зробити загалиний цикл
 //TODO потім інші всі цикли і процеси. спочатку процесів скільки ж як гравців
-//TODO переробити список структур в масив струтук
+//TODO переробити список структур в масив струтук -->>нахер не треба переробляти
 //TODO функція перевірки гравців на кількість життів

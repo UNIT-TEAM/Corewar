@@ -41,6 +41,13 @@ typedef struct		s_chmp
 	struct s_chmp	*next;
 }					t_chmp;
 
+typedef struct      s_map
+{
+    int             cycle_n;
+    unsigned char   *map;
+    void            *next;
+}                   t_map;
+
 typedef	struct		s_bs
 {
 	t_chmp			*list_champs;
@@ -51,6 +58,7 @@ typedef	struct		s_bs
 	char 			is_dump;
 	unsigned int	dump_go;
 	char 			is_dump_go;
+    t_map           *map_state;
 }					t_bs;
 
 void 	ft_error(int i, char *str);
