@@ -114,6 +114,6 @@ void	ft_instraction(char *av, t_bs *bs)
 	close(fd);
 	(k == 0) ? ft_error(4, av) : 0;
 	bs->np++;
-	bs->list_champs->proc_1->regs[0] = (unsigned int)(bs->np * -1);
+//	bs->list_champs->proc_1->regs[0] = (unsigned int)(bs->np * -1);
 
 }

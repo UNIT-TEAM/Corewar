@@ -68,15 +68,15 @@ void	ft_fill_map(t_bs *bs)
 	i = -1;
 	pftr = 0;
 	tmp = bs->list_champs;
-	while (++i < bs->np)
-	{
-		pftr = (i == 0) ? 0 : pftr + MEM_SIZE / bs->np;
-		tmp->proc_1->pc = pftr;
-		k = -1;
-		while (++k < tmp->head.prog_size)
-			bs->map[pftr + k] = tmp->instructions[k];
-		tmp = tmp->next;
-	}
+//	while (++i < bs->np)
+//	{
+//		pftr = (i == 0) ? 0 : pftr + MEM_SIZE / bs->np;
+//		tmp->proc_1->pc = pftr;
+//		k = -1;
+//		while (++k < tmp->head.prog_size)
+//			bs->map[pftr + k] = tmp->instructions[k];
+//		tmp = tmp->next;
+//	}
 	global_cycles(bs);
 }
 

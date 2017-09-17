@@ -146,12 +146,13 @@ int 	main(int argc, char **argv)
 {
 	t_bs		base;
 
-	if (argc == 1)
-		ft_error(1, NULL);
-	base_to_zero(&base);
-	ft_sprint(&base, argv, argc);
-	ft_fill_map(&base);
-	ft_printf("sum = %d\n", 2089 % 4);
+	sti(0, 0);
+//	if (argc == 1)
+//		ft_error(1, NULL);
+//	base_to_zero(&base);
+//	ft_sprint(&base, argv, argc);
+//	ft_fill_map(&base);
+//	ft_printf("sum = %d\n", 2089 % 4);
 //	while(base.list_champs)
 //	{
 //		ft_printf("%u\n",base.list_champs->proc_1->pc);

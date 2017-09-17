@@ -27,22 +27,88 @@ t_op    op_tab[17] =
 				{0, 0, {0}, 0, 0, 0, 0}
 		};
 
-
-void	encode_codage(unsigned char codage)
+int		take_reg(unsigned char *map, unsigned int *arg, t_proc *proc)
 {
-	unsigned char a1;
+	unsigned char index;
 
-	a1 = codage & (unsigned char)0xC0; // 01
-	a1 >>= 6;
-	//if (op_tab[10].arg[0] == a1)
-	//	return;
-	if (op_tab[10].arg[1] == 0x02)
-		return;
+	index = map[0];
+	if (index < 1 || index > REG_NUMBER)
+		return (0);
+	*arg = proc->regs[index];
+	return (1);
 }
+
+int		take_ind()
+{
+
+}
+
+int		take_dir()
+{
+
+}
+
+void	encode_codage(unsigned char *map, unsigned char codage, t_proc *proc)
+{
+
+}
+
+/*
+ * 	b = 2bites
+ *  if (b == (op_tab[command_index].arg[0] & 1))
+ *	001
+ *	010
+ *	100
+ *
+ *	01
+ *	10
+ *	11
+ */
 
 void	sti(unsigned char *map, t_proc *proc)
 {
-	encode_codage(0x68);
+	unsigned int arg[3];
+	unsigned int i;
+	unsigned char tmp;
+
+	i = 0;
+	//01 10 10 00
+	if ((map[0] << 6) != 0)
+		return ;
+	tmp = map[0] >> 6;
+	if (tmp != T_REG || !take_reg(map, arg, proc))
+		return ;
+	tmp = map[0] << 2;
+	tmp >>= 6;
+	if (tmp == T_REG)
+	{
+		if (!take_reg(map, arg, proc))
+			return ;
+	}
+	else if (tmp == T_DIR)
+	{
+
+	}
+	else if (tmp == T_IND)
+	{
+	}
+	else
+		return ;
+
+	tmp = map[0] << 4;
+	tmp >>= 6;
+	if (tmp == T_DIR)
+	{
+
+	}
+	else if (tmp == T_REG)
+	{
+
+	}
+	else
+		return ;
+
+	//encode_codage(map, , proc);
 }
 
 //11
