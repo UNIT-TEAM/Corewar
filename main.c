@@ -5,6 +5,7 @@ void	base_to_zero(t_bs *bs)
 	int i;
 
 	bs->list_champs = NULL;
+	bs->list_proc = NULL;
 	i = -1;
 	while (++i < MEM_SIZE)
 		bs->map[i] = 0;
@@ -122,7 +123,6 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 				continue ;
 		}
 		//TODO num_player доробити
-		//TODO is_dump кудись прикрутити
 //		перевірку на i + 1, перед тим як передавати в парсинг
 		add_new_champ(&base->list_champs, num_player);
 		ft_magic_size(av[i], &base->list_champs->head);
@@ -152,11 +152,11 @@ int 	main(int argc, char **argv)
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
 	ft_printf("sum = %d\n", 2089 % 4);
-	while(base.list_champs)
-	{
-		ft_printf("%u\n",base.list_champs->proc_1->pc);
-		base.list_champs = base.list_champs->next;
-	}
+//	while(base.list_champs)
+//	{
+//		ft_printf("%u\n",base.list_champs->proc_1->pc);
+//		base.list_champs = base.list_champs->next;
+//	}
 	return 0;
 }
 //

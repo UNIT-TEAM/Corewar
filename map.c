@@ -25,7 +25,7 @@ int 	check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
 		else if (nbr_live < NBR_LIVE)
 		{
 			nbr_live = 0;
-			*max_check--;
+			(*max_check)--;
 		}
 		else if (nbr_live >= NBR_LIVE)
 		{
@@ -44,7 +44,7 @@ void	global_cycles(t_bs *bs)
 
 	cycle_to_die = CYCLE_TO_DIE;
 	max_check = MAX_CHECKS;
-	while (cycle_to_die != 0 && cycle_to_die < CYCLE_DELTA && max_check > 0)//зробити правельну перевірку для виходу з циклу при відніманні дельта
+	while ((long)cycle_to_die - CYCLE_DELTA > 0 && max_check > 0)
 	{
 		//TODO перевірка інструкцій
 		//if (bs->is_dump && bs->dump == g_count)

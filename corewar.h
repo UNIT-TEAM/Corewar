@@ -20,8 +20,20 @@
 # define SIZE_POS		(PROG_NAME_LENGTH + 9 - ((PROG_NAME_LENGTH + 1) % 4))
 # define CODE_POS		(PROG_NAME_LENGTH + 10 + COMMENT_LENGTH + ((4 - \
 						((PROG_NAME_LENGTH + 1) % 4)) * 2))
-
+// !!!!!!!!!!!!!!!!!!!!!!
 unsigned int 		g_count;
+
+typedef struct		s_op
+{
+	char			*name;
+	unsigned short	count_arg;
+	t_arg_type		arg[3];
+	unsigned short	opcode;
+	unsigned short	cycles;
+	unsigned char 	codage;
+	unsigned char	dir;
+}					t_op;
+
 
 typedef struct 		s_proc
 {
@@ -36,7 +48,6 @@ typedef struct		s_chmp
 	header_t		head;
 	int 			live;
 	unsigned int 	num;
-	t_proc			*proc_1;
 	unsigned char	*instructions;
 	struct s_chmp	*next;
 }					t_chmp;
@@ -44,6 +55,7 @@ typedef struct		s_chmp
 typedef	struct		s_bs
 {
 	t_chmp			*list_champs;
+	t_proc			*list_proc;
 	unsigned char 	map[MEM_SIZE];
 	int 			np;
 	int				pftr;
@@ -65,6 +77,9 @@ void	ft_instraction(char *av, t_bs *bs);
 void	add_new_champ(t_chmp **first, unsigned int num_player);
 
 void ft_fill_map(t_bs *bs);
+
+void	sti(unsigned char *map, t_proc *proc);
+
 
 
 

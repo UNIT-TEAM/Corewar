@@ -14,14 +14,16 @@ void	add_new_champ(t_chmp **first, unsigned int num_player)
 		tmp->num = 1;
 	else
 		tmp->num = num_player;
-	if (!(tmp->proc_1 = (t_proc *)malloc(sizeof(t_proc))))
-		ft_error(5, NULL);
-	tmp->proc_1->carry = 0;
-	i = -1;
-	while (++i < REG_NUMBER)
-		tmp->proc_1->regs[i] = 0;
+//	if (!(tmp->proc_1 = (t_proc *)malloc(sizeof(t_proc))))
+//		ft_error(5, NULL);
+//	tmp->proc_1->carry = 0;
+//	i = -1;
+//	while (++i < REG_NUMBER)
+//		tmp->proc_1->regs[i] = 0;
 	tmp->next = *first;
 	*first = tmp;
 }
+
+//Переніс список процесів в t_bs
 
 //TODO розібратися з нумерацією ботов!!!
