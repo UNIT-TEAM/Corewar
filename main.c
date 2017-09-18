@@ -166,14 +166,14 @@ int 	main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	//printf("sum = %d\n", 2089 % 4);
 	print_map(base);
     printf("\n");
-	while(base.list_champs)
-	{
-		printf("%u\n",base.list_champs->proc_1->pc);
-		base.list_champs = base.list_champs->next;
-	}
+//	while(base.list_champs)
+//	{
+//		printf("%u\n",base.list_champs->proc_1->pc);
+//		base.list_champs = base.list_champs->next;
+//	}
+    in_add(&base,base.list_champs->proc_1);
 	return 0;
 }
 //

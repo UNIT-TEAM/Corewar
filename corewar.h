@@ -29,6 +29,7 @@ typedef struct 		s_proc
 	unsigned int	regs[REG_NUMBER];
 	char 			carry;
 	struct s_chmp	*next;
+    int             args[3];
 }					t_proc;
 
 typedef struct		s_chmp
@@ -74,6 +75,14 @@ void	add_new_champ(t_chmp **first, unsigned int num_player);
 
 void ft_fill_map(t_bs *bs);
 void print_map(t_bs base);
+
+int     take_args(t_proc *pr, t_bs *base);
+int     is_reg(unsigned int reg);
+char    *get_binary(unsigned int i, t_bs *base);
+
+//Insructions
+
+int     in_add(t_bs *base, t_proc *pr);
 
 
 
