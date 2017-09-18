@@ -4,12 +4,11 @@ int     take_args(t_proc *pr, t_bs *base)
 {
     int a;
     char *binary;
-    int args[3];
+    int *args;
 
     a = 0;
+    args = malloc(sizeof(int) * 3);
     binary = get_binary(pr->pc, base);
-    printf("%s\n", binary);
-
     while (a < 3)
     {
         if (binary[2 * a] == '0' && binary[2 * a + 1] == '1')

@@ -29,7 +29,7 @@ typedef struct 		s_proc
 	unsigned int	regs[REG_NUMBER];
 	char 			carry;
 	struct s_chmp	*next;
-    int             args[3];
+    int             *args;
 }					t_proc;
 
 typedef struct		s_chmp

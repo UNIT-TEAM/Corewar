@@ -137,7 +137,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		//TODO is_dump кудись прикрутити
 //		перевірку на i + 1, перед тим як передавати в парсинг
 		add_new_champ(&base->list_champs, num_player);
-        printf("av = %s", av[i]);
+    //    printf("av = %s", av[i]);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
 		ft_name_comment(av[i], &base->list_champs->head, 1);
@@ -146,7 +146,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		num_player = 0;
 	}
 	//printf(YEL"Introducing contestants...\n"RC);
-    printf("introducting");
+   // printf("introducting");
 	/*i = 0;
 	while (++i < ac)
 		printf("\t* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
@@ -160,14 +160,13 @@ int 	main(int argc, char **argv)
 {
 	t_bs		base;
 
-    printf("err = %d\n", argc);
 	if (argc == 1)
 		ft_error(1, NULL);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	print_map(base);
-    printf("\n");
+	//print_map(base);
+   // printf("\n");
 //	while(base.list_champs)
 //	{
 //		printf("%u\n",base.list_champs->proc_1->pc);

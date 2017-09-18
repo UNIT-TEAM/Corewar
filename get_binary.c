@@ -2,7 +2,6 @@
 
 char    *get_binary(unsigned int i, t_bs *base)
 {
-    printf("binary\n");
     char *ret;
     int a;
     int c;
