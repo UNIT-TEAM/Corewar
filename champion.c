@@ -1,8 +1,9 @@
 #include "corewar.h"
 
-void	add_new_champ(t_chmp **first, unsigned int num_player)
+void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc)
 {
 	t_chmp	*tmp;
+	t_proc	*tp;
 	int 	i;
 
 	if (!(tmp = (t_chmp *)malloc(sizeof(t_chmp))))
@@ -14,16 +15,18 @@ void	add_new_champ(t_chmp **first, unsigned int num_player)
 		tmp->num = 1;
 	else
 		tmp->num = num_player;
-//	if (!(tmp->proc_1 = (t_proc *)malloc(sizeof(t_proc))))
-//		ft_error(5, NULL);
-//	tmp->proc_1->carry = 0;
-//	i = -1;
-//	while (++i < REG_NUMBER)
-//		tmp->proc_1->regs[i] = 0;
+	if (!(tp = (t_proc *)malloc(sizeof(t_proc))))
+		ft_error(5, NULL);
+	tp->live = 1;
+	tp->carry = 0;
+	tp->cycle_to_die = CYCLE_TO_DIE;
+	i = -1;
+	while (++i < REG_NUMBER)
+		tp->regs[i] = 0;
+	tp->next = *proc;
+	*proc = tp;
 	tmp->next = *first;
 	*first = tmp;
 }
-
-//Переніс список процесів в t_bs
 
 //TODO розібратися з нумерацією ботов!!!

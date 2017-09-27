@@ -124,7 +124,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		}
 		//TODO num_player доробити
 //		перевірку на i + 1, перед тим як передавати в парсинг
-		add_new_champ(&base->list_champs, num_player);
+		add_new_champ(&base->list_champs, num_player, &base->list_proc);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
 		ft_name_comment(av[i], &base->list_champs->head, 1);
