@@ -61,6 +61,7 @@ typedef	struct		s_bs
 	char 			is_dump_go;
     t_map           *map_state;
 }					t_bs;
+//gcc nc.c -lncurses
 
 void 	ft_error(int i, char *str);
 

@@ -165,7 +165,7 @@ int 	main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	//print_map(base);
+	print_map(base);
    // printf("\n");
 //	while(base.list_champs)
 //	{
