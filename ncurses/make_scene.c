@@ -1,5 +1,4 @@
-#include <ncurses.h>
-#include "stdlib.h"
+#include "ncurs.h"
 
 typedef struct _win_border_struct {
     chtype 	ls, rs, ts, bs,
@@ -7,18 +6,23 @@ typedef struct _win_border_struct {
 }WIN_BORDER;
 
 
-unsigned char    **make_body()
+t_cell    **make_body()
 {
-    unsigned char **body;
+    t_cell **body;
     int a = 9;
     int b;
-    body = (unsigned char **)malloc(sizeof(unsigned char*)*(a+1));
+    body = (t_cell **)malloc(sizeof(t_cell*)*(a+1));
     while (a >= 0){
         b = 9;
-        body[a] = (unsigned char *)malloc(sizeof(unsigned char)*(b+1));
+        body[a] = (t_cell *)malloc(sizeof(t_cell)*(b+1));
         while (b >= 0)
         {
-            body[a][b] = 120;
+            body[a][b].cell = 120;
+            body[a][b].champ = 1;
+            if (a >= 5)
+                body[a][b].champ = 2;
+            if (a == 9)
+                body[a][b].champ = 0;
             b--;
         }
         a--;
@@ -33,10 +37,9 @@ typedef struct _WIN_struct {
 }WIN;
 
 void init_win_params(WIN *p_win, int size);
-void print_win_params(WIN *p_win);
 void create_box(WIN *win, int size);
 
-void draw_mass(unsigned char **mass, int size)
+void draw_mass(t_cell **mass, int size)
 {
     char const *base = "0123456789abcdef";
     int a = 0;
@@ -44,31 +47,31 @@ void draw_mass(unsigned char **mass, int size)
     int startx = 1;
     int starty = 1;
     while (b < size) {
-        char y = 97;
+        char y;
         a = 0;
         while (a < size) {
-            y = base[(mass[b][a] / 16)%16];
+            attron(COLOR_PAIR(mass[b][a].champ));
+            y = base[(mass[b][a].cell / 16)%16];
             mvwprintw(stdscr, starty, startx++, "%s", &y);
-            y = base[mass[b][a] % 16];
+            y = base[mass[b][a].cell % 16];
             mvwprintw(stdscr, starty, startx++, "%s", &y);
             y++;
             mvwprintw(stdscr, starty, startx, " ");
             startx++;
+            attroff(COLOR_PAIR(mass[b][a].champ));
             a++;
+
         }
         b++;
         starty++;
         startx = 1;
     }
 }
-void make_scene(unsigned char **mass)
+void make_scene(t_ncurs *base, WIN win)
 {
-    WIN win;
     int ch;
 
     int size = 10;
-
-    initscr();
     if (LINES < 15 || COLS < 15)
     {
         printf("malo suka\n");
@@ -77,54 +80,27 @@ void make_scene(unsigned char **mass)
         endwin();
         exit(0);
     }
-    start_color();
-   // cbreak();
-    /* Line buffering disabled, Pass on
-					 * everty thing to me 		*/
     keypad(stdscr, TRUE);
     noecho();
-    init_pair(1, COLOR_CYAN, COLOR_BLACK);
-    init_pair(2, COLOR_RED, COLOR_GREEN);
-
     init_win_params(&win, size);
-    print_win_params(&win);
+
 
     create_box(&win, size);
-    attron(COLOR_PAIR(2));
-    mvwprintw(stdscr, 5, 1, "%s", "h");
-    attroff(COLOR_PAIR(2));
-    attron(COLOR_PAIR(2));
-    mvwprintw(stdscr, 5, 2, "%s", "Y");
-    attroff(COLOR_PAIR(2));
-    draw_mass(mass, size);
-    while((ch = getch()) != KEY_F(2)){
-//    {	switch(ch)
-//        {	case KEY_LEFT:
-//                create_box(&win, FALSE);
-//                --win.startx;
-//                create_box(&win, TRUE);
-//                break;
-//            case KEY_RIGHT:
-//                create_box(&win, FALSE);
-//                ++win.startx;
-//                create_box(&win, TRUE);
-//                break;
-//            case KEY_UP:
-//                create_box(&win, FALSE);
-//                --win.starty;
-//                create_box(&win, TRUE);
-//                break;
-//            case KEY_DOWN:
-//                create_box(&win, FALSE);
-//                ++win.starty;
-//                create_box(&win, TRUE);
-//                break;
-//        }
-
+    draw_mass(base->mass, size);
+    while((ch = getch()) != KEY_F(5))
+    {	switch(ch)
+        {	case KEY_F(2):
+               base->ready = 1;
+                break;
+            case KEY_F(3):
+                base->ready = -1;
+                break;
+        }
+        if (base->ready == 1 || base->ready == -1)
+            break;
 
     }
 
-    endwin();			/* End curses mode		  */
 }
 void init_win_params(WIN *p_win, int size)
 {
@@ -141,14 +117,6 @@ void init_win_params(WIN *p_win, int size)
     p_win->border.tr = '+';
     p_win->border.bl = '+';
     p_win->border.br = '+';
-}
-void print_win_params(WIN *p_win)
-{
-#ifdef _DEBUG
-    mvprintw(25, 0, "%d %d %d %d", p_win->startx, p_win->starty,
-				p_win->width, p_win->height);
-	refresh();
-#endif
 }
 void create_box(WIN *p_win, int size)
 {	int i, j;
@@ -172,7 +140,26 @@ void create_box(WIN *p_win, int size)
     refresh();
 
 }
-int main()
-{
-    make_scene(make_body());
+int main() {
+    WIN win;
+    initscr();
+    start_color();
+    ncurses_init_colors();
+    t_ncurs *base = malloc(sizeof(t_ncurs));
+    base->ready = 1;
+    int a = 0;
+    base->mass = make_body();
+    while (1) {
+        if (base->ready == -1)
+            break;
+        if (base->ready == 1) {
+            base->mass[0][a].cell = 150;
+            a++;
+        }
+        base->ready = 0;
+        make_scene(base, win);
+
+    }
+
+    endwin();
 }
