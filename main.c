@@ -142,48 +142,47 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 //	ft_code();
 }
 
+t_op    op_tab[17] =
+		{
+				{"live", 1, {T_DIR}, 1, 10, 0, 0},
+				{"ld", 2, {T_DIR | T_IND, T_REG}, 2, 5, 1, 0},
+				{"st", 2, {T_REG, T_IND | T_REG}, 3, 5, 1, 0},
+				{"add", 3, {T_REG, T_REG, T_REG}, 4, 10, 1, 0},
+				{"sub", 3, {T_REG, T_REG, T_REG}, 5, 10, 1, 0},
+				{"and", 3,
+							{T_REG | T_DIR | T_IND, T_REG | T_IND | T_DIR, T_REG}, 6, 6, 1, 0},
+				{"or", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
+						7, 6, 1, 0},
+				{"xor", 3, {T_REG | T_IND | T_DIR, T_REG | T_IND | T_DIR, T_REG},
+						8, 6, 1, 0},
+				{"zjmp", 1, {T_DIR}, 9, 20, 0, 1},
+				{"ldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG}, 10, 25, 1, 1},
+
+				{"sti", 3, {T_REG, T_REG | T_DIR | T_IND, T_DIR | T_REG}, 11, 25, 1, 1},
+
+				{"fork", 1, {T_DIR}, 12, 800, 0, 1},
+				{"lld", 2, {T_DIR | T_IND, T_REG}, 13, 10, 1, 0},
+				{"lldi", 3, {T_REG | T_DIR | T_IND, T_DIR | T_REG, T_REG},
+						14, 50, 1, 1},
+				{"lfork", 1, {T_DIR}, 15, 1000, 0, 1},
+				{"aff", 1, {T_REG}, 16, 2, 1, 0},
+				{0, 0, {0}, 0, 0, 0, 0}
+		};
+
+
 int 	main(int argc, char **argv)
 {
 	t_bs		base;
 
-	sti(0, 0);
-//	if (argc == 1)
-//		ft_error(1, NULL);
-//	base_to_zero(&base);
-//	ft_sprint(&base, argv, argc);
-//	ft_fill_map(&base);
-//	ft_printf("sum = %d\n", 2089 % 4);
-//	while(base.list_champs)
-//	{
-//		ft_printf("%u\n",base.list_champs->proc_1->pc);
-//		base.list_champs = base.list_champs->next;
-//	}
-	return 0;
+	if (argc == 1)
+		ft_error(1, NULL);
+	base_to_zero(&base);
+	ft_sprint(&base, argv, argc);
+	ft_fill_map(&base);
+	while(base.list_champs)
+	{
+		ft_printf("%u\n",base.list_proc->pc);
+		base.list_champs = base.list_champs->next;
+	}
+	return (0);
 }
-//
-// зчитування імені
-/*
-
-	unsigned int	arr[4];
-	unsigned int	s;
-	char			buf[4];
-	int 			fd;
-	int 			i;
-
-	i = -1;
-	fd = open(argv[1], O_RDONLY);
-	read(fd, &buf, 4);
-
-	arr[0] = (unsigned int)(buf[0] << 24);
-	arr[1] = (unsigned int)(buf[1] << 16 & 0x00ffffff);
-	arr[2] = (unsigned int)(buf[2] << 8 & 0x0000ffff);
-	arr[3] = (unsigned int)(buf[3] & 0x000000ff);
-	s = arr[0] | arr[1] | arr[2] | arr[3];*//*
-
-
-while (++i < 4)
-ft_printf("s = %X\n", buf[i]);
-ft_printf("sum = %u\n", s);
-return 0;
-
-*/

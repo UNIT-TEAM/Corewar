@@ -23,7 +23,8 @@ void    check_inst_proc(t_proc *procs, unsigned char *map)
 			else if (tmp->pc == op_tab[7].opcode);//TODO функція xor
 			else if (tmp->pc == op_tab[8].opcode);//TODO функція zjmp
 			else if (tmp->pc == op_tab[9].opcode);//TODO функція ldi
-			else if (tmp->pc == op_tab[10].opcode);//TODO функція sti
+			else if (tmp->pc == op_tab[10].opcode)
+				sti(map, procs, op_tab[10].opcode);
 			else if (tmp->pc == op_tab[11].opcode);//TODO функція fork
 			else if (tmp->pc == op_tab[12].opcode);//TODO функція lld
 			else if (tmp->pc == op_tab[13].opcode);//TODO функція lldi
@@ -37,7 +38,7 @@ void    check_inst_proc(t_proc *procs, unsigned char *map)
 			prev->next = tmp->next;
 			free(tmp);
 		}
-	}
+    }
 }
 
 int 	check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
@@ -127,4 +128,5 @@ void	ft_fill_map(t_bs *bs)
 
 //TODO зробити загалиний цикл
 //TODO потім інші всі цикли і процеси. спочатку процесів скільки ж як гравців
+//TODO переробити список структур в масив струтук
 //TODO функція перевірки гравців на кількість життів
