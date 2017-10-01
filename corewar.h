@@ -71,7 +71,6 @@ typedef struct 		s_proc
 	unsigned int	pc;
 	unsigned int	regs[REG_NUMBER];
 	char 			carry;
-    unsigned short  live;
     unsigned int    cycle_to_die;
     unsigned int    inst_cycle;
 	struct s_proc	*next;

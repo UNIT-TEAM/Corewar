@@ -4,6 +4,6 @@ project(corewar)
 set(CMAKE_C_STANDARD 99)
 
 set(SOURCE_FILES main.c corewar.h ./libft/libft.h op.h fill_bot.c map.c
-        champion.c sti.c check_instructs.c)
+        champion.c sti.c)
 add_executable(corewar ${SOURCE_FILES})
 target_link_libraries(corewar ${CMAKE_SOURCE_DIR}/libft/libft.a)
