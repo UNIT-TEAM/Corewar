@@ -9,7 +9,7 @@ void    check_inst_proc(t_proc *procs, unsigned char *map)
 	prev = tmp;
     while (tmp)
     {
-        if (tmp->cycle_to_die != CYCLE_TO_DIE)
+        if (tmp->cycle_to_die >= CYCLE_TO_DIE)
 //TODO в кожній інструкції перевіряти inst_cycle, якщо він дорівнює циклу інструкцій то дана інструкція виконується в іншому разі inst_cycle збільшується на 1
 		{
 			if (tmp->pc == op_tab[0].opcode);//TODO функція live
@@ -31,6 +31,7 @@ void    check_inst_proc(t_proc *procs, unsigned char *map)
 			else if (tmp->pc == op_tab[14].opcode);//TODO функція lfork
 			else if (tmp->pc == op_tab[15].opcode);//TODO функція aff
 			prev = tmp;
+			tmp->cycle_to_die++;
 			tmp = tmp->next;
 		}
 		else
