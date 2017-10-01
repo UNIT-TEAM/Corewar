@@ -33,8 +33,6 @@ typedef struct		s_op
     unsigned char	dir_size;
 }					t_op;
 
-unsigned int 		g_count;
-
 typedef struct 		s_proc
 {
 	unsigned int	pc;
@@ -67,7 +65,8 @@ typedef	struct		s_bs
 	char 			is_dump_go;
 }					t_bs;
 
-extern  t_op op_tab[17];
+extern  t_op		op_tab[17];
+extern unsigned int g_count;
 
 void 	ft_error(int i, char *str);
 
@@ -81,7 +80,7 @@ void	ft_instraction(char *av, t_bs *bs);
 void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
 void ft_fill_map(t_bs *bs);
-
+void	print_map(unsigned char *map);
 int		sti(unsigned char *map, t_proc *proc, unsigned short opcode);
 
 

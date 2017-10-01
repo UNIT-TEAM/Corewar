@@ -18,7 +18,8 @@ void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc)
 	if (!(tp = (t_proc *)malloc(sizeof(t_proc))))
 		ft_error(5, NULL);
 	tp->carry = 0;
-	tp->cycle_to_die = CYCLE_TO_DIE;
+	tp->cycle_to_die = 0;
+	tp->inst_cycle = 0;
 	i = -1;
 	while (++i < REG_NUMBER)
 		tp->regs[i] = 0;

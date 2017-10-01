@@ -169,7 +169,9 @@ t_op    op_tab[17] =
 				{0, 0, {0}, 0, 0, 0, 0}
 		};
 
+unsigned int g_count;
 
+// TODO: перевірка на коректність CAPS
 int 	main(int argc, char **argv)
 {
 	t_bs		base;
