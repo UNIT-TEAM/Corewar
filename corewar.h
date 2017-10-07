@@ -86,7 +86,15 @@ int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
 						 unsigned int *arg, t_proc *proc);
 int		check_codage(unsigned char codage, unsigned short opcode);
 
-int		sti(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_sti(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_ldi(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_lldi(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_ld(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_lld(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
+				   unsigned short opcode);
+int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
+				   unsigned short opcode);
 
 
 
