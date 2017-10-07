@@ -1,7 +1,3 @@
-//
-// Created by Dmytro Dovzhik on 10/7/17.
-//
-
 #include "corewar.h"
 
 int		for_instruct(unsigned char *map, t_proc *proc, unsigned short opcode,
@@ -38,7 +34,7 @@ int		sti(unsigned char *map, t_proc *proc, unsigned short opcode)
 		arg_code_size_flag[1] = op_tab[opcode - 1].dir_size;
 		if (!take_argument(map, arg_code_size_flag, arg + j, proc))
 			return (0);
-		if (codage == T_REG)
+		if (arg_code_size_flag[0] == REG_CODE)
 			arg[j] = proc->regs[arg[j]];
 		++j;
 	}
@@ -72,7 +68,7 @@ int		ldi(unsigned char *map, t_proc *proc, unsigned short opcode)
 		arg_code_size_flag[1] = op_tab[opcode - 1].dir_size;
 		if (!take_argument(map, arg_code_size_flag, arg + j, proc))
 			return (0);
-		if (j != 2)
+		if (j != 2 && arg_code_size_flag[0] == REG_CODE)
 			arg[j] = proc->regs[arg[j]];
 		++j;
 	}
@@ -81,7 +77,60 @@ int		ldi(unsigned char *map, t_proc *proc, unsigned short opcode)
 	i = (i << 8) | (unsigned int)map[proc->pc++ % MEM_SIZE];
 	i = (i << 8) | (unsigned int)map[proc->pc++ % MEM_SIZE];
 	i = (i << 8) | (unsigned int)map[proc->pc++ % MEM_SIZE];
-	proc->regs[arg[0]] = (unsigned int)i;
+	proc->regs[arg[2]] = (unsigned int)i;
+	proc->inst_cycle = 0;
+	return (1);
+}
+
+int		st(unsigned char *map, t_proc *proc, unsigned short opcode)
+{
+	unsigned int arg[3];
+	unsigned char codage;
+	unsigned char arg_code_size_flag[2];
+	int i;
+	int j;
+
+	if (for_instruct(map, proc, opcode, &codage) == 0)
+		//TODO реакція на провалену перевірку codage
+		return (0);
+	i = 8;
+	j = 0;
+	while (j < op_tab[opcode - 1].count_arg)
+	{
+		i -= 2;
+		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
+		arg_code_size_flag[1] = op_tab[opcode - 1].dir_size;
+		if (!take_argument(map, arg_code_size_flag, arg + j, proc))
+			return (0);
+		if (arg_code_size_flag[0] == REG_CODE)
+			arg[j] = proc->regs[arg[j]];
+		++j;
+	}
+	proc->pc += arg[1] % IDX_MOD;
+	map[proc->pc++ % MEM_SIZE] = (unsigned char)((arg[0] >> 6) & 0x3);
+	// перевірити на відповідність big endian i little endian
+	map[proc->pc++ % MEM_SIZE] = (unsigned char)((arg[0] >> 4) & 0x3);
+	map[proc->pc++ % MEM_SIZE] = (unsigned char)((arg[0] >> 2) & 0x3);
+	map[proc->pc++ % MEM_SIZE] = (unsigned char)(arg[0] & 0x3);
+	proc->inst_cycle = 0;
+	return (1);
+}
+
+int		zjump(unsigned char *map, t_proc *proc, unsigned short opcode)
+{
+	unsigned int arg[3];
+	unsigned char codage;
+	unsigned char arg_code_size_flag[2];
+	if (!proc->carry)
+		return (0);
+	if (for_instruct(map, proc, opcode, &codage) == 0)
+		//TODO реакція на провалену перевірку codage
+		return (0);
+	arg_code_size_flag[0] = (unsigned char)((codage >> 6) & 0x3);
+	arg_code_size_flag[1] = op_tab[opcode - 1].dir_size;
+	if (!take_argument(map, arg_code_size_flag, arg, proc))
+		return (0);
+	proc->pc = (proc->pc + arg[0]) % MEM_SIZE;
 	proc->inst_cycle = 0;
 	return (1);
 }
