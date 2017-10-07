@@ -56,7 +56,29 @@ int		sti(unsigned char *map, t_proc *proc, unsigned short opcode)
 		return (0);
 
 	map += (arg[1] + arg[2]) % IDX_MOD;
-	*((unsigned int *)map) = arg[0];
+	*((unsigned int *)map) = proc->regs[arg[0]];
+	proc->inst_cycle = 0;
+	return (1);
+}
+
+int		ldi(unsigned char *map, t_proc *proc, unsigned short opcode)
+{
+	unsigned int arg[3];
+	unsigned char codage;
+	unsigned char opcode_codage[2];
+
+	if (for_instruct(map, proc, opcode, &codage) == 0)
+		//TODO реакція на провалену перевірку codage
+		return (0);
+
+	opcode_codage[0] = (char)opcode;
+	opcode_codage[1] = codage;
+	if (get_all_args(map, proc, opcode_codage, arg) == 0)
+		//TODO реакція на провалену перевірку take_arg
+		return (0);
+
+	map += (arg[0] + arg[1]) % IDX_MOD;
+	proc->regs[arg[0]] = *((unsigned int *)map);
 	proc->inst_cycle = 0;
 	return (1);
 }

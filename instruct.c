@@ -13,7 +13,7 @@ int		take_arg_reg(unsigned char *map, unsigned int *arg, t_proc *proc)
 	index = map[proc->pc];
 	if (index < 1 || index > REG_NUMBER)
 		return (0);
-	*arg = proc->regs[index - 1];
+	*arg = (unsigned int)(index - 1);
 	return (1);
 }
 
