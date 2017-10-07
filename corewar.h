@@ -81,6 +81,11 @@ void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
 void ft_fill_map(t_bs *bs);
 void	print_map(unsigned char *map);
+
+int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
+						 unsigned int *arg, t_proc *proc);
+int		check_codage(unsigned char codage, unsigned short opcode);
+
 int		sti(unsigned char *map, t_proc *proc, unsigned short opcode);
 
 

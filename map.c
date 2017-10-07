@@ -34,6 +34,7 @@ void    check_inst_proc(t_proc *procs, unsigned char *map)
         if (tmp->cycle_to_die >= CYCLE_TO_DIE)
 //TODO в кожній інструкції перевіряти inst_cycle, якщо він дорівнює циклу інструкцій то дана інструкція виконується в іншому разі inst_cycle збільшується на 1
 		{
+			//TODO перевірка в кожній команді на валідність опкоду, аргументів
 			if (map[tmp->pc] == op_tab[0].opcode);//TODO функція live
 				//TODO преревірка чи процесу чи гравцю кажеться що живий
 			else if (map[tmp->pc] == op_tab[1].opcode);//TODO функція ld

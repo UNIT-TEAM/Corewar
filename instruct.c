@@ -63,7 +63,7 @@ int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
 	if (arg_code_size_flag[0] == REG_CODE)
 	{
 		res = take_arg_reg(map, arg, proc);
-		proc->pc = (proc->pc + 1) % MEM_SIZE; // ? +reg_size (+4)
+		proc->pc = (proc->pc + 1) % MEM_SIZE;
 	}
 	else if (arg_code_size_flag[0] == DIR_CODE)
 	{
@@ -118,38 +118,5 @@ int		check_codage(unsigned char codage, unsigned short opcode)
 			return (0);
 		--j;
 	}
-	return (1);
-}
-
-int		sti(unsigned char *map, t_proc *proc, unsigned short opcode)
-{
-	unsigned int arg[3];
-	unsigned char arg_code_size_flag[2];
-	unsigned char codage;
-	int i;
-	int j;
-
-	if (++proc->inst_cycle != op_tab[opcode - 1].cycles)
-		return (0);
-	print_map(map);
-	proc->pc = (proc->pc + 1) % MEM_SIZE;
-	codage = map[proc->pc];
-	proc->pc = (proc->pc + 1) % MEM_SIZE;
-	if (!check_codage(codage, opcode))
-		return (0);
-	i = 8;
-	j = 0;
-	while (j < op_tab[opcode - 1].count_arg)
-	{
-		i -= 2;
-		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
-		arg_code_size_flag[1] = op_tab[opcode - 1].dir_size;
-		if (!take_argument(map, arg_code_size_flag, arg + j, proc))
-			return (0);
-		++j;
-	}
-	map += (arg[1] + arg[2]) % IDX_MOD;
-	*((unsigned int *)map) = arg[0];
-	proc->inst_cycle = 0;
 	return (1);
 }
