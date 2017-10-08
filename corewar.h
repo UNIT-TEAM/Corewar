@@ -83,18 +83,20 @@ void ft_fill_map(t_bs *bs);
 void	print_map(unsigned char *map);
 
 int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
-						 unsigned int *arg, t_proc *proc);
+						 unsigned int *arg, unsigned int *tmp_pc);
 int		check_codage(unsigned char codage, unsigned short opcode);
 
-int		ft_sti(unsigned char *map, t_proc *proc, unsigned short opcode);
-int		ft_ldi(unsigned char *map, t_proc *proc, unsigned short opcode);
-int		ft_lldi(unsigned char *map, t_proc *proc, unsigned short opcode);
-int		ft_ld(unsigned char *map, t_proc *proc, unsigned short opcode);
-int		ft_lld(unsigned char *map, t_proc *proc, unsigned short opcode);
+int		ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index,
+					 unsigned short f_index);
+int		ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short index,
+					   unsigned short f_long);
+int		ft_ld_lld(unsigned char *map, t_proc *proc, unsigned short index,
+					 unsigned short f_long);
+int		ft_zjump(unsigned char *map, t_proc *proc, unsigned short index);
 int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
-				   unsigned short opcode);
+						 unsigned short index);
 int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
-				   unsigned short opcode);
+				   unsigned short index);
 
 
 
