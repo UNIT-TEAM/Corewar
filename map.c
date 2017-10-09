@@ -22,7 +22,7 @@ void	print_map(unsigned char *map)
 	ft_printf("\n");
 }
 
-void    check_inst_proc(t_proc **procs, unsigned char *map)
+void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 {
     t_proc *tmp;
 	t_proc *prev;
@@ -32,20 +32,23 @@ void    check_inst_proc(t_proc **procs, unsigned char *map)
     while (tmp)
     {
     	if (tmp->cycle_to_die <= CYCLE_TO_DIE)
-//TODO в кожній інструкції перевіряти inst_cycle, якщо він дорівнює циклу інструкцій то дана інструкція виконується в іншому разі inst_cycle збільшується на 1
 		{
-			//TODO перевірка в кожній команді на валідність опкоду, аргументів
-			if (map[tmp->pc] == op_tab[0].opcode);//TODO функція live
-				//TODO преревірка чи процесу чи гравцю кажеться що живий
+			if (map[tmp->pc] == op_tab[0].opcode)
+				ft_live(map, tmp, 0, champs);
 			else if (map[tmp->pc] == op_tab[1].opcode)
 				ft_ld_lld(map, tmp, 1, 0);
 			else if (map[tmp->pc] == op_tab[2].opcode)
 				ft_st_sti(map, tmp, 2, 0);
-			else if (map[tmp->pc] == op_tab[3].opcode);//TODO функція add
-			else if (map[tmp->pc] == op_tab[4].opcode);//TODO функція sub
-			else if (map[tmp->pc] == op_tab[5].opcode);//TODO функція and
-			else if (map[tmp->pc] == op_tab[6].opcode);//TODO функція or
-			else if (map[tmp->pc] == op_tab[7].opcode);//TODO функція xor
+			else if (map[tmp->pc] == op_tab[3].opcode)
+				ft_add_sub(map, tmp, 3, 0);
+			else if (map[tmp->pc] == op_tab[4].opcode)
+				ft_add_sub(map, tmp, 4, 1);
+			else if (map[tmp->pc] == op_tab[5].opcode)
+				ft_and_or_xor(map, tmp, 5, 0);
+			else if (map[tmp->pc] == op_tab[6].opcode)
+				ft_and_or_xor(map, tmp, 6, 1);
+			else if (map[tmp->pc] == op_tab[7].opcode)
+				ft_and_or_xor(map, tmp, 7, 2);
 			else if (map[tmp->pc] == op_tab[8].opcode)
 				ft_zjump(map, tmp, 8);
 			else if (map[tmp->pc] == op_tab[9].opcode)
@@ -60,7 +63,8 @@ void    check_inst_proc(t_proc **procs, unsigned char *map)
 				ft_ldi_lldi(map, tmp, 13, 1);
 			else if (map[tmp->pc] == op_tab[14].opcode)
 				ft_lfork(map, procs, tmp, 14);
-			else if (map[tmp->pc] == op_tab[15].opcode);//TODO функція aff
+			else if (map[tmp->pc] == op_tab[15].opcode)
+				ft_aff(map, tmp, 15);
 			else
 				tmp->pc = (tmp->pc + 1) % MEM_SIZE;
 			++tmp->cycle_to_die;
@@ -112,7 +116,7 @@ void	global_cycles(t_bs *bs)
 	while ((long)cycle_to_die - CYCLE_DELTA > 0 && max_check > 0)
 	{
 		++g_count;
-		check_inst_proc(&bs->list_proc, bs->map);
+		check_inst_proc(&bs->list_proc, bs->map, bs->list_champs);
 		//if (bs->is_dump && bs->dump == g_count)
 			//TODO вивести карту і завершити програму
 		//if (bs->is_dump_go && bs->dump_go % g_count == 0)

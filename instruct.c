@@ -79,7 +79,29 @@ int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
 	return (res);
 }
 
-int		check_codage(unsigned char codage, unsigned short index)
+void	shift_pc(unsigned char codage, t_proc *proc, unsigned short index)
+{
+	unsigned char tmp;
+	int i;
+	int j;
+
+	i = 8;
+	j = 0;
+	while (j < op_tab[index].count_arg)
+	{
+		i -= 2;
+		tmp = (unsigned char)((codage >> i) & 0x3);
+		if (tmp == REG_CODE)
+			proc->pc += 1;
+		else if (tmp == DIR_CODE)
+			proc->pc += (op_tab[index].dir_size) ? 2 : 4;
+		else if (tmp == IND_CODE)
+			proc->pc += IND_SIZE;
+		++j;
+	}
+}
+
+int		check_codage(unsigned char codage, t_proc *proc, unsigned short index)
 {
     unsigned char tmp;
 	int i;
@@ -106,18 +128,11 @@ int		check_codage(unsigned char codage, unsigned short index)
 		else if (tmp == IND_CODE && ((op_tab[index].arg[j] & T_IND) == T_IND))
 			;
 		else
+		{
+			shift_pc(codage, proc, index);
 			return (0);
+		}
 		++j;
-	}
-	//перевіряємо на нуль останні розряди (4 - count_arg)
-	j = 4 - op_tab[index].count_arg;
-	while (j > 0)
-	{
-		i -= 2;
-		tmp = (unsigned char)((codage >> i) & 0x3);
-		if (tmp != 0x0)
-			return (0);
-		--j;
 	}
 	return (1);
 }
