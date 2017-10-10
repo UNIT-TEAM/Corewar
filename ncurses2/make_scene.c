@@ -1,6 +1,11 @@
 #include "ncurs.h"
 #include "unistd.h"
 
+typedef struct _win_border_struct {
+    chtype 	ls, rs, ts, bs,
+            tl, tr, bl, br;
+}WIN_BORDER;
+
 
 t_cell    *make_body(int a)
 {
@@ -20,9 +25,15 @@ t_cell    *make_body(int a)
     }
     return body;
 }
+typedef struct _WIN_struct {
 
-void init_win_params(WINDOW *p_win, int size);
-void create_box(WINDOW *win, int size);
+    int startx, starty;
+    int height, width;
+    WIN_BORDER border;
+}WIN;
+
+void init_win_params(WIN *p_win, int size);
+void create_box(WIN *win, int size);
 
 
 void draw_mass(t_cell *mass, int size)
@@ -50,19 +61,27 @@ void draw_mass(t_cell *mass, int size)
         starty++;
         startx = 1;
     }
-
 }
-void make_scene(t_ncurs *base, WINDOW *win, int d)
+void make_scene(t_ncurs *base, WIN *win, int d)
 {
     int ch;
 
     int size = 320;
+    if (d==1) {
+//        if (LINES < 15 || COLS < 15) {
+//            printf("malo suka\n");
+//            printf("lines = %d\n", LINES);
+//            printf("cols = %d\n", COLS);
+//            endwin();
+//            exit(0);
+//        }
+
+        noecho();
         init_win_params(win, size);
         create_box(win, size);
-        ncurses_stats(win);
+    }
+    keypad(stdscr, TRUE);
     draw_mass(base->mass, size);
-
-
     //timeout(0.5);
     //ch = getch();
 //    switch(ch)
@@ -89,61 +108,79 @@ void make_scene(t_ncurs *base, WINDOW *win, int d)
 //
 //    }
     refresh();
-    wrefresh(win);
     sleep(1);
+
     base->ready = 1;
 
 
 }
-void init_win_params(WINDOW *p_win, int size)
+void init_win_params(WIN *p_win, int size)
 {
-    p_win->_maxy = 40;
-    p_win->_maxx = 160;
-    p_win->_begx = 0;
-    p_win->_begy = 0;
+    p_win->height = size + 1;
+    p_win->width = COLS - 1;
+    p_win->starty = 0;
+    p_win->startx = 0;
+
+    p_win->border.ls = '|';
+    p_win->border.rs = '|';
+    p_win->border.ts = '-';
+    p_win->border.bs = '-';
+    p_win->border.tl = '+';
+    p_win->border.tr = '+';
+    p_win->border.bl = '+';
+    p_win->border.br = '+';
 }
-void create_box(WINDOW *p_win, int size)
-{
+void create_box(WIN *p_win, int size)
+{	int i, j;
     int x, y, w, h;
+    //int win_s = (size * 3) + 2;
 
-    x = p_win->_begx;
-    y = p_win->_begy;
-    w = p_win->_maxx;
-    h = p_win->_maxy;
 
-        mvwaddch(p_win,y, x, '+');
-        mvwaddch(p_win,y, x + w, '+');
-        mvwaddch(p_win,y + h, x, '+');
-        mvwaddch(p_win,y + h, x + w, '+');
-        mvwhline(p_win,y, x + 1,'-', w - 1);
-        mvwhline(p_win,y + h, x + 1, '-', w - 1);
-        mvwvline(p_win,y + 1, x, '|', h - 1);
-        mvwvline(p_win,y + 1, x + w, '|', h - 1);
-        mvwvline(p_win,y + 1, x + 98, '|', h - 1);
+    x = p_win->startx;
+    y = p_win->starty;
+    w = p_win->width;
+    h = p_win->height;
+
+        mvaddch(y, x, p_win->border.tl);
+        mvaddch(y, x + w, p_win->border.tr);
+        mvaddch(y + h, x, p_win->border.bl);
+        mvaddch(y + h, x + w, p_win->border.br);
+        mvhline(y, x + 1, p_win->border.ts, w - 1);
+        mvhline(y + h, x + 1, p_win->border.bs, w - 1);
+        mvvline(y + 1, x, p_win->border.ls, h - 1);
+        mvvline(y + 1, x + w, p_win->border.rs, h - 1);
+        mvvline(y + 1, x + 98, p_win->border.ls, h - 1);
     refresh();
-    wrefresh(p_win);
 }
 
-void ncurses_init_win(t_ncurs *base){
+//write_l("enter to render_init");
+//initscr();
+//start_color();
+//render_init_pair();
+//d->window = newwin(MAP_HEIGHT, MAP_WIDTH, 0, 0);
+//wbkgd(d->window, COLOR_PAIR(0));
+//cbreak();
+//noecho();
+//nodelay(stdscr, true);
+//curs_set(0);
+//wrefresh(d->window);
+//d->ncurse_speed = TIME_USLEEP;
+//return (0);
+
+int main() {
+   // WIN *win;
+    WINDOW *window = newwin(50, 50,0,0);
     initscr();
-    WINDOW *window = newwin(66, 260,0,0);
-    cbreak();
+    win = newwin(0,0,0,0);
+//    win.height = 50;
+//    win.width = 50;
     start_color();
     ncurses_init_colors();
-    noecho();
-    init_win_params(window, 319);
-    base->window = window;
-}
-int main() {
     t_ncurs *base = malloc(sizeof(t_ncurs));
     base->ready = 0;
-    ncurses_init_win(base);
     int a = 0;
     int d = 1;
     base->mass = make_body(319);
-    keypad(stdscr, TRUE);
-    int cf;
-    //TODO kbhit();
     while (1) {
         if (base->ready == -1)
             break;
@@ -151,12 +188,11 @@ int main() {
             base->mass[a].cell = 150;
             a++;
         }
-        timeout(1);
-        cf = getch();
+
         base->ready = 0;
-        make_scene(base, base->window, d);
-
+        make_scene(base, win, d);
+        if (d == 1)
+            d = 0;
     }
-
     endwin();
 }

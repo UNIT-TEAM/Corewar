@@ -16,13 +16,11 @@ typedef struct      s_cell
 }                   t_cell;
 typedef struct		s_ncur
 {
-   WINDOW           *window;
    t_cell           *mass;
    int              ready;
 
 }                   t_ncurs;
 
 void    ncurses_init_colors();
-void    ncurses_stats(WINDOW *window);
 
 #endif //COREWAR_NCURS_H
