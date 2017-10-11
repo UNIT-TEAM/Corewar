@@ -71,9 +71,13 @@ void	ft_error(int i, char *str)
 		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles]"RC\
 		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
 	else if (i == 8)
-		ft_printf(RED"Error:"BLU" %s"RC" is not unsigned int\n",
-				  str);
-	//видалити всі лісти
+		ft_printf(RED"Error:"BLU" %s"RC" is not unsigned int\n", str);
+	else if (i == 9)
+		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles | -dump_go"
+						  " nbr_cycles]"RC\
+		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+	//TODO видалити всі лісти
+	//TODO Usage перевірити
 	exit(1);
 }
 
@@ -102,7 +106,18 @@ int		parse_flags(char *flag, char *number, unsigned int *num_player,
 			ft_error(8, "nbr_cycles");
 		return (1);
 	}
+	else if (ft_strequ(flag, "-dump_go"))
+	{
+		i = -1;
+		while (number[++i])
+			if (!ft_isdigit(number[i]))
+				ft_error(7, number);
+		if (!check_num_atoi(number, count))
+			ft_error(9, "nbr_cycles");
+		return (1);
+	}
 	return (0);
+	//TODO доробити!!!!
 }
 
 void	ft_sprint(t_bs *base, char **av, int ac)

@@ -18,6 +18,7 @@ void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc)
 	if (!(tp = (t_proc *)malloc(sizeof(t_proc))))
 		ft_error(5, NULL);
 	tp->carry = 0;
+	tp->is_live = 1;
 	tp->cycle_to_die = 0;
 	tp->inst_cycle = 0;
 	i = -1;

@@ -39,6 +39,7 @@ typedef struct 		s_proc
 	unsigned int	regs[REG_NUMBER];
 	char 			carry;
     unsigned int    cycle_to_die;
+	unsigned short	is_live;
     unsigned int    inst_cycle;
 	struct s_proc	*next;
 }					t_proc;
@@ -67,6 +68,7 @@ typedef	struct		s_bs
 
 extern  t_op		op_tab[17];
 extern unsigned int g_count;
+extern unsigned int	g_cycle_to_die_curr;
 
 void 	ft_error(int i, char *str);
 

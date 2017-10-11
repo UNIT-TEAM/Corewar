@@ -334,6 +334,8 @@ int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 	arg_code_size_flag[1] = op_tab[op_index].dir_size;
 	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
 		return (0);
+	//TODO cycle_to_die збільшити вд
+	proc->is_live = 1;
 	proc->cycle_to_die = 0;
 	curr = champs;
 	while (curr)

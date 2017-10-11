@@ -31,7 +31,7 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 	prev = tmp;
     while (tmp)
     {
-    	if (tmp->cycle_to_die <= CYCLE_TO_DIE)
+    	if (tmp->is_live)
 		{
 			if (map[tmp->pc] == op_tab[0].opcode)
 				ft_live(map, tmp, 0, champs);
@@ -74,14 +74,15 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 		else
 		{
 			prev->next = tmp->next;
-			free(tmp);
+			//free(tmp);
 			tmp = NULL;
 		}
     }
 }
 
-void	check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
-							unsigned int *max_check)
+void check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
+						unsigned int *max_check,
+						unsigned int *cycle_to_die_curr)
 {
 	t_chmp			*tmp;
 	unsigned int	nbr_live;
@@ -94,34 +95,55 @@ void	check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
 			nbr_live += tmp->live;
 		tmp = tmp->next;
 	}
-	if ((g_count + 1) % (CYCLE_TO_DIE + 1) == 0)
+	if (*cycle_to_die_curr == *cycle_to_die)
 	{
 		if (nbr_live >= NBR_LIVE)
 		{
 			*max_check = MAX_CHECKS;
 			*cycle_to_die -= CYCLE_DELTA;
+			*cycle_to_die_curr = *cycle_to_die;
 		}
-		else
+		else if (nbr_live)
 			(*max_check)--;
 	}
 }
 
+void	check_is_live_in_proc(t_proc *proc, unsigned int cycle_to_die)
+{
+	t_proc *tmp;
+
+	tmp = proc;
+	while (tmp)
+	{
+		if (tmp->cycle_to_die == cycle_to_die)
+			tmp->is_live = 0;
+		tmp = tmp->next;
+	}
+}
 void	global_cycles(t_bs *bs)
 {
 	unsigned int cycle_to_die;
+	unsigned int g_cycle_to_die_curr;
 	unsigned int max_check;
 
 	cycle_to_die = CYCLE_TO_DIE;
+	g_cycle_to_die_curr = 0;
 	max_check = MAX_CHECKS;
-	while ((long)cycle_to_die - CYCLE_DELTA > 0 && max_check > 0)
+	while ((long)cycle_to_die - CYCLE_DELTA > 0)
 	{
 		++g_count;
+		++g_cycle_to_die_curr;
 		check_inst_proc(&bs->list_proc, bs->map, bs->list_champs);
-		//if (bs->is_dump && bs->dump == g_count)
-			//TODO вивести карту і завершити програму
-		//if (bs->is_dump_go && bs->dump_go % g_count == 0)
-			//TODO виведемо карту на циклі dump_go і продовжимо програму
-		check_cycle_to_die(bs->list_champs, &cycle_to_die, &max_check);
+		if (bs->is_dump && bs->dump == g_count)
+		{
+			print_map(bs->map);
+			break;
+		}
+		if (bs->is_dump_go && bs->dump_go % g_count == 0)
+			print_map(bs->map);
+		check_cycle_to_die(bs->list_champs, &cycle_to_die, &max_check,
+						   &g_cycle_to_die_curr);
+		check_is_live_in_proc(bs->list_proc, cycle_to_die);
 	}
 }
 
@@ -149,4 +171,3 @@ void	ft_fill_map(t_bs *bs)
 	}
 	global_cycles(bs);
 }
-//TODO потім інші всі цикли і процеси. спочатку процесів скільки ж як гравців
