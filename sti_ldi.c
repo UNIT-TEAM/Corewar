@@ -253,8 +253,10 @@ int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
 	while (++i < REG_NUMBER)
 		new_proc->regs[i] = tmp->regs[i];
 	new_proc->carry = tmp->carry;
+	new_proc->id = tmp->id;
 	new_proc->cycle_to_die = tmp->cycle_to_die;
 	new_proc->inst_cycle = tmp->inst_cycle;
+	new_proc->is_live = 1;
 	new_proc->next = *procs;
 	*procs = new_proc;
 	return (1);
@@ -286,8 +288,10 @@ int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 	while (++i < REG_NUMBER)
 		new_proc->regs[i] = tmp->regs[i];
 	new_proc->carry = tmp->carry;
+	new_proc->id = tmp->id;
 	new_proc->cycle_to_die = tmp->cycle_to_die;
 	new_proc->inst_cycle = tmp->inst_cycle;
+	new_proc->is_live = 1;
 	new_proc->next = *procs;
 	*procs = new_proc;
 	return (1);
@@ -334,7 +338,6 @@ int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 	arg_code_size_flag[1] = op_tab[op_index].dir_size;
 	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
 		return (0);
-	//TODO cycle_to_die збільшити вд
 	proc->is_live = 1;
 	proc->cycle_to_die = 0;
 	curr = champs;

@@ -73,14 +73,16 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 		}
 		else
 		{
+			if (*procs == tmp)
+				*procs = tmp->next;
 			prev->next = tmp->next;
-			//free(tmp);
-			tmp = NULL;
+			free(tmp);
+			tmp = prev->next;
 		}
     }
 }
 
-void check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
+void check_cycle_to_die(t_chmp *players, long *cycle_to_die,
 						unsigned int *max_check,
 						unsigned int *cycle_to_die_curr)
 {
@@ -97,18 +99,19 @@ void check_cycle_to_die(t_chmp *players, unsigned int *cycle_to_die,
 	}
 	if (*cycle_to_die_curr == *cycle_to_die)
 	{
-		if (nbr_live >= NBR_LIVE)
+		if (nbr_live >= NBR_LIVE || *max_check)
 		{
 			*max_check = MAX_CHECKS;
 			*cycle_to_die -= CYCLE_DELTA;
-			*cycle_to_die_curr = *cycle_to_die;
 		}
 		else if (nbr_live)
 			(*max_check)--;
+
+		*cycle_to_die_curr = 0;
 	}
 }
 
-void	check_is_live_in_proc(t_proc *proc, unsigned int cycle_to_die)
+void	check_is_live_in_proc(t_proc *proc, long cycle_to_die)
 {
 	t_proc *tmp;
 
@@ -122,17 +125,17 @@ void	check_is_live_in_proc(t_proc *proc, unsigned int cycle_to_die)
 }
 void	global_cycles(t_bs *bs)
 {
-	unsigned int cycle_to_die;
-	unsigned int g_cycle_to_die_curr;
+	long cycle_to_die;
+	unsigned int cycle_to_die_curr;
 	unsigned int max_check;
 
 	cycle_to_die = CYCLE_TO_DIE;
-	g_cycle_to_die_curr = 0;
+	cycle_to_die_curr = 0;
 	max_check = MAX_CHECKS;
-	while ((long)cycle_to_die - CYCLE_DELTA > 0)
+	while (cycle_to_die > 0)
 	{
 		++g_count;
-		++g_cycle_to_die_curr;
+		++cycle_to_die_curr;
 		check_inst_proc(&bs->list_proc, bs->map, bs->list_champs);
 		if (bs->is_dump && bs->dump == g_count)
 		{
@@ -142,7 +145,7 @@ void	global_cycles(t_bs *bs)
 		if (bs->is_dump_go && bs->dump_go % g_count == 0)
 			print_map(bs->map);
 		check_cycle_to_die(bs->list_champs, &cycle_to_die, &max_check,
-						   &g_cycle_to_die_curr);
+						   &cycle_to_die_curr);
 		check_is_live_in_proc(bs->list_proc, cycle_to_die);
 	}
 }
