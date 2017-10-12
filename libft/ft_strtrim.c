@@ -3,47 +3,41 @@
 /*                                                        :::      ::::::::   */
 /*   ft_strtrim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouchib <nbouchib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgogol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/12 15:28:05 by nbouchib          #+#    #+#             */
-/*   Updated: 2014/11/12 17:32:56 by nbouchib         ###   ########.fr       */
+/*   Created: 2016/11/28 20:27:55 by tgogol            #+#    #+#             */
+/*   Updated: 2016/12/04 21:17:12 by tgogol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-#include <stdio.h>
+#include <stdlib.h>
 
-int		ft_isspace(int c)
+char	*ft_strtrim(char const *s)
 {
-	c = (unsigned char)c;
-	if ((c == ' ') || (c == '\n') || (c == '\t') || (c == '\v') || (c == '\f')
-			|| (c == '\r'))
-		return (1);
-	return (0);
-}
-
-char	*ft_strtrim(const char *s)
-{
-	int				i;
-	int				start;
-	unsigned int	c;
-	char			*scopy;
+	size_t	i;
+	size_t	c;
+	size_t	q;
+	char	*buf;
 
 	i = 0;
 	c = 0;
-	start = 0;
-	scopy = ft_strnew(ft_strlen(s));
-	while (c < ft_strlen(s))
+	q = 0;
+	if (s == NULL)
+		return (NULL);
+	c = ft_strlen(s) - 1;
+	while (s[i] == ' ' || s[i] == '\n' || s[i] == '\t')
+		i++;
+	if (i - 1 == c)
 	{
-		if (!start && ft_isspace(s[c]))
-			c++;
-		else
-		{
-			start = 1;
-			scopy[i++] = s[c++];
-		}
+		if (!(buf = ft_strnew(0)))
+			return (NULL);
+		return (buf);
 	}
-	while (ft_isspace(scopy[--i]))
-		scopy[i] = '\0';
-	return (scopy);
+	while (s[c] == ' ' || s[c] == '\n' || s[c] == '\t')
+		c--;
+	q = c - i + 1;
+	if (!(buf = ft_strnew(q)))
+		return (NULL);
+	return (ft_strncpy(buf, &s[i], q));
 }

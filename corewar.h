@@ -1,7 +1,7 @@
 #ifndef COREWAR_H
 #define COREWAR_H
 
-# include "./libft/includes/libft.h"
+# include "./libft/libft.h"
 # include <fcntl.h>
 # include <stdio.h>
 # include "op.h"
@@ -20,16 +20,35 @@
 # define SIZE_POS		(PROG_NAME_LENGTH + 9 - ((PROG_NAME_LENGTH + 1) % 4))
 # define CODE_POS		(PROG_NAME_LENGTH + 10 + COMMENT_LENGTH + ((4 - \
 						((PROG_NAME_LENGTH + 1) % 4)) * 2))
+// !!!!!!!!!!!!!!!!!!!!!!
 
-unsigned int 		g_count;
+typedef struct		s_op
+{
+    char			*name;
+    unsigned short	count_arg;
+    t_arg_type		arg[3];
+    unsigned short	opcode;
+    unsigned short	cycles;
+    unsigned char 	codage;
+    unsigned char	dir_size;
+}					t_op;
+
+typedef struct 		s_color
+{
+	char 			champ;
+	int 			cycle_n;
+}					t_color;
 
 typedef struct 		s_proc
 {
 	unsigned int	pc;
 	unsigned int	regs[REG_NUMBER];
 	char 			carry;
-	struct s_chmp	*next;
-    int             *args;
+    unsigned int    cycle_to_die;
+	unsigned short	is_live;
+    unsigned int    inst_cycle;
+	unsigned int	id;
+	struct s_proc	*next;
 }					t_proc;
 
 typedef struct		s_chmp
@@ -37,31 +56,26 @@ typedef struct		s_chmp
 	header_t		head;
 	int 			live;
 	unsigned int 	num;
-	t_proc			*proc_1;
 	unsigned char	*instructions;
 	struct s_chmp	*next;
 }					t_chmp;
 
-typedef struct      s_map
-{
-    int             cycle_n;
-    unsigned char   *map;
-    void            *next;
-}                   t_map;
-
 typedef	struct		s_bs
 {
 	t_chmp			*list_champs;
+	t_proc			*list_proc;
 	unsigned char 	map[MEM_SIZE];
+	t_color			color_map[MEM_SIZE];
 	int 			np;
 	int				pftr;
 	unsigned int 	dump;
 	char 			is_dump;
 	unsigned int	dump_go;
 	char 			is_dump_go;
-    t_map           *map_state;
 }					t_bs;
-//gcc nc.c -lncurses
+
+extern  t_op		op_tab[17];
+extern unsigned int g_count;
 
 void 	ft_error(int i, char *str);
 
@@ -72,19 +86,33 @@ void 	ft_magic_size(char *av, header_t *p);
 void 	ft_name_comment(char *av, header_t *p, int flag);
 void	ft_instraction(char *av, t_bs *bs);
 
-void	add_new_champ(t_chmp **first, unsigned int num_player);
+void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
 void ft_fill_map(t_bs *bs);
-void print_map(t_bs base);
+void	print_map(unsigned char *map);
 
-int     take_args(t_proc *pr, t_bs *base);
-int     is_reg(unsigned int reg);
-char    *get_binary(unsigned int i, t_bs *base);
+int		take_argument(t_bs *bs, unsigned char *arg_code_size_flag,
+						 unsigned int *arg, unsigned int *tmp_pc);
+int		check_codage(unsigned char codage, t_proc *proc, unsigned short index);
 
-//Insructions
-
-int     in_add(t_bs *base, t_proc *pr);
-
-
+int		ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index,
+					 unsigned short f_index);
+int		ft_ldi_lldi(t_bs *bs, t_proc *proc, unsigned short index,
+					   unsigned short f_long);
+int		ft_ld_lld(t_bs *bs, t_proc *proc, unsigned short index,
+					 unsigned short f_long);
+int		ft_zjump(t_bs *bs, t_proc *proc, unsigned short index);
+int		ft_fork(t_bs *bs, t_proc **procs, t_proc *tmp,
+						 unsigned short index);
+int		ft_lfork(t_bs *bs, t_proc **procs, t_proc *tmp,
+				   unsigned short index);
+int		ft_add_sub(t_bs *bs, t_proc *proc, unsigned short op_index,
+					  unsigned short f_command);
+int		ft_and_or_xor(t_bs *bs, t_proc *proc, unsigned short op_index,
+						 unsigned short f_command);
+int		ft_aff(t_bs *bs, t_proc *proc, unsigned short op_index);
+int		ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
+				   t_chmp *champs);
+void	add_color(int a, unsigned int champ, t_bs *bs);
 
 #endif

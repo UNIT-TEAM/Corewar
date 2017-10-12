@@ -3,34 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   ft_memcmp.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouchib <nbouchib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgogol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/06 17:21:40 by nbouchib          #+#    #+#             */
-/*   Updated: 2014/11/09 12:38:22 by nbouchib         ###   ########.fr       */
+/*   Created: 2016/11/25 17:11:05 by tgogol            #+#    #+#             */
+/*   Updated: 2016/11/28 17:34:29 by tgogol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int					ft_memcmp(const void *s1, const void *s2, size_t n)
+int		ft_memcmp(const void *s1, const void *s2, size_t n)
 {
-	int				diff;
-	unsigned int	counter;
-	int				stop;
-	char			*s1_;
-	char			*s2_;
+	size_t				i;
+	const unsigned char	*ss1;
+	const unsigned char	*ss2;
 
-	diff = 0;
-	stop = 0;
-	counter = 0;
-	s1_ = (char *)s1;
-	s2_ = (char *)s2;
-	while (counter < n && !stop)
-	{
-		diff += (s1_[counter] - s2_[counter]);
-		if (s2_[counter] != s1_[counter])
-			stop = 1;
-		counter++;
-	}
-	return (diff);
+	ss1 = (unsigned char *)s1;
+	ss2 = (unsigned char *)s2;
+	i = 0;
+	while (i < n)
+		if (ss1[i] == ss2[i])
+			i++;
+		else
+			return (ss1[i] - ss2[i]);
+	return (0);
 }

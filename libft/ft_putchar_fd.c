@@ -3,14 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: nbouchib <nbouchib@student.42.fr>          +#+  +:+       +#+        */
+/*   By: tgogol <marvin@42.fr>                      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2014/11/07 16:04:37 by nbouchib          #+#    #+#             */
-/*   Updated: 2014/11/09 12:40:15 by nbouchib         ###   ########.fr       */
+/*   Created: 2016/11/27 13:30:40 by tgogol            #+#    #+#             */
+/*   Updated: 2016/11/28 14:13:03 by tgogol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+#include <unistd.h>
 
 void	ft_putchar_fd(char c, int fd)
 {
