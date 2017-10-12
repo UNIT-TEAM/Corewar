@@ -10,8 +10,8 @@ void	base_to_zero(t_bs *bs)
 	while (++i < MEM_SIZE)
 		bs->map[i] = 0;
 	bs->np = 0;
-	bs->pftr = 0;
 	bs->is_dump = 0;
+	bs->is_num_flag = 0;
 	g_count = 0;
 }
 
@@ -48,7 +48,9 @@ int		check_num_atoi(char *line, unsigned int *num)
 **	6 - number of player is doesnt digit
 **	7 - number of cycles is doesnt digit
 */
-
+//TODO 10 - дописати помилку про нестачу аргументів для флага -n
+//TODO 11 - про n < 1 || n > MAX_CHECK для флага -n
+//TODO 12 - про повторення номера у -n
 void	ft_error(int i, char *str)
 {
 	if (i == 1)
@@ -80,44 +82,61 @@ void	ft_error(int i, char *str)
 	//TODO Usage перевірити
 	exit(1);
 }
-
-int		parse_flags(char *flag, char *number, unsigned int *num_player,
-					   unsigned int *count)
+unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 {
 	int i;
+	unsigned int num_player;
 
-	if (ft_strequ(flag, "-n"))
+	num_player = 0;
+	if (ft_strequ(argv[*index], "-n"))
 	{
 		i = -1;
-		while (number[++i])
-			if (!ft_isdigit(number[i]))
-				ft_error(6, number);
-		if (!check_num_atoi(number, num_player))
+		if (i + 2 < argc - 1)
+			ft_error(10, NULL);
+		while (argv[*index + 1][++i])
+			if (!ft_isdigit(argv[*index + 1][i]))
+				ft_error(6, argv[*index + 1]);
+		if (!check_num_atoi(argv[*index + 1], &num_player))
 			ft_error(8, "number");
-		return (1);
+		if (open(argv[i + 2], O_RDONLY) < 0)
+			ft_error(2, NULL);
+		if (num_player < 1 || num_player > MAX_CHECKS)
+			ft_error(11, NULL);
+		bs->is_num_flag = 1;
 	}
-	else if (ft_strequ(flag, "-dump"))
+	return (num_player);
+}
+
+//int parse_flag_dump()
+//{
+//	else if (ft_strequ(flag, "-dump"))
+//	{
+//		i = -1;
+//		while (number[++i])
+//			if (!ft_isdigit(number[i]))
+//				ft_error(7, number);
+//		if (!check_num_atoi(number, count))
+//			ft_error(8, "nbr_cycles");
+//		return (1);
+//	}
+//}
+//
+//int parse_flag_visual()
+//{
+//}
+
+void	num_champs(t_chmp *champs)
+{
+	t_chmp *tmp;
+	unsigned int number;
+
+	tmp = champs;
+	number = 1;
+	while (tmp)
 	{
-		i = -1;
-		while (number[++i])
-			if (!ft_isdigit(number[i]))
-				ft_error(7, number);
-		if (!check_num_atoi(number, count))
-			ft_error(8, "nbr_cycles");
-		return (1);
+		tmp->num = number++;
+		tmp = tmp->next;
 	}
-	else if (ft_strequ(flag, "-dump_go"))
-	{
-		i = -1;
-		while (number[++i])
-			if (!ft_isdigit(number[i]))
-				ft_error(7, number);
-		if (!check_num_atoi(number, count))
-			ft_error(9, "nbr_cycles");
-		return (1);
-	}
-	return (0);
-	//TODO доробити!!!!
 }
 
 void	ft_sprint(t_bs *base, char **av, int ac)
@@ -126,35 +145,21 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	unsigned int	num_player;
 
 	i = 1;
-	num_player = 0;
 	while (i < ac)
 	{
-		if (i + 1 < ac - 1 &&
-			parse_flags(av[i], av[i + 1], &num_player, &base->dump))
-		{
-			if ((i += 2) == ac && base->np == 0)
-				ft_error(1, NULL);
-			else
-				continue ;
-		}
-		//TODO num_player доробити
-//		перевірку на i + 1, перед тим як передавати в парсинг
+		num_player = parse_flag_num(base, av, ac, &i);
 		add_new_champ(&base->list_champs, num_player, &base->list_proc);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
 		ft_name_comment(av[i], &base->list_champs->head, 1);
 		ft_instraction(av[i], base);
+		//		parse_flag_dump();
+		//		parse_flag_visual();
 		i++;
-		num_player = 0;
 	}
+	base->winner = base->list_champs->num;
+	num_champs(base->list_champs);
 	ft_printf(YEL"Introducing contestants...\n"RC);
-	/*i = 0;
-	while (++i < ac)
-		ft_printf("\t* Player %d, weighing %u bytes, \"%s\" (\"%s\") !\n",
-				  i, base->p[i - 1].prog_size, base->p[i - 1].prog_name,
-				  base->p[i - 1].comment);
-*/
-//	ft_code();
 }
 
 unsigned int g_count;

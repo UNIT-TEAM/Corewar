@@ -254,7 +254,6 @@ int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
 		new_proc->regs[i] = tmp->regs[i];
 	new_proc->carry = tmp->carry;
 	new_proc->id = tmp->id;
-	new_proc->cycle_to_die = tmp->cycle_to_die;
 	new_proc->inst_cycle = tmp->inst_cycle;
 	new_proc->is_live = 1;
 	new_proc->next = *procs;
@@ -289,7 +288,6 @@ int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 		new_proc->regs[i] = tmp->regs[i];
 	new_proc->carry = tmp->carry;
 	new_proc->id = tmp->id;
-	new_proc->cycle_to_die = tmp->cycle_to_die;
 	new_proc->inst_cycle = tmp->inst_cycle;
 	new_proc->is_live = 1;
 	new_proc->next = *procs;
@@ -339,7 +337,6 @@ int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
 		return (0);
 	proc->is_live = 1;
-	proc->cycle_to_die = 0;
 	curr = champs;
 	while (curr)
 	{

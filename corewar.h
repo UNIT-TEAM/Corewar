@@ -9,7 +9,6 @@
 /*
 **	p		- players in project;
 ** 	np		- number of players;
-** 	pftr	- position flags to write players instructions to map;
 **	dump	- number of cycles;
 **	proc	- struct of prog_counter;
 **	chmp	- struct of champion;
@@ -38,10 +37,10 @@ typedef struct 		s_proc
 	unsigned int	pc;
 	unsigned int	regs[REG_NUMBER];
 	char 			carry;
-    unsigned int    cycle_to_die;
 	unsigned short	is_live;
     unsigned int    inst_cycle;
 	unsigned int	id;
+	unsigned int	cycle_live;
 	struct s_proc	*next;
 }					t_proc;
 
@@ -51,6 +50,7 @@ typedef struct		s_chmp
 	int 			live;
 	unsigned int 	num;
 	unsigned char	*instructions;
+	unsigned int	flag_num;
 	struct s_chmp	*next;
 }					t_chmp;
 
@@ -60,11 +60,12 @@ typedef	struct		s_bs
 	t_proc			*list_proc;
 	unsigned char 	map[MEM_SIZE];
 	int 			np;
-	int				pftr;
+	unsigned int	winner;
+	unsigned short	is_num_flag;
 	unsigned int 	dump;
 	char 			is_dump;
-	unsigned int	dump_go;
-	char 			is_dump_go;
+	unsigned int	cycle_print;
+	char 			is_print;
 }					t_bs;
 
 extern  t_op		op_tab[17];
