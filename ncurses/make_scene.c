@@ -1,5 +1,6 @@
 #include "ncurs.h"
 #include "unistd.h"
+#include "../corewar.h"
 
 
 t_cell    *make_body(int a)
@@ -25,7 +26,30 @@ void init_win_params(WINDOW *p_win, int size);
 void create_box(WINDOW *win, int size);
 
 
-void draw_mass(t_cell *mass, int size)
+void draw_cart(t_bs *bs)
+{
+    t_proc *proc;
+    char const *base;
+    unsigned int a;
+    unsigned int champ;
+    char y;
+
+    base = "0123456789abcdef";
+    proc = bs->list_proc;
+    while (proc)
+    {
+        a = proc->pc;
+        champ = proc->id;
+        attron(COLOR_PAIR(champ * 100));
+        y = base[(a / 16) % 16];
+        mvwprintw(stdscr, starty, startx++, "%c", y);
+        y = base[a % 16];
+        mvwprintw(stdscr, starty, startx++, "%c", y);
+        attroff(COLOR_PAIR(champ * 100));
+        proc = proc->next;
+    }
+}
+void draw_mass(t_bs *bs, int size)
 {
     char const *base = "0123456789abcdef";
     int a = 0;
@@ -33,25 +57,33 @@ void draw_mass(t_cell *mass, int size)
     int startx = 1;
     int starty = 1;
     while (b < size) {
-        char y;
-        a = 0;
-        while (a < 32) {
-            attron(COLOR_PAIR(mass[b].champ));
-            y = base[(mass[b].cell / 16)%16];
-            mvwprintw(stdscr, starty, startx++, "%c", y);
-            y = base[mass[b].cell % 16];
-            mvwprintw(stdscr, starty, startx++, "%c", y);
-
-            startx++;
-            attroff(COLOR_PAIR(mass[b].champ));
-            a++;
-            b++;
+        if (g_count - bs->color_map[b].cycle_n < 11) {
+            char y;
+            a = 0;
+            while (a < 32) {
+                attron(COLOR_PAIR(bs->color_map[b].champ));
+                if (g_count - bs->color_map[b].cycle_n < 6)
+                    attron(COLOR_PAIR(bs->color_map[b].champ * 10));
+                y = base[(bs->map[b] / 16) % 16];
+                mvwprintw(stdscr, starty, startx++, "%c", y);
+                y = base[bs->map[b] % 16];
+                mvwprintw(stdscr, starty, startx++, "%c", y);
+                startx++;
+                attroff(COLOR_PAIR(bs->color_map[b].champ));
+                if (g_count - bs->color_map[b].cycle_n < 6)
+                    attroff(COLOR_PAIR(bs->color_map[b].champ * 10));
+                a++;
+                b++;
+            }
+            starty++;
+            startx = 1;
         }
-        starty++;
-        startx = 1;
+        else
+            b++;
     }
-
+    draw_cart(bs);
 }
+
 void make_scene(t_ncurs *base, WINDOW *win, int d)
 {
     int ch;
