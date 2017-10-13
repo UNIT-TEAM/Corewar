@@ -3,6 +3,9 @@ file(REMOVE_RECURSE
   "CMakeFiles/corewar.dir/fill_bot.c.o"
   "CMakeFiles/corewar.dir/map.c.o"
   "CMakeFiles/corewar.dir/champion.c.o"
+  "CMakeFiles/corewar.dir/instruct.c.o"
+  "CMakeFiles/corewar.dir/sti_ldi.c.o"
+  "CMakeFiles/corewar.dir/op.c.o"
   "corewar.pdb"
   "corewar"
 )

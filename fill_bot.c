@@ -27,28 +27,22 @@ void 	fill_magic(unsigned int *magic_size, unsigned char *buf, char *str,
 	int				i;
 	unsigned char	tmp[4];
 
-	/*shift = 0xffffffff;
-	k = 24;
-	i = -1;
-	while (++i < 4)
-	{
-		arr[i] = (i == 0) ? (unsigned int)(buf[i] << k) : (buf[i] << k & shift);
-		k -= 8;
-		shift = shift >> 8;
-	}*/
 	i = -1;
 	while (++i < 4)
 		tmp[3 - i] = buf[i];
 
 	*magic_size = *((unsigned int *)tmp);
-	(*magic_size != COREWAR_EXEC_MAGIC && flag) ?	ft_error(3, str) : 0;
-	if (*magic_size  > CHAMP_MAX_SIZE && !flag)
+
+	if (flag && *magic_size != COREWAR_EXEC_MAGIC)
+		ft_error(3, str);
+
+	if (!flag && *magic_size  > CHAMP_MAX_SIZE)
 	{
 		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has too large a code (%u"\
 		" bytes vs %u bytes)\n", str, *magic_size, CHAMP_MAX_SIZE);
 		exit(1);
 	}
-	if (*magic_size != (unsigned int)check_size(str) && !flag)
+	if (!flag && *magic_size != (unsigned int)check_size(str))
 		ft_error(4, str);
 }
 
@@ -78,7 +72,7 @@ void 	ft_magic_size(char *av, header_t *p)
 
 /*
 ** flag 0 for name;
-** flaf 1 for comment;
+** flag 1 for comment;
 **
 */
 
@@ -119,9 +113,7 @@ void	ft_instraction(char *av, t_bs *bs)
 		k++;
 	close(fd);
 	(k == 0) ? ft_error(4, av) : 0;
-	if (!(bs->list_champs->proc_1 = (t_proc *)malloc(sizeof(t_proc))))
-		ft_error(5, av);
 	bs->np++;
-	bs->list_champs->proc_1->regs[0] = (unsigned int)(bs->np * -1);
+	bs->list_proc->regs[0] = (unsigned int)(-bs->list_champs->num);
 
 }

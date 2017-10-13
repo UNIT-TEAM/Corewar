@@ -91,6 +91,9 @@
 		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/fill_bot.c">
 			<Option target="corewar"/>
 		</Unit>
+		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/instruct.c">
+			<Option target="corewar"/>
+		</Unit>
 		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/libft/libft.h">
 			<Option target="corewar"/>
 		</Unit>
@@ -100,7 +103,13 @@
 		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/map.c">
 			<Option target="corewar"/>
 		</Unit>
+		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/op.c">
+			<Option target="corewar"/>
+		</Unit>
 		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/op.h">
+			<Option target="corewar"/>
+		</Unit>
+		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/sti_ldi.c">
 			<Option target="corewar"/>
 		</Unit>
 		<Unit filename="/nfs/2016/y/ysavenko/CLionProjects/cor/CMakeLists.txt">
