@@ -54,8 +54,15 @@ int		check_num_atoi(char *line, unsigned int *num)
 void	ft_error(int i, char *str)
 {
 	if (i == 1)
-		ft_printf(RED"Usage:"RC"\n\t./corewar [-dump nbr_cycles] [[-n number] "\
-		"champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+		ft_printf(RED"Usage:"RC"\n\t./corewar [[-dump N] [-print N] [-a] [-b]]"\
+		" | [[-n number] champion1.cor] | -v] \n\tMax players is %d\n\n#### T"\
+		"EXT OUTPUT MODE #####################################################"\
+		"#####\n\t-dump N\t\t: Dumps memory after N cycles then exits;\n\t-pri"\
+		"nt N\t: Every N cycles, print dump memory;\n\t-a\t\t\t: Prints output"\
+		" from \"aff\" (Default is to hide it);\n\t-b\t\t\t: Enable sound when"\
+		" process is die;\n\n#### NCURSES OUTPUT MODE ########################"\
+		"###############################\n\t-v\t\t\t: Ncurses output mode",\
+		 MAX_PLAYERS);
 	else if (i == 2)
 		perror("error");
 	else if (i == 3)
@@ -67,8 +74,8 @@ void	ft_error(int i, char *str)
 	else if (i == 5)
 		ft_printf(RED"Error:"RC" in malloc\n");
 	else if (i == 6)
-		ft_printf(RED"Usage:"RC"\n\t./corewar [-dump nbr_cycles] ["RED\
-		"[-n number]"RC" champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+		ft_printf(RED"Usage:"RC"\n\t./corewar "RED\
+		"[-n number]"RC);
 	else if (i == 7)
 		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles]"RC\
 		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
@@ -148,6 +155,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	while (i < ac)
 	{
 		num_player = parse_flag_num(base, av, ac, &i);
+		//TODO не записується гравець
 		add_new_champ(&base->list_champs, num_player, &base->list_proc);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
@@ -165,12 +173,13 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 unsigned int g_count;
 
 // TODO: перевірка на коректність CAPS
+//TODO зробити перевірку на всі зміни в хедері op.h!!!!
 int 	main(int argc, char **argv)
 {
 	t_bs		base;
 
 	if (argc == 1)
-		ft_error(1, NULL);
+		ft_error(6, NULL);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);

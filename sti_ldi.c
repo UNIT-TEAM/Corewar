@@ -79,7 +79,8 @@ int		ft_and_or_xor(unsigned char *map, t_proc *proc, unsigned short op_index,
 		proc->regs[arg[2]] = arg[0] | arg[1];
 	else if (f_command == 2)
 		proc->regs[arg[2]] = arg[0] ^ arg[1];
-	proc->carry = (unsigned char)((proc->regs[arg[2]] == 0) ? 1 : 0);
+	//TODO не змінюється каретка на 1 !!!! тестити на страндартному зорку
+	(unsigned char)((proc->regs[arg[2]] == 0) ? proc->carry = 1 : 0);
 	proc->pc = tmp_pc[0];
 	proc->inst_cycle = 0;
 	print_map(map);

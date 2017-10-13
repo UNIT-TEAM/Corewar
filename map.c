@@ -66,6 +66,8 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
     }
 }
 
+//TODO isnt_cycle ніде не ітерується!!!!!!!!!!!!!!!!!!!
+
 void	check_is_live(t_proc **procs)
 {
 	t_proc *tmp;

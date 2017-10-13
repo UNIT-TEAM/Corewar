@@ -25,6 +25,7 @@ void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc)
 	tmp_proc->carry = 0;
 	tmp_proc->is_live = 0;
 	tmp_proc->inst_cycle = 0;
+	tmp_proc->cycle_live = 0;
 	tmp_proc->id = tmp_cmp->num;
 	tmp_proc->cycle_live = 0;
 	i = -1;
