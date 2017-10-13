@@ -43,7 +43,7 @@ typedef struct 		s_proc
 	unsigned int	cycle_live;
 	struct s_proc	*next;
 }					t_proc;
-
+//TODO last live
 typedef struct		s_chmp
 {
 	header_t		head;

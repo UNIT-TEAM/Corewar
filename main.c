@@ -92,24 +92,28 @@ void	ft_error(int i, char *str)
 unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 {
 	int i;
+	int fd;
 	unsigned int num_player;
 
 	num_player = 0;
 	if (ft_strequ(argv[*index], "-n"))
 	{
-		i = -1;
-		if (i + 2 < argc - 1)
+		if (*index + 2 > argc - 1)
 			ft_error(10, NULL);
+		i = -1;
 		while (argv[*index + 1][++i])
 			if (!ft_isdigit(argv[*index + 1][i]))
 				ft_error(6, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &num_player))
 			ft_error(8, "number");
-		if (open(argv[i + 2], O_RDONLY) < 0)
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
 			ft_error(2, NULL);
+		else
+			close(fd);
 		if (num_player < 1 || num_player > MAX_CHECKS)
 			ft_error(11, NULL);
 		bs->is_num_flag = 1;
+		*index += 2;
 	}
 	return (num_player);
 }
@@ -155,7 +159,6 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	while (i < ac)
 	{
 		num_player = parse_flag_num(base, av, ac, &i);
-		//TODO не записується гравець
 		add_new_champ(&base->list_champs, num_player, &base->list_proc);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
