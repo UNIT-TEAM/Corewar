@@ -1,10 +1,9 @@
+#include <zconf.h>
 #include "corewar.h"
 
 /*
  * TODO: зробити перевірку на розмір REG, DIR, IND
  */
-
-
 
 int		take_arg_reg(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
 {
@@ -14,34 +13,36 @@ int		take_arg_reg(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
 	if (index < 1 || index > REG_NUMBER)
 		return (0);
 	*arg = (unsigned int)(index - 1);
+	*tmp_pc = (*tmp_pc + 1) % MEM_SIZE;
 	return (1);
 }
 
 int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
-						unsigned char flag_size)
+						t_proc *proc, unsigned short op_index)
 {
 	unsigned char code[4];
 	unsigned int p;
 
-	if (flag_size == 0)
+	if (op_tab[op_index].dir_size == 0)
 	{
-		code[0] = map[(tmp_pc[0] + 3) % MEM_SIZE];
-		code[1] = map[(tmp_pc[0] + 2) % MEM_SIZE];
-		code[2] = map[(tmp_pc[0] + 1) % MEM_SIZE];
-		code[3] = map[tmp_pc[0]];
+		code[0] = map[(*tmp_pc + 3) % MEM_SIZE];
+		code[1] = map[(*tmp_pc + 2) % MEM_SIZE];
+		code[2] = map[(*tmp_pc + 1) % MEM_SIZE];
+		code[3] = map[*tmp_pc];
 		p = *((unsigned int *)code) % MEM_SIZE;
 	}
 	else
 	{
-		code[0] = map[(tmp_pc[0] + 1) % MEM_SIZE];
-		code[1] = map[tmp_pc[0]];
+		code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
+		code[1] = map[*tmp_pc];
 		p = (unsigned short)(*((unsigned short *)code) % MEM_SIZE);
 	}
-	code[0] = map[(tmp_pc[1] + p + 3) % MEM_SIZE];
-	code[1] = map[(tmp_pc[1] + p + 2) % MEM_SIZE];
-	code[2] = map[(tmp_pc[1] + p + 1) % MEM_SIZE];
-	code[3] = map[(tmp_pc[1] + p) % MEM_SIZE];
+	code[0] = map[(proc->pc + p + 3) % MEM_SIZE];
+	code[1] = map[(proc->pc + p + 2) % MEM_SIZE];
+	code[2] = map[(proc->pc + p + 1) % MEM_SIZE];
+	code[3] = map[(proc->pc + p) % MEM_SIZE];
 	*arg = *((unsigned int *)code);
+	*tmp_pc = (*tmp_pc + (op_tab[op_index].dir_size ? 2 : 4)) % MEM_SIZE;
 	return (1);
 }
 
@@ -52,34 +53,48 @@ int		take_arg_ind(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
 	code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
 	code[1] = map[*tmp_pc];
 	*arg = *((unsigned short *)code);
+	*tmp_pc = (*tmp_pc + 2) % MEM_SIZE;
 	return (1);
 }
 
-int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
-							 unsigned int *arg, unsigned int *tmp_pc)
+unsigned int	*take_argument(unsigned char *map, unsigned char codage,
+						 t_proc *proc, unsigned short op_index)
 {
 	int res;
+	int i;
+	int j;
+	unsigned int tmp_pc;
+	unsigned int *arg;
 
-	res = 0;
-	if (arg_code_size_flag[0] == REG_CODE)
+	if ((arg = (unsigned int *)malloc(
+			sizeof(unsigned int) * op_tab[op_index].count_arg)) == NULL)
+		ft_error(5, NULL);
+	tmp_pc = (op_tab[op_index].is_codage ?
+			  	proc->pc + 2 : proc->pc + 1) % MEM_SIZE;
+	j = 8;
+	i = -1;
+	while (++i < op_tab[op_index].count_arg)
 	{
-		res = take_arg_reg(map, arg, tmp_pc);
-		*tmp_pc = (*tmp_pc + 1) % MEM_SIZE;
+		j -= 2;
+		res = 0;
+		if (((codage >> j) & 0x3) == REG_CODE)
+			res = take_arg_reg(map, arg + i, &tmp_pc);
+		else if (((codage >> j) & 0x3) == DIR_CODE)
+			// мені впадлу для цієї функції робити 4 параметра, потім зробим,
+			// зараз для розуміння і так норм
+			res = take_arg_dir(map, arg + i, &tmp_pc, proc, op_index);
+		else if (((codage >> j) & 0x3) == IND_CODE)
+			res = take_arg_ind(map, arg + i, &tmp_pc);
+		if (res == 0)
+		{
+			shift_pc(codage, proc, op_index);
+			return (NULL);
+		}
 	}
-	else if (arg_code_size_flag[0] == DIR_CODE)
-	{
-		res = take_arg_dir(map, arg, tmp_pc, arg_code_size_flag[1]);
-		*tmp_pc = (*tmp_pc + ((arg_code_size_flag[1] == 1) ? 2 : 4)) % MEM_SIZE;
-	}
-	else if (arg_code_size_flag[0] == IND_CODE)
-	{
-		res = take_arg_ind(map, arg, tmp_pc);
-		*tmp_pc = (*tmp_pc + IND_SIZE) % MEM_SIZE;
-	}
-	return (res);
+	return (arg);
 }
 
-void	shift_pc(unsigned char codage, t_proc *proc, unsigned short index)
+void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 {
 	unsigned char tmp;
 	int i;
@@ -87,14 +102,15 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short index)
 
 	i = 8;
 	j = 0;
-	while (j < op_tab[index].count_arg)
+	proc->pc += 1;
+	while (j < op_tab[op_index].count_arg)
 	{
 		i -= 2;
 		tmp = (unsigned char)((codage >> i) & 0x3);
 		if (tmp == REG_CODE)
 			proc->pc += 1;
 		else if (tmp == DIR_CODE)
-			proc->pc += (op_tab[index].dir_size) ? 2 : 4;
+			proc->pc += (op_tab[op_index].dir_size) ? 2 : 4;
 		else if (tmp == IND_CODE)
 			proc->pc += IND_SIZE;
 		++j;
