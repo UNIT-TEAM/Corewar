@@ -322,6 +322,7 @@ int		ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
 int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 				   t_chmp *champs)
 {
+	//TODO коли все вірно перепригнути 4 байти на наступну інструкцію, а не проходитися по кожному байту
 	unsigned int arg[3];
 	unsigned char arg_code_size_flag[2];
 	unsigned int tmp_pc[2];
