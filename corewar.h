@@ -36,14 +36,14 @@ typedef struct 		s_proc
 {
 	unsigned int	pc;
 	unsigned int	regs[REG_NUMBER];
-	char 			carry;
+	unsigned short	carry;
 	unsigned short	is_live;
     unsigned int    inst_cycle;
 	unsigned int	id;
 	unsigned int	cycle_live;
 	struct s_proc	*next;
 }					t_proc;
-//TODO last live
+
 typedef struct		s_chmp
 {
 	header_t		head;
@@ -82,8 +82,10 @@ void	ft_instraction(char *av, t_bs *bs);
 
 void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
-void ft_fill_map(t_bs *bs);
+void	ft_fill_map(t_bs *bs);
 void	print_map(unsigned char *map);
+
+int		check_op_h();
 
 int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
 						 unsigned int *arg, unsigned int *tmp_pc);

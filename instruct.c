@@ -1,11 +1,5 @@
 #include "corewar.h"
 
-/*
- * TODO: зробити перевірку на розмір REG, DIR, IND
- */
-
-
-
 int		take_arg_reg(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
 {
 	unsigned char index;

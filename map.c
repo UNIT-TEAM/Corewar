@@ -66,15 +66,15 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
     }
 }
 
-//TODO isnt_cycle ніде не ітерується!!!!!!!!!!!!!!!!!!!
-
-void	check_is_live(t_proc **procs)
+int		check_is_live(t_proc **procs)
 {
 	t_proc *tmp;
 	t_proc *prev;
 
 	tmp = *procs;
 	prev = tmp;
+	if (tmp == NULL)
+		return (0);
 	while (tmp)
 	{
 		if (tmp->is_live)
@@ -91,9 +91,10 @@ void	check_is_live(t_proc **procs)
 		}
 		tmp = prev->next;
 	}
+	return (1);
 }
 
-void check_cycle_to_die(t_bs *bs, long *cycle_to_die,
+int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 						unsigned int *max_check,
 						unsigned int *cycle_to_die_curr)
 {
@@ -110,7 +111,8 @@ void check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 				nbr_live += tmp->live;
 			tmp = tmp->next;
 		}
-		check_is_live(&bs->list_proc);
+		if (check_is_live(&bs->list_proc) == 0)
+			return (0);
 		if (nbr_live >= NBR_LIVE || *max_check == 0)
 		{
 			*max_check = MAX_CHECKS;
@@ -120,6 +122,7 @@ void check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 			--(*max_check);
 		*cycle_to_die_curr = 0;
 	}
+	return (1);
 }
 
 void	who_win(t_proc *procs, unsigned int *winner)
@@ -165,8 +168,9 @@ void	global_cycles(t_bs *bs)
 //		}
 //		if (bs->is_dump_go && bs->dump_go % g_count == 0)
 //			print_map(bs->map);
-		check_cycle_to_die(bs, &cycle_to_die, &max_check,
-						   &cycle_to_die_curr);
+		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
+						   &cycle_to_die_curr) == 0)
+			break;
 	}
 	who_win(bs->list_proc, &bs->winner);
 }

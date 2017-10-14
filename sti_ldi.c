@@ -80,7 +80,7 @@ int		ft_and_or_xor(unsigned char *map, t_proc *proc, unsigned short op_index,
 	else if (f_command == 2)
 		proc->regs[arg[2]] = arg[0] ^ arg[1];
 	//TODO не змінюється каретка на 1 !!!! тестити на страндартному зорку
-	(unsigned char)((proc->regs[arg[2]] == 0) ? proc->carry = 1 : 0);
+	proc->carry = (unsigned short)((proc->regs[arg[1]] == 0) ? 1 : 0);
 	proc->pc = tmp_pc[0];
 	proc->inst_cycle = 0;
 	print_map(map);
@@ -256,7 +256,7 @@ int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
 	new_proc->carry = tmp->carry;
 	new_proc->id = tmp->id;
 	new_proc->inst_cycle = tmp->inst_cycle;
-	new_proc->is_live = 1;
+	new_proc->is_live = tmp->is_live; //1 - не правильно
 	new_proc->next = *procs;
 	*procs = new_proc;
 	return (1);
@@ -283,14 +283,14 @@ int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 	if (!(new_proc = (t_proc *)malloc(sizeof(t_proc))))
 		ft_error(5, NULL);
 	tmp->inst_cycle = 0;
-	new_proc->pc = (tmp->pc + arg[0] % IDX_MOD) % MEM_SIZE;
+	new_proc->pc = (tmp->pc + arg[0]) % MEM_SIZE;
 	i = -1;
 	while (++i < REG_NUMBER)
 		new_proc->regs[i] = tmp->regs[i];
 	new_proc->carry = tmp->carry;
 	new_proc->id = tmp->id;
 	new_proc->inst_cycle = tmp->inst_cycle;
-	new_proc->is_live = 1;
+	new_proc->is_live = tmp->is_live; //1 - не правильно
 	new_proc->next = *procs;
 	*procs = new_proc;
 	return (1);

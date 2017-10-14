@@ -47,10 +47,13 @@ int		check_num_atoi(char *line, unsigned int *num)
 **	5 - error in malloc;
 **	6 - number of player is doesnt digit
 **	7 - number of cycles is doesnt digit
+**  8 - number is not unsigned int
+**	9 - number of print cicles must be a digit
+**	10
+**	11 - number of player must be a 1 <= number < MAX_PLAYERS
+**	12 - identical numbers
 */
-//TODO 10 - дописати помилку про нестачу аргументів для флага -n
-//TODO 11 - про n < 1 || n > MAX_CHECK для флага -n
-//TODO 12 - про повторення номера у -n
+
 void	ft_error(int i, char *str)
 {
 	if (i == 1)
@@ -60,33 +63,37 @@ void	ft_error(int i, char *str)
 		"#####\n\t-dump N\t\t: Dumps memory after N cycles then exits;\n\t-pri"\
 		"nt N\t: Every N cycles, print dump memory;\n\t-a\t\t\t: Prints output"\
 		" from \"aff\" (Default is to hide it);\n\t-b\t\t\t: Enable sound when"\
-		" process is die;\n\n#### NCURSES OUTPUT MODE ########################"\
-		"###############################\n\t-v\t\t\t: Ncurses output mode",\
-		 MAX_PLAYERS);
+		" process is die;\n\t-n number\t: Sets the number of the next player\n"\
+		"\n#### NCURSES OUTPUT MODE ##########################################"\
+		"#############\n\t-v\t\t\t: Ncurses output mode", MAX_PLAYERS);
 	else if (i == 2)
 		perror("error");
 	else if (i == 3)
-		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has an invalid magic name\n",
-				  str);
+		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic name\n",\
+		str);
 	else if (i == 4)
-		ft_printf(RED"Error:"RC" File "BLU"%s"RC" has a code size that differ"\
-		"from what its header says\n", str);
+		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has a code size that di"\
+		"ffer from what its header says\n", str);
 	else if (i == 5)
-		ft_printf(RED"Error:"RC" in malloc\n");
+		ft_printf(RED"Error:"RC"\n\t\tin malloc\n");
 	else if (i == 6)
-		ft_printf(RED"Usage:"RC"\n\t./corewar "RED\
-		"[-n number]"RC);
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - must be a digit"\
+		"\n");
 	else if (i == 7)
-		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles]"RC\
-		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
 	else if (i == 8)
-		ft_printf(RED"Error:"BLU" %s"RC" is not unsigned int\n", str);
+		ft_printf(RED"Error:"BLU"\n\t\t%s"RC" is not unsigned int\n", str);
 	else if (i == 9)
-		ft_printf(RED"Usage:"RC"\n\t./corewar "RED"[-dump nbr_cycles | -dump_go"
-						  " nbr_cycles]"RC\
-		" [[-n number] champion1.cor] ...\n\tMax players is %d", MAX_PLAYERS);
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit\n");
+	else if (i == 10)
+		ft_printf(RED"Error:"BLU"\n\t\tnot enough arguments"RC"\n", str);
+	else if (i ==11)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - should be in the "\
+		"range 1 <= number <= MAX_PLAYER\n");
+	else if (i == 12)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - identical numbers"\
+		"\n");
 	//TODO видалити всі лісти
-	//TODO Usage перевірити
 	exit(1);
 }
 unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
@@ -105,7 +112,7 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 			if (!ft_isdigit(argv[*index + 1][i]))
 				ft_error(6, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &num_player))
-			ft_error(8, "number");
+			ft_error(8, argv[*index + 1]);
 		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
 			ft_error(2, NULL);
 		else
@@ -175,14 +182,15 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 
 unsigned int g_count;
 
-// TODO: перевірка на коректність CAPS
-//TODO зробити перевірку на всі зміни в хедері op.h!!!!
+//TODO: перевірка на коректність CAPS
 int 	main(int argc, char **argv)
 {
 	t_bs		base;
 
 	if (argc == 1)
-		ft_error(6, NULL);
+		ft_error(1, NULL);
+	if (check_op_h() == 0)
+		return (1);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
@@ -193,3 +201,6 @@ int 	main(int argc, char **argv)
 	}
 	return (0);
 }
+//TODO перевірка на максимальну кількість процесів? якщо буде перевищеня
+//TODO перевірка на максимальний g_count
+

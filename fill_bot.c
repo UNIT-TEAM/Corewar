@@ -102,7 +102,6 @@ void	ft_instraction(char *av, t_bs *bs)
 	fd = open(av, O_RDONLY);
 	(lseek(fd, CODE_POS, SEEK_SET) < 0) ? ft_error(2, NULL) : 0;
 	//bs->pftr = (i == 0) ? 0 : bs->pftr + MEM_SIZE / bs->np;
-	//визначення початкової позиції гравця на карті для запису його інструкцій на карту
 	if (!(bs->list_champs->instructions = (unsigned char *)malloc(sizeof\
 	(unsigned char) * bs->list_champs->head.prog_size)))
 	{
