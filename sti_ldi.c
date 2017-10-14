@@ -42,7 +42,7 @@ int		ft_add_sub(t_bs *bs, t_proc *proc, unsigned short op_index,
 	proc->carry = (unsigned char)((proc->regs[arg[2]] == 0) ? 1 : 0);
 	proc->pc = tmp_pc[0];
 	proc->inst_cycle = 0;
-	print_map(bs->map);
+	//print_map(bs->map);
 	return (1);
 }
 
@@ -79,10 +79,10 @@ int		ft_and_or_xor(t_bs *bs, t_proc *proc, unsigned short op_index,
 		proc->regs[arg[2]] = arg[0] | arg[1];
 	else if (f_command == 2)
 		proc->regs[arg[2]] = arg[0] ^ arg[1];
-	proc->carry = (unsigned char)((proc->regs[arg[2]] == 0) ? 1 : 0);
+	((proc->regs[arg[2]] == 0) ? proc->carry = 1 : 0);
 	proc->pc = tmp_pc[0];
 	proc->inst_cycle = 0;
-	print_map(bs->map);
+	//print_map(bs->map);
 	return (1);
 }
 
@@ -124,7 +124,7 @@ int		ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index,
 	bs->map[i % MEM_SIZE] = (unsigned char)arg[0];
 	proc->pc = tmp_pc[0];
 	proc->inst_cycle = 0;
-	print_map(bs->map);
+	//print_map(bs->map);
 	return (1);
 }
 
@@ -142,7 +142,7 @@ int		ft_ldi_lldi(t_bs *bs, t_proc *proc, unsigned short op_index,
 		return (0);
 	i = 8;
 	j = 0;
-	print_map(bs->map);
+	//print_map(bs->map);
 	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
 	tmp_pc[1] = proc->pc;
 	while (j < op_tab[op_index].count_arg)
@@ -184,7 +184,7 @@ int		ft_ld_lld(t_bs *bs, t_proc *proc, unsigned short op_index,
 		return (0);
 	i = 8;
 	j = 0;
-	print_map(bs->map);
+	//print_map(bs->map);
 	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
 	tmp_pc[1] = proc->pc;
 	while (j < op_tab[op_index].count_arg)
@@ -242,7 +242,7 @@ int		ft_fork(t_bs *bs, t_proc **procs, t_proc *tmp,
 
 	if (++tmp->inst_cycle != op_tab[op_index].cycles)
 		return (0);
-	print_map(bs->map);
+	//print_map(bs->map);
 	tmp_pc[0] = (tmp->pc + 1) % MEM_SIZE;
 	tmp_pc[1] = tmp->pc;
 	arg_code_size_flag[0] = DIR_CODE;
@@ -277,7 +277,7 @@ int		ft_lfork(t_bs *bs, t_proc **procs, t_proc *tmp,
 
 	if (++tmp->inst_cycle != op_tab[op_index].cycles)
 		return (0);
-	print_map(bs->map);
+	//print_map(bs->map);
 	tmp_pc[0] = (tmp->pc + 1) % MEM_SIZE;
 	tmp_pc[1] = tmp->pc;
 	arg_code_size_flag[0] = DIR_CODE;
@@ -318,7 +318,7 @@ int		ft_aff(t_bs *bs, t_proc *proc, unsigned short op_index)
 	arg_code_size_flag[1] = op_tab[op_index].dir_size;
 	if (!take_argument(bs, arg_code_size_flag, arg, tmp_pc))
 		return (0);
-	ft_printf("%c", arg[0]);
+	//ft_printf("%c", arg[0]);
 	proc->pc = tmp_pc[0];
 	proc->inst_cycle = 0;
 	return (1);

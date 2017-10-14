@@ -5,7 +5,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "op.h"
-
+#include "ncurses.h"
 /*
 **	p		- players in project;
 ** 	np		- number of players;
@@ -37,6 +37,7 @@ typedef struct 		s_color
 {
 	char 			champ;
 	int 			cycle_n;
+    int             carretka;
 }					t_color;
 
 typedef struct 		s_proc
@@ -73,6 +74,18 @@ typedef	struct		s_bs
 	unsigned int	dump_go;
 	char 			is_dump_go;
 }					t_bs;
+
+
+typedef struct		s_ncur
+{
+    WINDOW          *window;
+    int              ready;
+    int                flag;
+    int                 n_cyc;
+    int                 startx;
+    int                 starty;
+
+}                   t_ncurs;
 
 extern  t_op		op_tab[17];
 extern unsigned int g_count;
@@ -114,5 +127,13 @@ int		ft_aff(t_bs *bs, t_proc *proc, unsigned short op_index);
 int		ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
 				   t_chmp *champs);
 void	add_color(int a, unsigned int champ, t_bs *bs);
+
+
+void ncurses_init_win(t_ncurs *base);
+int kb_proc(t_ncurs *base, int ch);
+void draw_mass(t_bs *bs, int a, int b);
+void    ncurses_init_colors();
+void create_box(WINDOW *p_win, int size);
+void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs);
 
 #endif

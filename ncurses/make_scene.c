@@ -1,194 +1,94 @@
-#include "ncurs.h"
 #include "unistd.h"
 #include "../corewar.h"
-
-
-t_cell    *make_body(int a)
+const char *g_base = "0123456789abcdef";
+void create_box(WINDOW *p_win, int size)
 {
-    t_cell *body;
-     a = 319;
-    unsigned char b = 0;
-    body = (t_cell *)malloc(sizeof(t_cell)*(a+1));
-    while (a >= 0){
-        body[a].cell = a;
-        b++;
-        body[a].champ = 1;
-        if (a > 20)
-            body[a].champ = 2;
-        if (a > 50)
-            body[a].champ = 3;
-        a--;
-    }
-    return body;
+    int w;
+    int h;
+
+    w = 265;
+    h = 68;
+    attron(COLOR_PAIR(111));
+    mvwaddch(stdscr,0, 0, '+');
+    mvwaddch(stdscr,0, w, '+');
+    mvwaddch(stdscr,h, 0, '+');
+    mvwaddch(stdscr,0 + h, w, '+');
+    mvwhline(stdscr,0, 1,'-', w - 1);
+    mvwhline(stdscr,h, 1, '-', w - 1);
+    mvwvline(stdscr,1, 0, '|', h - 1);
+    mvwvline(stdscr,1, w, '|', h - 1);
+    mvwvline(stdscr,1, 200, '|', h - 1);
+    attroff(COLOR_PAIR(111));
+    refresh();
+    //  wrefresh(p_win);
 }
 
-void init_win_params(WINDOW *p_win, int size);
-void create_box(WINDOW *win, int size);
-
-
-void draw_cart(t_bs *bs)
+void draw_cart(t_bs *bs, t_proc *proc)
 {
-    t_proc *proc;
-    char const *base;
     unsigned int a;
     unsigned int champ;
     char y;
 
-    base = "0123456789abcdef";
-    proc = bs->list_proc;
     while (proc)
     {
         a = proc->pc;
         champ = proc->id;
-        attron(COLOR_PAIR(champ * 100));
-        y = base[(a / 16) % 16];
-        mvwprintw(stdscr, starty, startx++, "%c", y);
-        y = base[a % 16];
-        mvwprintw(stdscr, starty, startx++, "%c", y);
-        attroff(COLOR_PAIR(champ * 100));
+        attron(COLOR_PAIR(proc->id + 100));
+        y = g_base[(bs->map[a] / 16) % 16];
+        mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 2, "%c", y);
+        y = g_base[bs->map[a] % 16];
+        mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 1 + 2, "%c", y);
+        attroff(COLOR_PAIR(proc->id + 100));
         proc = proc->next;
+        bs->color_map[a].carretka = 1;
+        if (g_count == 25)
+            beep();
     }
 }
-void draw_mass(t_bs *bs, int size)
+
+int     find_color(t_bs *bs, int b)
 {
-    char const *base = "0123456789abcdef";
-    int a = 0;
-    int b = 0;
-    int startx = 1;
-    int starty = 1;
-    while (b < size) {
-        if (g_count - bs->color_map[b].cycle_n < 11) {
+    if (g_count - bs->color_map[b].cycle_n < 6 &&  bs->color_map[b].cycle_n != 0)
+        return (bs->color_map[b].champ * 10);
+    return (0);
+}
+void draw_mass(t_bs *bs, int a, int b)
+{
+    while (b < MEM_SIZE) {
             char y;
             a = 0;
-            while (a < 32) {
-                attron(COLOR_PAIR(bs->color_map[b].champ));
-                if (g_count - bs->color_map[b].cycle_n < 6)
-                    attron(COLOR_PAIR(bs->color_map[b].champ * 10));
-                y = base[(bs->map[b] / 16) % 16];
-                mvwprintw(stdscr, starty, startx++, "%c", y);
-                y = base[bs->map[b] % 16];
-                mvwprintw(stdscr, starty, startx++, "%c", y);
-                startx++;
-                attroff(COLOR_PAIR(bs->color_map[b].champ));
-                if (g_count - bs->color_map[b].cycle_n < 6)
-                    attroff(COLOR_PAIR(bs->color_map[b].champ * 10));
+            while (a < 64) {
+                if (g_count - bs->color_map[b].cycle_n <1 || g_count == 0 ||bs->color_map[b].carretka == 1)
+                {
+                    attron(COLOR_PAIR(find_color(bs, b)));
+                    y = g_base[(bs->map[b] / 16) % 16];
+                    mvwprintw(stdscr, starty, bs->startx++, "%c", y);
+                    y = g_base[bs->map[b] % 16];
+                    mvwprintw(stdscr, starty, bs->startx++, "%c", y);
+                    bs->startx++;
+                    attroff(COLOR_PAIR(find_color(bs, b)));
+                    bs->color_map[b].carretka = 0;
+                }
+                else
+                    bs->startx += 3;
                 a++;
                 b++;
             }
-            starty++;
-            startx = 1;
-        }
-        else
-            b++;
+            bs->starty++;
+            bs->startx = 2;
     }
-    draw_cart(bs);
-}
-
-void make_scene(t_ncurs *base, WINDOW *win, int d)
-{
-    int ch;
-
-    int size = 320;
-        init_win_params(win, size);
-        create_box(win, size);
-        ncurses_stats(win);
-    draw_mass(base->mass, size);
-
-
-    //timeout(0.5);
-    //ch = getch();
-//    switch(ch)
-//        {	case KEY_F(2):
-//               base->ready = 1;
-//                break;
-//            case KEY_F(3):
-//                base->ready = -1;
-//                break;
-//        }
-
-//    while((ch = getch()) != KEY_F(5))
-//    {
-//        switch(ch)
-//        {	case KEY_F(2):
-//               base->ready = 1;
-//                break;
-//            case KEY_F(3):
-//                base->ready = -1;
-//                break;
-//        }
-//        if (base->ready == 1 || base->ready == -1)
-//            break;
-//
-//    }
-    refresh();
-    wrefresh(win);
-    sleep(1);
-    base->ready = 1;
-
-
-}
-void init_win_params(WINDOW *p_win, int size)
-{
-    p_win->_maxy = 40;
-    p_win->_maxx = 160;
-    p_win->_begx = 0;
-    p_win->_begy = 0;
-}
-void create_box(WINDOW *p_win, int size)
-{
-    int x, y, w, h;
-
-    x = p_win->_begx;
-    y = p_win->_begy;
-    w = p_win->_maxx;
-    h = p_win->_maxy;
-
-        mvwaddch(p_win,y, x, '+');
-        mvwaddch(p_win,y, x + w, '+');
-        mvwaddch(p_win,y + h, x, '+');
-        mvwaddch(p_win,y + h, x + w, '+');
-        mvwhline(p_win,y, x + 1,'-', w - 1);
-        mvwhline(p_win,y + h, x + 1, '-', w - 1);
-        mvwvline(p_win,y + 1, x, '|', h - 1);
-        mvwvline(p_win,y + 1, x + w, '|', h - 1);
-        mvwvline(p_win,y + 1, x + 98, '|', h - 1);
-    refresh();
-    wrefresh(p_win);
+   draw_cart(bs, bs->list_proc);
 }
 
 void ncurses_init_win(t_ncurs *base){
     initscr();
-    WINDOW *window = newwin(66, 260,0,0);
     cbreak();
     start_color();
     ncurses_init_colors();
     noecho();
-    init_win_params(window, 319);
-    base->window = window;
-}
-int main() {
-    t_ncurs *base = malloc(sizeof(t_ncurs));
-    base->ready = 0;
-    ncurses_init_win(base);
-    int a = 0;
-    int d = 1;
-    base->mass = make_body(319);
-    keypad(stdscr, TRUE);
-    int cf;
-    //TODO kbhit();
-    while (1) {
-        if (base->ready == -1)
-            break;
-        if (base->ready == 1) {
-            base->mass[a].cell = 150;
-            a++;
-        }
-        timeout(1);
-        cf = getch();
-        base->ready = 0;
-        make_scene(base, base->window, d);
-
-    }
-
-    endwin();
+    base->n_cyc = 10;
+    base->flag = 0;
+    base->window = stdscr;
+    base->startx = 2;
+    base->starty = 2;
 }
