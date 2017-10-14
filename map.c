@@ -32,33 +32,33 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 		if (map[tmp->pc] == op_tab[0].opcode)
 			ft_live(map, tmp, 0, champs);
 		else if (map[tmp->pc] == op_tab[1].opcode)
-			ft_ld_lld(map, tmp, 1, 0);
+			ft_ld_lld_ldi_lldi(map, tmp, 1);
 		else if (map[tmp->pc] == op_tab[2].opcode)
-			ft_st_sti(map, tmp, 2, 0);
+			ft_st_sti(map, tmp, 2);
 		else if (map[tmp->pc] == op_tab[3].opcode)
-			ft_add_sub(map, tmp, 3, 0);
+			ft_add_sub_and_or_xor(map, tmp, 3);
 		else if (map[tmp->pc] == op_tab[4].opcode)
-			ft_add_sub(map, tmp, 4, 1);
+			ft_add_sub_and_or_xor(map, tmp, 4);
 		else if (map[tmp->pc] == op_tab[5].opcode)
-			ft_and_or_xor(map, tmp, 5, 0);
+			ft_add_sub_and_or_xor(map, tmp, 5);
 		else if (map[tmp->pc] == op_tab[6].opcode)
-			ft_and_or_xor(map, tmp, 6, 1);
+			ft_add_sub_and_or_xor(map, tmp, 6);
 		else if (map[tmp->pc] == op_tab[7].opcode)
-			ft_and_or_xor(map, tmp, 7, 2);
+			ft_add_sub_and_or_xor(map, tmp, 7);
 		else if (map[tmp->pc] == op_tab[8].opcode)
 			ft_zjump(map, tmp, 8);
 		else if (map[tmp->pc] == op_tab[9].opcode)
-			ft_ldi_lldi(map, tmp, 9, 0);
+			ft_ld_lld_ldi_lldi(map, tmp, 9);
 		else if (map[tmp->pc] == op_tab[10].opcode)
-			ft_st_sti(map, tmp, 10, 1);
+			ft_st_sti(map, tmp, 10);
 		else if (map[tmp->pc] == op_tab[11].opcode)
-			ft_fork(map, procs, tmp, 11);
+			ft_fork_lfork(map, procs, tmp, 11);
 		else if (map[tmp->pc] == op_tab[12].opcode)
-			ft_ld_lld(map, tmp, 12, 1);
+			ft_ld_lld_ldi_lldi(map, tmp, 12);
 		else if (map[tmp->pc] == op_tab[13].opcode)
-			ft_ldi_lldi(map, tmp, 13, 1);
+			ft_ld_lld_ldi_lldi(map, tmp, 13);
 		else if (map[tmp->pc] == op_tab[14].opcode)
-			ft_lfork(map, procs, tmp, 14);
+			ft_fork_lfork(map, procs, tmp, 14);
 		else if (map[tmp->pc] == op_tab[15].opcode)
 			ft_aff(map, tmp, 15);
 		else
