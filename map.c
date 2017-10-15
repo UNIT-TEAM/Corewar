@@ -32,33 +32,33 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 		if (map[tmp->pc] == op_tab[0].opcode)
 			ft_live(map, tmp, 0, champs);
 		else if (map[tmp->pc] == op_tab[1].opcode)
-			ft_ld_lld(map, tmp, 1, 0);
+			ft_ld_lld_ldi_lldi(map, tmp, 1);
 		else if (map[tmp->pc] == op_tab[2].opcode)
-			ft_st_sti(map, tmp, 2, 0);
+			ft_st_sti(map, tmp, 2);
 		else if (map[tmp->pc] == op_tab[3].opcode)
-			ft_add_sub(map, tmp, 3, 0);
+			ft_add_sub_and_or_xor(map, tmp, 3);
 		else if (map[tmp->pc] == op_tab[4].opcode)
-			ft_add_sub(map, tmp, 4, 1);
+			ft_add_sub_and_or_xor(map, tmp, 4);
 		else if (map[tmp->pc] == op_tab[5].opcode)
-			ft_and_or_xor(map, tmp, 5, 0);
+			ft_add_sub_and_or_xor(map, tmp, 5);
 		else if (map[tmp->pc] == op_tab[6].opcode)
-			ft_and_or_xor(map, tmp, 6, 1);
+			ft_add_sub_and_or_xor(map, tmp, 6);
 		else if (map[tmp->pc] == op_tab[7].opcode)
-			ft_and_or_xor(map, tmp, 7, 2);
+			ft_add_sub_and_or_xor(map, tmp, 7);
 		else if (map[tmp->pc] == op_tab[8].opcode)
 			ft_zjump(map, tmp, 8);
 		else if (map[tmp->pc] == op_tab[9].opcode)
-			ft_ldi_lldi(map, tmp, 9, 0);
+			ft_ld_lld_ldi_lldi(map, tmp, 9);
 		else if (map[tmp->pc] == op_tab[10].opcode)
-			ft_st_sti(map, tmp, 10, 1);
+			ft_st_sti(map, tmp, 10);
 		else if (map[tmp->pc] == op_tab[11].opcode)
-			ft_fork(map, procs, tmp, 11);
+			ft_fork_lfork(map, procs, tmp, 11);
 		else if (map[tmp->pc] == op_tab[12].opcode)
-			ft_ld_lld(map, tmp, 12, 1);
+			ft_ld_lld_ldi_lldi(map, tmp, 12);
 		else if (map[tmp->pc] == op_tab[13].opcode)
-			ft_ldi_lldi(map, tmp, 13, 1);
+			ft_ld_lld_ldi_lldi(map, tmp, 13);
 		else if (map[tmp->pc] == op_tab[14].opcode)
-			ft_lfork(map, procs, tmp, 14);
+			ft_fork_lfork(map, procs, tmp, 14);
 		else if (map[tmp->pc] == op_tab[15].opcode)
 			ft_aff(map, tmp, 15);
 		else
@@ -66,18 +66,15 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
     }
 }
 
-
-
-
-int		check_is_live(t_proc **procs)
+//TODO isnt_cycle ніде не ітерується!!!!!!!!!!!!!!!!!!!
+//- Він ітерується в for_instruct.
+void	check_is_live(t_proc **procs)
 {
 	t_proc *tmp;
 	t_proc *prev;
 
 	tmp = *procs;
 	prev = tmp;
-	if (tmp == NULL)
-		return (0);
 	while (tmp)
 	{
 		if (tmp->is_live)
@@ -94,10 +91,9 @@ int		check_is_live(t_proc **procs)
 		}
 		tmp = prev->next;
 	}
-	return (1);
 }
 
-int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
+void check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 						unsigned int *max_check,
 						unsigned int *cycle_to_die_curr)
 {
@@ -114,8 +110,7 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 				nbr_live += tmp->live;
 			tmp = tmp->next;
 		}
-		if (check_is_live(&bs->list_proc) == 0)
-			return (0);
+		check_is_live(&bs->list_proc);
 		if (nbr_live >= NBR_LIVE || *max_check == 0)
 		{
 			*max_check = MAX_CHECKS;
@@ -125,7 +120,6 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 			--(*max_check);
 		*cycle_to_die_curr = 0;
 	}
-	return (1);
 }
 
 void	who_win(t_proc *procs, unsigned int *winner)
@@ -171,9 +165,8 @@ void	global_cycles(t_bs *bs)
 //		}
 //		if (bs->is_dump_go && bs->dump_go % g_count == 0)
 //			print_map(bs->map);
-		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
-						   &cycle_to_die_curr) == 0)
-			break;
+		check_cycle_to_die(bs, &cycle_to_die, &max_check,
+						   &cycle_to_die_curr);
 	}
 	who_win(bs->list_proc, &bs->winner);
 }

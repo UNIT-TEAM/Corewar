@@ -1,343 +1,47 @@
 #include "corewar.h"
 
-int		for_instruct(unsigned char *map, t_proc *proc, unsigned short op_index,
+int	for_instruct(unsigned char *map, t_proc *proc, unsigned short op_index,
 						unsigned char *codage)
 {
 	if (++proc->inst_cycle != op_tab[op_index].cycles)
 		return (0);
 	*codage = map[(proc->pc + 1) % MEM_SIZE];
-	if (op_tab[op_index].codage && !check_codage(*codage, proc, op_index))
+	if (op_tab[op_index].is_codage && !check_codage(*codage, proc, op_index))
 		return (0);
 	return (1);
 }
 
-int		ft_add_sub(unsigned char *map, t_proc *proc, unsigned short op_index,
-					 unsigned short f_command)
+void	parse_heap_to_stack_args(unsigned int *args, unsigned int **heap_args,
+								 int count_arg)
 {
-	unsigned int arg[3];
-	unsigned char codage;
-	unsigned char arg_code_size_flag[2];
 	int i;
-	int j;
-	unsigned int tmp_pc[2];
 
-	if (for_instruct(map, proc, op_index, &codage) == 0)
-		return (0);
-	i = 8;
-	j = 0;
-	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	while (j < op_tab[op_index].count_arg)
+	i = 0;
+	while (i < count_arg)
 	{
-		i -= 2;
-		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
-		arg_code_size_flag[1] = op_tab[op_index].dir_size;
-		if (!take_argument(map, arg_code_size_flag, arg + j, tmp_pc))
-			return (0);
-		if (j != 2 && arg_code_size_flag[0] == REG_CODE)
-			arg[j] = proc->regs[arg[j]];
-		++j;
+		args[i] = (*heap_args)[i];
+		++i;
 	}
-	proc->regs[arg[2]] = (f_command) ? arg[0] - arg[1] : arg[0] + arg[1];
-	proc->carry = (unsigned char)((proc->regs[arg[2]] == 0) ? 1 : 0);
-	proc->pc = tmp_pc[0];
-	proc->inst_cycle = 0;
-	print_map(map);
-	return (1);
+	free(*heap_args);
+	*heap_args = NULL;
 }
 
-int		ft_and_or_xor(unsigned char *map, t_proc *proc, unsigned short op_index,
-					  unsigned short f_command)
-{
-	unsigned int arg[3];
-	unsigned char codage;
-	unsigned char arg_code_size_flag[2];
-	int i;
-	int j;
-	unsigned int tmp_pc[2];
-
-	if (for_instruct(map, proc, op_index, &codage) == 0)
-		return (0);
-	i = 8;
-	j = 0;
-	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	while (j < op_tab[op_index].count_arg)
-	{
-		i -= 2;
-		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
-		arg_code_size_flag[1] = op_tab[op_index].dir_size;
-		if (!take_argument(map, arg_code_size_flag, arg + j, tmp_pc))
-			return (0);
-		if (j != 2 && arg_code_size_flag[0] == REG_CODE)
-			arg[j] = proc->regs[arg[j]];
-		++j;
-	}
-	if (f_command == 0)
-		proc->regs[arg[2]] = arg[0] & arg[1];
-	else if (f_command == 1)
-		proc->regs[arg[2]] = arg[0] | arg[1];
-	else if (f_command == 2)
-		proc->regs[arg[2]] = arg[0] ^ arg[1];
-	//TODO не змінюється каретка на 1 !!!! тестити на страндартному зорку
-	proc->carry = (unsigned short)((proc->regs[arg[1]] == 0) ? 1 : 0);
-	proc->pc = tmp_pc[0];
-	proc->inst_cycle = 0;
-	print_map(map);
-	return (1);
-}
-
-int		ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index,
-				  unsigned short f_index)
-{
-	unsigned int arg[3];
-	unsigned char codage;
-	unsigned char arg_code_size_flag[2];
-	int i;
-	int j;
-	unsigned int tmp_pc[2];
-
-	if (for_instruct(map, proc, op_index, &codage) == 0)
-		return (0);
-	i = 8;
-	j = 0;
-	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	while (j < op_tab[op_index].count_arg)
-	{
-		i -= 2;
-		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
-		arg_code_size_flag[1] = op_tab[op_index].dir_size;
-		if (!take_argument(map, arg_code_size_flag, arg + j, tmp_pc))
-			return (0);
-		if (arg_code_size_flag[0] == REG_CODE)
-			arg[j] = proc->regs[arg[j]];
-		++j;
-	}
-	i = proc->pc + (arg[1] + (f_index) ? arg[2] : 0) % IDX_MOD;
-	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 24);
-	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
-	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
-	map[i % MEM_SIZE] = (unsigned char)arg[0];
-	proc->pc = tmp_pc[0];
-	proc->inst_cycle = 0;
-	print_map(map);
-	return (1);
-}
-
-int		ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short op_index,
-					   unsigned short f_long)
-{
-	unsigned int arg[3];
-	unsigned char codage;
-	unsigned char arg_code_size_flag[2];
-	int i;
-	int j;
-	unsigned int tmp_pc[2];
-
-	if (for_instruct(map, proc, op_index, &codage) == 0)
-		return (0);
-	i = 8;
-	j = 0;
-	print_map(map);
-	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	while (j < op_tab[op_index].count_arg)
-	{
-		i -= 2;
-		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
-		arg_code_size_flag[1] = op_tab[op_index].dir_size;
-		if (!take_argument(map, arg_code_size_flag, arg + j, tmp_pc))
-			return (0);
-		if (j != 2 && arg_code_size_flag[0] == REG_CODE)
-			arg[j] = proc->regs[arg[j]];
-		++j;
-	}
-	j = (proc->pc + (f_long) ? (arg[0] + arg[1]) % IDX_MOD : arg[0] + arg[1]) %
-			MEM_SIZE;
-	i = map[j++];
-	i = (i << 8) | (unsigned int)map[j++ % MEM_SIZE];
-	i = (i << 8) | (unsigned int)map[j++ % MEM_SIZE];
-	i = (i << 8) | (unsigned int)map[j % MEM_SIZE];
-	proc->regs[arg[2]] = (unsigned int)i;
-	if (f_long)
-		proc->carry = (unsigned char)((proc->regs[arg[2]] == 0) ? 1 : 0);
-	proc->pc = tmp_pc[0];
-	proc->inst_cycle = 0;
-	return (1);
-}
-
-int		ft_ld_lld(unsigned char *map, t_proc *proc, unsigned short op_index,
-					 unsigned short f_long)
-{
-	unsigned int arg[3];
-	unsigned char codage;
-	unsigned char arg_code_size_flag[2];
-	int i;
-	int j;
-	unsigned int tmp_pc[2];
-
-	if (for_instruct(map, proc, op_index, &codage) == 0)
-		return (0);
-	i = 8;
-	j = 0;
-	print_map(map);
-	tmp_pc[0] = (proc->pc + 2) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	while (j < op_tab[op_index].count_arg)
-	{
-		i -= 2;
-		arg_code_size_flag[0] = (unsigned char)((codage >> i) & 0x3);
-		arg_code_size_flag[1] = op_tab[op_index].dir_size;
-		if (!take_argument(map, arg_code_size_flag, arg + j, tmp_pc))
-			return (0);
-		if (j != 1 && arg_code_size_flag[0] == REG_CODE)
-			arg[j] = proc->regs[arg[j]];
-		++j;
-	}
-	j = (proc->pc + (f_long) ? arg[0] % IDX_MOD : arg[0]) % MEM_SIZE;
-	i = map[j++];
-	i = (i << 8) | (unsigned int)map[j++ % MEM_SIZE];
-	i = (i << 8) | (unsigned int)map[j++ % MEM_SIZE];
-	i = (i << 8) | (unsigned int)map[j % MEM_SIZE];
-	proc->regs[arg[1]] = (unsigned int)i;
-	proc->pc = tmp_pc[0];
-	proc->inst_cycle = 0;
-	proc->carry = (unsigned char)((proc->regs[arg[1]] == 0) ? 1 : 0);
-	return (1);
-}
-
-int		ft_zjump(unsigned char *map, t_proc *proc, unsigned short op_index)
-{
-	unsigned int arg[3];
-	unsigned char arg_code_size_flag[2];
-	unsigned int tmp_pc[2];
-
-	if (!proc->carry)
-		return (0);
-	if (++proc->inst_cycle != op_tab[op_index].cycles)
-		return (0);
-	tmp_pc[0] = (proc->pc + 1) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	arg_code_size_flag[0] = DIR_CODE;
-	arg_code_size_flag[1] = op_tab[op_index].dir_size;
-	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
-		return (0);
-	proc->pc = (proc->pc + (arg[0] % IDX_MOD)) % MEM_SIZE;
-	proc->inst_cycle = 0;
-	return (1);
-}
-
-int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
-				   unsigned short op_index)
-{
-	unsigned int arg[3];
-	unsigned char arg_code_size_flag[2];
-	t_proc *new_proc;
-	int i;
-	unsigned int tmp_pc[2];
-
-	if (++tmp->inst_cycle != op_tab[op_index].cycles)
-		return (0);
-	print_map(map);
-	tmp_pc[0] = (tmp->pc + 1) % MEM_SIZE;
-	tmp_pc[1] = tmp->pc;
-	arg_code_size_flag[0] = DIR_CODE;
-	arg_code_size_flag[1] = op_tab[op_index].dir_size;
-	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
-		return (0);
-	if (!(new_proc = (t_proc *)malloc(sizeof(t_proc))))
-		ft_error(5, NULL);
-	tmp->inst_cycle = 0;
-	new_proc->pc = (tmp->pc + arg[0] % IDX_MOD) % MEM_SIZE;
-	i = -1;
-	while (++i < REG_NUMBER)
-		new_proc->regs[i] = tmp->regs[i];
-	new_proc->carry = tmp->carry;
-	new_proc->id = tmp->id;
-	new_proc->inst_cycle = tmp->inst_cycle;
-	new_proc->is_live = tmp->is_live; //1 - не правильно
-	new_proc->next = *procs;
-	*procs = new_proc;
-	return (1);
-}
-
-int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
-				   unsigned short op_index)
-{
-	unsigned int arg[3];
-	unsigned char arg_code_size_flag[2];
-	t_proc *new_proc;
-	int i;
-	unsigned int tmp_pc[2];
-
-	if (++tmp->inst_cycle != op_tab[op_index].cycles)
-		return (0);
-	print_map(map);
-	tmp_pc[0] = (tmp->pc + 1) % MEM_SIZE;
-	tmp_pc[1] = tmp->pc;
-	arg_code_size_flag[0] = DIR_CODE;
-	arg_code_size_flag[1] = op_tab[op_index].dir_size;
-	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
-		return (0);
-	if (!(new_proc = (t_proc *)malloc(sizeof(t_proc))))
-		ft_error(5, NULL);
-	tmp->inst_cycle = 0;
-	new_proc->pc = (tmp->pc + arg[0]) % MEM_SIZE;
-	i = -1;
-	while (++i < REG_NUMBER)
-		new_proc->regs[i] = tmp->regs[i];
-	new_proc->carry = tmp->carry;
-	new_proc->id = tmp->id;
-	new_proc->inst_cycle = tmp->inst_cycle;
-	new_proc->is_live = tmp->is_live; //1 - не правильно
-	new_proc->next = *procs;
-	*procs = new_proc;
-	return (1);
-}
-
-int		ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
-{
-	unsigned int arg[3];
-	unsigned char codage;
-	unsigned char arg_code_size_flag[2];
-	unsigned int tmp_pc[2];
-
-	if (!proc->carry)
-		return (0);
-	if (for_instruct(map, proc, op_index, &codage) == 0)
-		return (0);
-	tmp_pc[0] = (proc->pc + 1) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	arg_code_size_flag[0] = (unsigned char)((codage >> 6) & 0x3);
-	arg_code_size_flag[1] = op_tab[op_index].dir_size;
-	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
-		return (0);
-	ft_printf("%c", arg[0]);
-	proc->pc = tmp_pc[0];
-	proc->inst_cycle = 0;
-	return (1);
-}
-
-int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
+void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 				   t_chmp *champs)
 {
-	//TODO коли все вірно перепригнути 4 байти на наступну інструкцію, а не проходитися по кожному байту
-	unsigned int arg[3];
-	unsigned char arg_code_size_flag[2];
-	unsigned int tmp_pc[2];
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
 	t_chmp *curr;
 
-	if (!proc->carry)
-		return (0);
-	if (++proc->inst_cycle != op_tab[op_index].cycles)
-		return (0);
-	tmp_pc[0] = (proc->pc + 1) % MEM_SIZE;
-	tmp_pc[1] = proc->pc;
-	arg_code_size_flag[0] = DIR_CODE;
-	arg_code_size_flag[1] = op_tab[op_index].dir_size;
-	if (!take_argument(map, arg_code_size_flag, arg, tmp_pc))
-		return (0);
+	if (for_instruct(map, proc, op_index, &codage) == 0)
+		return ;
+	proc->inst_cycle = 0;
+	codage = DIR_CODE << 6;
+	if ((heap_args = take_argument(map, codage, proc, op_index))
+			== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 	proc->is_live = 1;
 	curr = champs;
 	while (curr)
@@ -346,7 +50,194 @@ int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 			++curr->live;
 		curr = curr->next;
 	}
-	proc->pc = tmp_pc[0];
+	shift_pc(codage, proc, op_index);
+}
+
+void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
+						   unsigned short op_index)
+{
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
+	unsigned int load_value;
+	int i;
+
+	if (for_instruct(map, proc, op_index, &codage) == 0)
+		return ;
 	proc->inst_cycle = 0;
-	return (1);
+	if ((heap_args = take_argument(map, codage, proc, op_index))
+		== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+	if (ft_strequ(op_tab[op_index].name, "ldi") ||
+			ft_strequ(op_tab[op_index].name, "lldi"))
+	{
+		arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ?
+				 proc->regs[arg[0]] : arg[0];
+		arg[1] = (((codage >> 4) & 0x3) == REG_CODE) ?
+				 proc->regs[arg[1]] : arg[1];
+	}
+	if (ft_strequ(op_tab[op_index].name, "ld"))
+		i = proc->pc + arg[0] % IDX_MOD;
+	else if (ft_strequ(op_tab[op_index].name, "lld"))
+		i = proc->pc + arg[0];
+	else if (ft_strequ(op_tab[op_index].name, "ldi"))
+		i = proc->pc + (arg[0] + arg[1]) % IDX_MOD;
+	else if (ft_strequ(op_tab[op_index].name, "lldi"))
+		i = proc->pc + arg[0] + arg[1];
+	load_value = map[i++ % MEM_SIZE];
+	load_value = (load_value << 8) | (unsigned int)map[i++ % MEM_SIZE];
+	load_value = (load_value << 8) | (unsigned int)map[i++ % MEM_SIZE];
+	load_value = (load_value << 8) | (unsigned int)map[i % MEM_SIZE];
+	if (ft_strequ(op_tab[op_index].name, "ld") ||
+			ft_strequ(op_tab[op_index].name, "lld"))
+	{
+		proc->regs[arg[1]] = load_value;
+		proc->carry = (unsigned char)(proc->regs[arg[1]] == 0 ? 1 : 0);
+	}
+	else if (ft_strequ(op_tab[op_index].name, "ldi") ||
+			 ft_strequ(op_tab[op_index].name, "lldi"))
+	{
+		proc->regs[arg[2]] = load_value;
+		proc->carry = (unsigned char)(proc->regs[arg[2]] == 0 ? 1 : 0);
+	}
+	shift_pc(codage, proc, op_index);
+}
+
+void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
+{
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
+	int i;
+
+	if (for_instruct(map, proc, op_index, &codage) == 0)
+		return ;
+	proc->inst_cycle = 0;
+	if ((heap_args = take_argument(map, codage, proc, op_index))
+		== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ?
+			 proc->regs[arg[0]] : arg[0];
+	arg[1] = (((codage >> 4) & 0x3) == REG_CODE) ?
+			 proc->regs[arg[1]] : arg[1];
+	if (ft_strequ(op_tab[op_index].name, "sti"))
+		arg[2] = (((codage >> 2) & 0x3) == REG_CODE) ?
+				 proc->regs[arg[2]] : arg[2];
+	if (ft_strequ(op_tab[op_index].name, "st"))
+		i = proc->pc + arg[1] % IDX_MOD;
+	else if (ft_strequ(op_tab[op_index].name, "sti"))
+		i = proc->pc + (arg[1] + arg[2]) % IDX_MOD;
+	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 24);
+	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
+	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
+	map[i % MEM_SIZE] = (unsigned char)arg[0];
+	shift_pc(codage, proc, op_index);
+}
+
+void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
+							  unsigned short op_index)
+{
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
+	int i;
+
+	if (for_instruct(map, proc, op_index, &codage) == 0)
+		return ;
+	proc->inst_cycle = 0;
+	if ((heap_args = take_argument(map, codage, proc, op_index))
+		== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ?
+			 proc->regs[arg[0]] : arg[0];
+	arg[1] = (((codage >> 4) & 0x3) == REG_CODE) ?
+			 proc->regs[arg[1]] : arg[1];
+	if (ft_strequ(op_tab[op_index].name, "add"))
+		proc->regs[arg[2]] = arg[0] + arg[1];
+	else if (ft_strequ(op_tab[op_index].name, "sub"))
+		proc->regs[arg[2]] = arg[0] - arg[1];
+	else if (ft_strequ(op_tab[op_index].name, "and"))
+		proc->regs[arg[2]] = arg[0] & arg[1];
+	else if (ft_strequ(op_tab[op_index].name, "or"))
+		proc->regs[arg[2]] = arg[0] | arg[1];
+	else if (ft_strequ(op_tab[op_index].name, "xor"))
+		proc->regs[arg[2]] = arg[0] ^ arg[1];
+	proc->carry = (unsigned short)(proc->regs[arg[2]] == 0 ? 1 : 0);
+	shift_pc(codage, proc, op_index);
+}
+
+void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short op_index)
+{
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
+
+	if (for_instruct(map, proc, op_index, &codage) == 0)
+		return ;
+	proc->inst_cycle = 0;
+	codage = DIR_CODE << 6;
+	if ((heap_args = take_argument(map, codage, proc, op_index))
+		== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+	if (proc->carry == 0)
+		shift_pc(codage, proc, op_index);
+	else
+		proc->pc = (proc->pc + (arg[0] % IDX_MOD)) % MEM_SIZE;
+}
+
+void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
+				   unsigned short op_index)
+{
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
+	t_proc *new_proc;
+	int i;
+
+	if (for_instruct(map, tmp, op_index, &codage) == 0)
+		return ;
+	tmp->inst_cycle = 0;
+	codage = DIR_CODE << 6;
+	if ((heap_args = take_argument(map, codage, tmp, op_index))
+		== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+	if (!(new_proc = (t_proc *)malloc(sizeof(t_proc))))
+		ft_error(5, NULL);
+	if (ft_strequ(op_tab[op_index].name, "fork"))
+		new_proc->pc = (tmp->pc + arg[0] % IDX_MOD) % MEM_SIZE;
+	else if (ft_strequ(op_tab[op_index].name, "lfork"))
+		new_proc->pc = (tmp->pc + arg[0]) % MEM_SIZE;
+	i = -1;
+	while (++i < REG_NUMBER)
+		new_proc->regs[i] = tmp->regs[i];
+	new_proc->carry = tmp->carry;
+	new_proc->id = tmp->id;
+	new_proc->inst_cycle = tmp->inst_cycle;
+	new_proc->is_live = 0;
+	new_proc->next = *procs;
+	*procs = new_proc;
+	shift_pc(codage, tmp, op_index);
+}
+
+void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
+{
+	unsigned int arg[op_tab[op_index].count_arg];
+	unsigned int *heap_args;
+	unsigned char codage;
+
+	if (for_instruct(map, proc, op_index, &codage) == 0)
+		return ;
+	proc->inst_cycle = 0;
+	codage = DIR_CODE << 6;
+	if ((heap_args = take_argument(map, codage, proc, op_index))
+		== NULL)
+		return ;
+	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+	ft_printf("%c", proc->regs[arg[0]]);
+	shift_pc(codage, proc, op_index);
 }

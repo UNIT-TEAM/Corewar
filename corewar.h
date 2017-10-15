@@ -28,7 +28,7 @@ typedef struct		s_op
     t_arg_type		arg[3];
     unsigned short	opcode;
     unsigned short	cycles;
-    unsigned char 	codage;
+    unsigned char 	is_codage;
     unsigned char	dir_size;
 }					t_op;
 
@@ -82,33 +82,28 @@ void	ft_instraction(char *av, t_bs *bs);
 
 void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
-void	ft_fill_map(t_bs *bs);
+void ft_fill_map(t_bs *bs);
 void	print_map(unsigned char *map);
 
 int		check_op_h();
 
-int		take_argument(unsigned char *map, unsigned char *arg_code_size_flag,
-						 unsigned int *arg, unsigned int *tmp_pc);
+unsigned int	*take_argument(unsigned char *map, unsigned char codage,
+						  t_proc *proc, unsigned short op_index);
 int		check_codage(unsigned char codage, t_proc *proc, unsigned short index);
 
-int		ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index,
-					 unsigned short f_index);
-int		ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short index,
-					   unsigned short f_long);
-int		ft_ld_lld(unsigned char *map, t_proc *proc, unsigned short index,
-					 unsigned short f_long);
-int		ft_zjump(unsigned char *map, t_proc *proc, unsigned short index);
-int		ft_fork(unsigned char *map, t_proc **procs, t_proc *tmp,
-						 unsigned short index);
-int		ft_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
-				   unsigned short index);
-int		ft_add_sub(unsigned char *map, t_proc *proc, unsigned short op_index,
-					  unsigned short f_command);
-int		ft_and_or_xor(unsigned char *map, t_proc *proc, unsigned short op_index,
-						 unsigned short f_command);
-int		ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index);
-int		ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
-				   t_chmp *champs);
+void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index);
 
+
+void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
+				t_chmp *champs);
+void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
+						   unsigned short op_index);
+void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index);
+void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
+							  unsigned short op_index);
+void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short index);
+void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
+					  unsigned short op_index);
+void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index);
 
 #endif
