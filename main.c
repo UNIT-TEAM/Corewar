@@ -69,8 +69,8 @@ void	ft_error(int i, char *str)
 	else if (i == 2)
 		perror("error");
 	else if (i == 3)
-		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic name\n",\
-		str);
+		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic na"\
+		"me\n", str);
 	else if (i == 4)
 		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has a code size that di"\
 		"ffer from what its header says\n", str);
@@ -143,17 +143,21 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 //{
 //}
 
-void	num_champs(t_chmp *champs)
+void	num_champs(t_chmp *champs, t_proc *procs)
 {
 	t_chmp *tmp;
+	t_proc *tmp_proc;
 	unsigned int number;
 
 	tmp = champs;
+	tmp_proc = procs;
 	number = 1;
 	while (tmp)
 	{
 		tmp->num = number++;
+		tmp_proc->regs[0] = (unsigned int)-tmp->num;
 		tmp = tmp->next;
+		tmp_proc = tmp_proc->next;
 	}
 }
 
@@ -176,7 +180,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		i++;
 	}
 	base->winner = base->list_champs->num;
-	num_champs(base->list_champs);
+	num_champs(base->list_champs, base->list_proc);
 	ft_printf(YEL"Introducing contestants...\n"RC);
 }
 
@@ -194,11 +198,12 @@ int 	main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	while(base.list_champs)
+	ft_printf("winner is %u\n", base.winner);
+	/*while(base.list_champs)
 	{
 		ft_printf("%u\n",base.list_proc->pc);
 		base.list_champs = base.list_champs->next;
-	}
+	}*/
 	return (0);
 }
 //TODO перевірка на максимальну кількість процесів? якщо буде перевищеня

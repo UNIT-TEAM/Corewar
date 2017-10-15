@@ -40,7 +40,7 @@ typedef struct 		s_proc
 	unsigned short	is_live;
     unsigned int    inst_cycle;
 	unsigned int	id;
-	unsigned int	cycle_live;
+
 	struct s_proc	*next;
 }					t_proc;
 
@@ -48,6 +48,7 @@ typedef struct		s_chmp
 {
 	header_t		head;
 	int 			live;
+	unsigned int	cycle_live;
 	unsigned int 	num;
 	unsigned char	*instructions;
 	unsigned int	flag_num;
