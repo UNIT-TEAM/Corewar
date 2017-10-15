@@ -64,9 +64,12 @@ typedef	struct		s_bs
 	unsigned int	winner;
 	unsigned short	is_num_flag;
 	unsigned int 	dump;
-	char 			is_dump;
+	unsigned short	is_dump;
 	unsigned int	cycle_print;
-	char 			is_print;
+	unsigned short	is_print;
+	unsigned short	is_visual;
+	unsigned short	is_aff;
+	unsigned short	is_beep;
 }					t_bs;
 
 extern  t_op		op_tab[17];
