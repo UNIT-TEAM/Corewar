@@ -1,4 +1,3 @@
-#include <zconf.h>
 #include "corewar.h"
 
 /*
@@ -102,7 +101,8 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 
 	i = 8;
 	j = 0;
-	proc->pc += 1;
+	++proc->pc;
+	proc->pc += (op_tab[op_index].is_codage) ? 1 : 0;
 	while (j < op_tab[op_index].count_arg)
 	{
 		i -= 2;

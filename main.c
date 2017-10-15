@@ -155,7 +155,6 @@ void	num_champs(t_chmp *champs, t_proc *procs)
 	while (tmp)
 	{
 		tmp->num = number++;
-		tmp_proc->regs[0] = (unsigned int)-tmp->num;
 		tmp = tmp->next;
 		tmp_proc = tmp_proc->next;
 	}

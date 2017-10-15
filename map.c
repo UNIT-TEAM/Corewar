@@ -196,6 +196,7 @@ void	set_chmps_with_flag_num(t_bs *bs)
 		if (tmp_chmp->flag_num != 0)
 		{
 			tmp_chmp->num = tmp_chmp->flag_num;
+			tmp_proc->regs[0] = (unsigned int)(-tmp_chmp->num);
 			tmp_proc->id = tmp_chmp->num;
 			tmp_proc->pc = (tmp_chmp->flag_num - 1) * (MEM_SIZE / bs->np);
 			k = -1;
@@ -225,7 +226,8 @@ void	set_chmps_without_flag_num(t_bs *bs)
 			while (bs->map[i] != 0x0)
 				i += MEM_SIZE / bs->np;
 			tmp_proc->pc = i;
-			tmp_chmp->num = (i == 0) ? 1 : i / (MEM_SIZE / bs->np) + 1;
+			tmp_chmp->num = i / (MEM_SIZE / bs->np) + 1;
+			tmp_proc->regs[0] = (unsigned int)(-tmp_chmp->num);
 			tmp_proc->id = tmp_chmp->num;
 			k = -1;
 			while (++k < tmp_chmp->head.prog_size)

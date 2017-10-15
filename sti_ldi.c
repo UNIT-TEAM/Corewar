@@ -133,15 +133,11 @@ void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
 		i = proc->pc + arg[1] % IDX_MOD;
 	else if (ft_strequ(op_tab[op_index].name, "sti"))
 		i = proc->pc + (arg[1] + arg[2]) % IDX_MOD;
-	i = i + 1; // позиція рахується не правильно, треба + 1 до того що порахувало
 	map[i++ % MEM_SIZE] = (unsigned char) (arg[0] >> 24);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
 	map[i % MEM_SIZE] = (unsigned char)arg[0];
 	shift_pc(codage, proc, op_index);
-	//************
-	proc->pc++;
-	//*******************
 	print_map(map);
 }
 
