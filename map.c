@@ -63,6 +63,7 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 			ft_aff(map, tmp, 15);
 		else
 			tmp->pc = (tmp->pc + 1) % MEM_SIZE;
+		tmp = tmp->next;
     }
 }
 
@@ -125,24 +126,24 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 	return (1);
 }
 
-void	who_win(t_proc *procs, unsigned int *winner)
+void	who_win(t_chmp *champ, unsigned int *winner)
 {
-	t_proc *tmp;
+	t_chmp *tmp;
 	unsigned int max_cycle;
 
-	tmp = procs;
-	*winner = tmp->id;
+	tmp = champ;
+	*winner = tmp->num;
 	max_cycle = tmp->cycle_live;
 	tmp = tmp->next;
 	while (tmp)
 	{
 		if (max_cycle < tmp->cycle_live)
 		{
-			*winner = tmp->id;
+			*winner = tmp->num;
 			max_cycle = tmp->cycle_live;
 		}
 		else if (max_cycle == tmp->cycle_live)
-			*winner = (tmp->id > *winner) ? tmp->id : *winner;
+			*winner = (tmp->num > *winner) ? tmp->num : *winner;
 		tmp = tmp->next;
 	}
 }
@@ -156,23 +157,25 @@ void	global_cycles(t_bs *bs)
 	cycle_to_die = CYCLE_TO_DIE;
 	cycle_to_die_curr = 0;
 	max_check = MAX_CHECKS;
+	print_map(bs->map);
 	while (cycle_to_die > 0)
 	{
 		++g_count;
 		++cycle_to_die_curr;
 		check_inst_proc(&bs->list_proc, bs->map, bs->list_champs);
-//		if (bs->is_dump && bs->dump == g_count)
-//		{
-//			print_map(bs->map);
-//			break;
-//		}
-//		if (bs->is_dump_go && bs->dump_go % g_count == 0)
-//			print_map(bs->map);
+		if (bs->is_dump && bs->dump == g_count)
+		{
+			print_map(bs->map);
+			break;
+		}
+		if (bs->is_print && bs->cycle_print % g_count == 0)
+			print_map(bs->map);
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 						   &cycle_to_die_curr) == 0)
 			break;
+		ft_printf("g_coun = %u\n", g_count);
 	}
-	who_win(bs->list_proc, &bs->winner);
+	who_win(bs->list_champs, &bs->winner);
 }
 
 //void	flag_num(t_bs *bs)
@@ -193,6 +196,7 @@ void	set_chmps_with_flag_num(t_bs *bs)
 		if (tmp_chmp->flag_num != 0)
 		{
 			tmp_chmp->num = tmp_chmp->flag_num;
+			tmp_proc->regs[0] = (unsigned int)(-tmp_chmp->num);
 			tmp_proc->id = tmp_chmp->num;
 			tmp_proc->pc = (tmp_chmp->flag_num - 1) * (MEM_SIZE / bs->np);
 			k = -1;
@@ -202,7 +206,7 @@ void	set_chmps_with_flag_num(t_bs *bs)
 		tmp_chmp = tmp_chmp->next;
 		tmp_proc = tmp_proc->next;
 	}
-	print_map(bs->map);
+	//print_map(bs->map);
 }
 
 void	set_chmps_without_flag_num(t_bs *bs)
@@ -223,6 +227,7 @@ void	set_chmps_without_flag_num(t_bs *bs)
 				i += MEM_SIZE / bs->np;
 			tmp_proc->pc = i;
 			tmp_chmp->num = i / (MEM_SIZE / bs->np) + 1;
+			tmp_proc->regs[0] = (unsigned int)(-tmp_chmp->num);
 			tmp_proc->id = tmp_chmp->num;
 			k = -1;
 			while (++k < tmp_chmp->head.prog_size)
@@ -232,7 +237,7 @@ void	set_chmps_without_flag_num(t_bs *bs)
 		tmp_chmp = tmp_chmp->next;
 		tmp_proc = tmp_proc->next;
 	}
-	print_map(bs->map);
+	//print_map(bs->map);
 }
 
 void	ft_fill_map(t_bs *bs)
@@ -240,5 +245,6 @@ void	ft_fill_map(t_bs *bs)
 	if (bs->is_num_flag)
 		set_chmps_with_flag_num(bs);
 	set_chmps_without_flag_num(bs);
+	//print_map(bs->map);
 	global_cycles(bs);
 }

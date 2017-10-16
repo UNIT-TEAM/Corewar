@@ -40,7 +40,7 @@ typedef struct 		s_proc
 	unsigned short	is_live;
     unsigned int    inst_cycle;
 	unsigned int	id;
-	unsigned int	cycle_live;
+
 	struct s_proc	*next;
 }					t_proc;
 
@@ -48,6 +48,7 @@ typedef struct		s_chmp
 {
 	header_t		head;
 	int 			live;
+	unsigned int	cycle_live;
 	unsigned int 	num;
 	unsigned char	*instructions;
 	unsigned int	flag_num;
@@ -63,9 +64,12 @@ typedef	struct		s_bs
 	unsigned int	winner;
 	unsigned short	is_num_flag;
 	unsigned int 	dump;
-	char 			is_dump;
+	unsigned short	is_dump;
 	unsigned int	cycle_print;
-	char 			is_print;
+	unsigned short	is_print;
+	unsigned short	is_visual;
+	unsigned short	is_aff;
+	unsigned short	is_beep;
 }					t_bs;
 
 extern  t_op		op_tab[17];
@@ -82,7 +86,7 @@ void	ft_instraction(char *av, t_bs *bs);
 
 void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
-void	ft_fill_map(t_bs *bs);
+void ft_fill_map(t_bs *bs);
 void	print_map(unsigned char *map);
 
 int		check_op_h();

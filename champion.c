@@ -10,6 +10,7 @@ void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc)
 	if (!(tmp_cmp = (t_chmp *)malloc(sizeof(t_chmp))))
 		ft_error(5, NULL);
 	tmp_cmp->live = 0;
+	tmp_cmp->cycle_live = 0;
 	tmp_cmp->flag_num = flag_num;
 	if (flag_num != 0)
 	{
@@ -28,7 +29,7 @@ void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc)
 	tmp_proc->carry = 0;
 	tmp_proc->is_live = 0;
 	tmp_proc->inst_cycle = 0;
-	tmp_proc->cycle_live = 0;
+	//tmp_proc->cycle_live = 0;
 	i = -1;
 	while (++i < REG_NUMBER)
 		tmp_proc->regs[i] = 0;

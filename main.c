@@ -1,5 +1,36 @@
 #include "corewar.h"
 
+void	del_list_champ(t_chmp *champ)
+{
+	t_chmp *tmp;
+	t_chmp *trash;
+
+	trash = champ;
+	while (trash)
+	{
+		tmp = trash->next;
+		free(trash->instructions);
+		free(trash);
+		trash = tmp;
+	}
+	champ = NULL;
+}
+
+void	del_list_proc(t_proc *proc)
+{
+	t_proc *tmp;
+	t_proc *trash;
+
+	trash = proc;
+	while (trash)
+	{
+		tmp = trash->next;
+		free(trash);
+		trash = tmp;
+	}
+	proc = NULL;
+}
+
 void	base_to_zero(t_bs *bs)
 {
 	int i;
@@ -11,7 +42,11 @@ void	base_to_zero(t_bs *bs)
 		bs->map[i] = 0;
 	bs->np = 0;
 	bs->is_dump = 0;
+	bs->is_print = 0;
+	bs->is_visual = 0;
 	bs->is_num_flag = 0;
+	bs->is_aff = 0;
+	bs->is_beep = 0;
 	g_count = 0;
 }
 
@@ -69,8 +104,8 @@ void	ft_error(int i, char *str)
 	else if (i == 2)
 		perror("error");
 	else if (i == 3)
-		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic name\n",\
-		str);
+		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic na"\
+		"me\n", str);
 	else if (i == 4)
 		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has a code size that di"\
 		"ffer from what its header says\n", str);
@@ -125,6 +160,112 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 	return (num_player);
 }
 
+void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
+{
+	int i;
+	int fd;
+	unsigned int tmp;
+
+	// чи треба тут обнулити tmp
+	if (ft_strequ(argv[*index], "-dump"))
+	{
+		if (*index + 2 > argc - 1)
+			ft_error(10, NULL);
+		i = -1;
+		while (argv[*index + 1][++i])
+			if (!ft_isdigit(argv[*index + 1][i]))
+				ft_error(6, argv[*index + 1]);
+		if (!check_num_atoi(argv[*index + 1], &tmp))
+			ft_error(8, argv[*index + 1]);
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
+			ft_error(2, NULL);
+		else
+			close(fd);
+		bs->dump = tmp;
+		bs->is_dump = 1;
+		*index += 2;
+	}
+}
+
+
+void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
+{
+	int i;
+	int fd;
+	unsigned int tmp;
+
+	// чи треба тут обнулити tmp
+	if (ft_strequ(argv[*index], "-print"))
+	{
+		if (*index + 2 > argc - 1)
+			ft_error(10, NULL);
+		i = -1;
+		while (argv[*index + 1][++i])
+			if (!ft_isdigit(argv[*index + 1][i]))
+				ft_error(6, argv[*index + 1]);
+		if (!check_num_atoi(argv[*index + 1], &tmp))
+			ft_error(8, argv[*index + 1]);
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
+			ft_error(2, NULL);
+		else
+			close(fd);
+		bs->cycle_print = tmp;
+		bs->is_print = 1;
+		*index += 2;
+	}
+}
+
+void	parse_flag_visual(t_bs *bs, char **argv, int argc, int *index)
+{
+	int fd;
+
+	if (ft_strequ(argv[*index], "-v"))
+	{
+		if (*index + 1 >= argc)
+			ft_error(10, NULL);
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
+			ft_error(2, NULL);
+		else
+			close(fd);
+		bs->is_visual = 1;
+		*index += 1;
+	}
+}
+
+void	parse_flag_aff(t_bs *bs, char **argv, int argc, int *index)
+{
+	int fd;
+
+	if (ft_strequ(argv[*index], "-a"))
+	{
+		if (*index + 1 >= argc)
+			ft_error(10, NULL);
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
+			ft_error(2, NULL);
+		else
+			close(fd);
+		bs->is_aff = 1;
+		*index += 1;
+	}
+}
+
+void	parse_flag_beep(t_bs *bs, char **argv, int argc, int *index)
+{
+	int fd;
+
+	if (ft_strequ(argv[*index], "-b"))
+	{
+		if (*index + 1 >= argc)
+			ft_error(10, NULL);
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
+			ft_error(2, NULL);
+		else
+			close(fd);
+		bs->is_beep = 1;
+		*index += 1;
+	}
+}
+
 //int parse_flag_dump()
 //{
 //	else if (ft_strequ(flag, "-dump"))
@@ -143,17 +284,20 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 //{
 //}
 
-void	num_champs(t_chmp *champs)
+void	num_champs(t_chmp *champs, t_proc *procs)
 {
 	t_chmp *tmp;
+	t_proc *tmp_proc;
 	unsigned int number;
 
 	tmp = champs;
+	tmp_proc = procs;
 	number = 1;
 	while (tmp)
 	{
 		tmp->num = number++;
 		tmp = tmp->next;
+		tmp_proc = tmp_proc->next;
 	}
 }
 
@@ -166,17 +310,20 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	while (i < ac)
 	{
 		num_player = parse_flag_num(base, av, ac, &i);
+		parse_flag_dump(base, av, ac, &i);
+		parse_flag_print(base, av, ac, &i);
+		parse_flag_visual(base, av, ac, &i);
+		parse_flag_aff(base, av, ac, &i);
+		parse_flag_beep(base, av, ac, &i);
 		add_new_champ(&base->list_champs, num_player, &base->list_proc);
 		ft_magic_size(av[i], &base->list_champs->head);
 		ft_name_comment(av[i], &base->list_champs->head, 0);
 		ft_name_comment(av[i], &base->list_champs->head, 1);
 		ft_instraction(av[i], base);
-		//		parse_flag_dump();
-		//		parse_flag_visual();
 		i++;
 	}
 	base->winner = base->list_champs->num;
-	num_champs(base->list_champs);
+	num_champs(base->list_champs, base->list_proc);
 	ft_printf(YEL"Introducing contestants...\n"RC);
 }
 
@@ -194,11 +341,14 @@ int 	main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	while(base.list_champs)
+	ft_printf("winner is %u\n", base.winner);
+	del_list_champ(base.list_champs);
+	del_list_proc(base.list_proc);
+	/*while(base.list_champs)
 	{
 		ft_printf("%u\n",base.list_proc->pc);
 		base.list_champs = base.list_champs->next;
-	}
+	}*/
 	return (0);
 }
 //TODO перевірка на максимальну кількість процесів? якщо буде перевищеня

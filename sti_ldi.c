@@ -47,10 +47,15 @@ void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 	while (curr)
 	{
 		if (curr->num == arg[0])
+		{
 			++curr->live;
+			curr->cycle_live = g_count;
+		}
 		curr = curr->next;
 	}
 	shift_pc(codage, proc, op_index);
+	//print_map(map);
+	ft_printf("LIVE\n");
 }
 
 void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
@@ -65,8 +70,7 @@ void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
 	if (for_instruct(map, proc, op_index, &codage) == 0)
 		return ;
 	proc->inst_cycle = 0;
-	if ((heap_args = take_argument(map, codage, proc, op_index))
-		== NULL)
+	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 	if (ft_strequ(op_tab[op_index].name, "ldi") ||
@@ -129,11 +133,12 @@ void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
 		i = proc->pc + arg[1] % IDX_MOD;
 	else if (ft_strequ(op_tab[op_index].name, "sti"))
 		i = proc->pc + (arg[1] + arg[2]) % IDX_MOD;
-	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 24);
+	map[i++ % MEM_SIZE] = (unsigned char) (arg[0] >> 24);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
 	map[i % MEM_SIZE] = (unsigned char)arg[0];
 	shift_pc(codage, proc, op_index);
+	print_map(map);
 }
 
 void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
@@ -142,13 +147,11 @@ void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
 	unsigned int arg[op_tab[op_index].count_arg];
 	unsigned int *heap_args;
 	unsigned char codage;
-	int i;
 
 	if (for_instruct(map, proc, op_index, &codage) == 0)
 		return ;
 	proc->inst_cycle = 0;
-	if ((heap_args = take_argument(map, codage, proc, op_index))
-		== NULL)
+	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ?
@@ -179,14 +182,16 @@ void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short op_index)
 		return ;
 	proc->inst_cycle = 0;
 	codage = DIR_CODE << 6;
-	if ((heap_args = take_argument(map, codage, proc, op_index))
-		== NULL)
+	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
-	if (proc->carry == 0)
-		shift_pc(codage, proc, op_index);
+	if (proc->carry == 1)
+		proc->pc = arg[0] % IDX_MOD;
 	else
-		proc->pc = (proc->pc + (arg[0] % IDX_MOD)) % MEM_SIZE;
+		shift_pc(codage, proc, op_index);
+
+	//print_map(map);
+	ft_printf("zjump\n");
 }
 
 void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
@@ -218,7 +223,7 @@ void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 	new_proc->carry = tmp->carry;
 	new_proc->id = tmp->id;
 	new_proc->inst_cycle = tmp->inst_cycle;
-	new_proc->is_live = 0;
+	new_proc->is_live = tmp->is_live;
 	new_proc->next = *procs;
 	*procs = new_proc;
 	shift_pc(codage, tmp, op_index);
@@ -238,6 +243,9 @@ void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
 		== NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+
+	//if (bs->is_aff == 0) не друкуємо а при 1 друкуємо
 	ft_printf("%c", proc->regs[arg[0]]);
 	shift_pc(codage, proc, op_index);
 }
+//TODO якщо передадуть відємне значення!!!!! треба всюди зробити (x + MEM_SIZE) % MEM_SIZE

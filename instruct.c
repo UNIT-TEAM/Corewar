@@ -13,10 +13,9 @@ int		take_arg_reg(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
 }
 
 int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
-						t_proc *proc, unsigned short op_index)
+						unsigned short op_index)
 {
 	unsigned char code[4];
-	unsigned int p;
 
 	if (op_tab[op_index].dir_size == 0)
 	{
@@ -24,29 +23,29 @@ int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
 		code[1] = map[(*tmp_pc + 2) % MEM_SIZE];
 		code[2] = map[(*tmp_pc + 1) % MEM_SIZE];
 		code[3] = map[*tmp_pc];
-		p = *((unsigned int *)code) % MEM_SIZE;
+		*arg = *((unsigned int *)code);
+		*tmp_pc = (*tmp_pc + 4) % MEM_SIZE;
 	}
 	else
 	{
 		code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
 		code[1] = map[*tmp_pc];
-		p = (unsigned short)(*((unsigned short *)code) % MEM_SIZE);
+		*arg = *((unsigned short *)code);
+		*tmp_pc = (*tmp_pc + 2) % MEM_SIZE;
 	}
-	code[0] = map[(proc->pc + p + 3) % MEM_SIZE];
-	code[1] = map[(proc->pc + p + 2) % MEM_SIZE];
-	code[2] = map[(proc->pc + p + 1) % MEM_SIZE];
-	code[3] = map[(proc->pc + p) % MEM_SIZE];
-	*arg = *((unsigned int *)code);
-	*tmp_pc = (*tmp_pc + (op_tab[op_index].dir_size ? 2 : 4)) % MEM_SIZE;
 	return (1);
 }
 
-int		take_arg_ind(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
+int		take_arg_ind(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc, t_proc *proc)
 {
 	unsigned char code[2];
+	unsigned short p;
 
 	code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
 	code[1] = map[*tmp_pc];
+	p = *((unsigned short *)code);
+	code[0] = map[(proc->pc + p + 1) % MEM_SIZE];
+	code[1] = map[(proc->pc + p) % MEM_SIZE];
 	*arg = *((unsigned short *)code);
 	*tmp_pc = (*tmp_pc + 2) % MEM_SIZE;
 	return (1);
@@ -77,9 +76,9 @@ unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 		else if (((codage >> j) & 0x3) == DIR_CODE)
 			// мені впадлу для цієї функції робити 4 параметра, потім зробим,
 			// зараз для розуміння і так норм
-			res = take_arg_dir(map, arg + i, &tmp_pc, proc, op_index);
+			res = take_arg_dir(map, arg + i, &tmp_pc, op_index);
 		else if (((codage >> j) & 0x3) == IND_CODE)
-			res = take_arg_ind(map, arg + i, &tmp_pc);
+			res = take_arg_ind(map, arg + i, &tmp_pc, proc);
 		if (res == 0)
 		{
 			shift_pc(codage, proc, op_index);
@@ -97,7 +96,8 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 
 	i = 8;
 	j = 0;
-	proc->pc += 1;
+	++proc->pc;
+	proc->pc += (op_tab[op_index].is_codage) ? 1 : 0;
 	while (j < op_tab[op_index].count_arg)
 	{
 		i -= 2;
