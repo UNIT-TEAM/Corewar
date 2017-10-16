@@ -185,10 +185,11 @@ void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short op_index)
 	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
-	if (proc->carry == 0)
-		shift_pc(codage, proc, op_index);
+	if (proc->carry == 1)
+		proc->pc = arg[0] % IDX_MOD;
 	else
-		proc->pc = (proc->pc + (arg[0] % IDX_MOD)) % MEM_SIZE;
+		shift_pc(codage, proc, op_index);
+
 	//print_map(map);
 	ft_printf("zjump\n");
 }
