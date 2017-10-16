@@ -186,7 +186,7 @@ void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short op_index)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 	if (proc->carry == 1)
-		proc->pc = arg[0] % IDX_MOD;
+		proc->pc = ((proc->pc + ((short)arg[0] % IDX_MOD)) + MEM_SIZE) % MEM_SIZE;
 	else
 		shift_pc(codage, proc, op_index);
 
