@@ -243,6 +243,8 @@ void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
 		== NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
+
+	//if (bs->is_aff == 0) не друкуємо а при 1 друкуємо
 	ft_printf("%c", proc->regs[arg[0]]);
 	shift_pc(codage, proc, op_index);
 }

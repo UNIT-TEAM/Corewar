@@ -163,13 +163,13 @@ void	global_cycles(t_bs *bs)
 		++g_count;
 		++cycle_to_die_curr;
 		check_inst_proc(&bs->list_proc, bs->map, bs->list_champs);
-//		if (bs->is_dump && bs->dump == g_count)
-//		{
-//			print_map(bs->map);
-//			break;
-//		}
-//		if (bs->is_dump_go && bs->dump_go % g_count == 0)
-//			print_map(bs->map);
+		if (bs->is_dump && bs->dump == g_count)
+		{
+			print_map(bs->map);
+			break;
+		}
+		if (bs->is_print && bs->cycle_print % g_count == 0)
+			print_map(bs->map);
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 						   &cycle_to_die_curr) == 0)
 			break;
