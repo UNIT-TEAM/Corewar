@@ -109,7 +109,10 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 		while (tmp)
 		{
 			if (tmp->live != 0)
+			{
 				nbr_live += tmp->live;
+				tmp->live = 0;
+			}
 			tmp = tmp->next;
 		}
 		if (check_is_live(&bs->list_proc) == 0)
