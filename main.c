@@ -1,11 +1,11 @@
 #include "corewar.h"
 
-void	del_list_champ(t_chmp *champ)
+void	del_list_champ(t_chmp **champ)
 {
 	t_chmp *tmp;
 	t_chmp *trash;
 
-	trash = champ;
+	trash = *champ;
 	while (trash)
 	{
 		tmp = trash->next;
@@ -13,22 +13,22 @@ void	del_list_champ(t_chmp *champ)
 		free(trash);
 		trash = tmp;
 	}
-	champ = NULL;
+	*champ = NULL;
 }
 
-void	del_list_proc(t_proc *proc)
+void	del_list_proc(t_proc **proc)
 {
 	t_proc *tmp;
 	t_proc *trash;
 
-	trash = proc;
+	trash = *proc;
 	while (trash)
 	{
 		tmp = trash->next;
 		free(trash);
 		trash = tmp;
 	}
-	proc = NULL;
+	*proc = NULL;
 }
 
 void	base_to_zero(t_bs *bs)
@@ -342,8 +342,8 @@ int 	main(int argc, char **argv)
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
 	ft_printf("winner is %u\n", base.winner);
-	del_list_champ(base.list_champs);
-	del_list_proc(base.list_proc);
+	del_list_champ(&base.list_champs);
+	del_list_proc(&base.list_proc);
 	/*while(base.list_champs)
 	{
 		ft_printf("%u\n",base.list_proc->pc);

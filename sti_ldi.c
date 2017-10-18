@@ -54,7 +54,6 @@ void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 		curr = curr->next;
 	}
 	shift_pc(codage, proc, op_index);
-	//print_map(map);
 	ft_printf("LIVE\n");
 }
 
@@ -82,21 +81,23 @@ void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
 				 proc->regs[arg[1]] : arg[1];
 	}
 	if (ft_strequ(op_tab[op_index].name, "ld"))
-		i = (proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE < 0 ?
-			MEM_SIZE + (proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE :
-			(proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE;
+		i = (proc->pc + (int)arg[0] % IDX_MOD) % MEM_SIZE < 0 ?
+			MEM_SIZE + (proc->pc + (int)arg[0] % IDX_MOD) % MEM_SIZE :
+			(proc->pc + (int)arg[0] % IDX_MOD) % MEM_SIZE;
 	else if (ft_strequ(op_tab[op_index].name, "lld"))
-		i = (proc->pc + (short)arg[0]) % MEM_SIZE < 0 ?
-			MEM_SIZE + (proc->pc + (short)arg[0]) % MEM_SIZE :
-			(proc->pc + (short)arg[0]) % MEM_SIZE;
+		i = (proc->pc + (int)arg[0]) % MEM_SIZE < 0 ?
+			MEM_SIZE + (proc->pc + (int)arg[0]) % MEM_SIZE :
+			(proc->pc + (int)arg[0]) % MEM_SIZE;
 	else if (ft_strequ(op_tab[op_index].name, "ldi"))
-		i = (proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE < 0 ?
-			MEM_SIZE + (proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE :
-			(proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE;
+		i = (proc->pc + (short)(arg[0] + arg[1]) % IDX_MOD) % MEM_SIZE < 0 ?
+			MEM_SIZE +
+			(proc->pc + ((short)arg[0] + (short)arg[1]) % IDX_MOD) % MEM_SIZE :
+			(proc->pc + ((short)arg[0] + (short)arg[1]) % IDX_MOD) % MEM_SIZE;
 	else if (ft_strequ(op_tab[op_index].name, "lldi"))
-		i = (proc->pc + (short)arg[0]) % MEM_SIZE < 0 ?
-			MEM_SIZE + (proc->pc + (short)arg[0]) % MEM_SIZE :
-			(proc->pc + (short)arg[0]) % MEM_SIZE;
+		i = (proc->pc + (short)arg[0] + (short)arg[1]) % MEM_SIZE < 0 ?
+			MEM_SIZE +
+			(proc->pc + (short)arg[0] + (short)arg[1]) % MEM_SIZE :
+			(proc->pc + (short)arg[0] + (short)arg[1]) % MEM_SIZE;
 	load_value = map[i++ % MEM_SIZE];
 	load_value = (load_value << 8) | (unsigned int)map[i++ % MEM_SIZE];
 	load_value = (load_value << 8) | (unsigned int)map[i++ % MEM_SIZE];
@@ -126,6 +127,11 @@ void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
 	if (for_instruct(map, proc, op_index, &codage) == 0)
 		return ;
 	proc->inst_cycle = 0;
+	if (ft_strequ(op_tab[op_index].name, "st") && codage == 0x70)
+	{
+		codage = 0x60;
+		op_tab[op_index].dir_size = 1;
+	}
 	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
@@ -137,9 +143,14 @@ void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
 		arg[2] = (((codage >> 2) & 0x3) == REG_CODE) ?
 				 proc->regs[arg[2]] : arg[2];
 	if (ft_strequ(op_tab[op_index].name, "st"))
-		i = proc->pc + arg[1] % IDX_MOD;
+		i = (proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE < 0 ?
+			MEM_SIZE + (proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE :
+			(proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE;
 	else if (ft_strequ(op_tab[op_index].name, "sti"))
-		i = i = proc->pc + (arg[1] + arg[2]) % IDX_MOD;
+		i = (proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE < 0 ?
+			MEM_SIZE +
+			(proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE :
+			(proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE;
 	map[i++ % MEM_SIZE] = (unsigned char) (arg[0] >> 24);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);

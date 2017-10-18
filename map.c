@@ -92,6 +92,8 @@ int		check_is_live(t_proc **procs)
 		}
 		tmp = prev->next;
 	}
+	if (*procs == NULL)
+		return (0);
 	return (1);
 }
 
@@ -164,6 +166,7 @@ void	global_cycles(t_bs *bs)
 	while (cycle_to_die > 0)
 	{
 		++g_count;
+		ft_printf("g_coun = %u\n", g_count);
 		++cycle_to_die_curr;
 		check_inst_proc(&bs->list_proc, bs->map, bs->list_champs);
 		if (bs->is_dump && bs->dump == g_count)
@@ -176,7 +179,6 @@ void	global_cycles(t_bs *bs)
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 						   &cycle_to_die_curr) == 0)
 			break;
-		ft_printf("g_coun = %u\n", g_count);
 	}
 	who_win(bs->list_champs, &bs->winner);
 }
