@@ -39,7 +39,10 @@ void	base_to_zero(t_bs *bs)
 	bs->list_proc = NULL;
 	i = -1;
 	while (++i < MEM_SIZE)
+	{
 		bs->map[i] = 0;
+		bs->color_map[i].champ = 0;
+	}
 	bs->np = 0;
 	bs->is_dump = 0;
 	bs->is_print = 0;
@@ -353,4 +356,3 @@ int 	main(int argc, char **argv)
 }
 //TODO перевірка на максимальну кількість процесів? якщо буде перевищеня
 //TODO перевірка на максимальний g_count
-

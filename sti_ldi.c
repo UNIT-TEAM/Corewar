@@ -1,7 +1,6 @@
 #include "corewar.h"
 
 int	for_instruct(unsigned char *map, t_proc *proc, unsigned short op_index,
-						unsigned char *codage)
 {
 	if (++proc->inst_cycle != op_tab[op_index].cycles)
 		return (0);
@@ -54,7 +53,7 @@ void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 		curr = curr->next;
 	}
 	shift_pc(codage, proc, op_index);
-	ft_printf("LIVE\n");
+//	ft_printf("LIVE\n");
 }
 
 void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
@@ -117,7 +116,7 @@ void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
 	shift_pc(codage, proc, op_index);
 }
 
-void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
+void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 {
 	unsigned int arg[op_tab[op_index].count_arg];
 	unsigned int *heap_args;
@@ -151,12 +150,15 @@ void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index)
 			MEM_SIZE +
 			(proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE :
 			(proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE;
+	add_color(i % MEM_SIZE, proc->id, bs);
 	map[i++ % MEM_SIZE] = (unsigned char) (arg[0] >> 24);
+	add_color(i % MEM_SIZE, proc->id, bs);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
+	add_color(i % MEM_SIZE, proc->id, bs);
 	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
+	add_color(i % MEM_SIZE, proc->id, bs);
 	map[i % MEM_SIZE] = (unsigned char)arg[0];
 	shift_pc(codage, proc, op_index);
-	print_map(map);
 }
 
 void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
@@ -209,9 +211,6 @@ void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short op_index)
 				   (proc->pc + (short)arg[0] % IDX_MOD) % MEM_SIZE;
 	else
 		shift_pc(codage, proc, op_index);
-
-	//print_map(map);
-	ft_printf("zjump\n");
 }
 
 void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
@@ -269,7 +268,6 @@ void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 
 	//if (bs->is_aff == 0) не друкуємо а при 1 друкуємо
-	ft_printf("%c", proc->regs[arg[0]]);
 	shift_pc(codage, proc, op_index);
 }
 //TODO якщо передадуть відємне значення!!!!! треба всюди зробити (x + MEM_SIZE) % MEM_SIZE

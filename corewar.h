@@ -5,7 +5,7 @@
 # include <fcntl.h>
 # include <stdio.h>
 # include "op.h"
-
+#include "ncurses.h"
 /*
 **	p		- players in project;
 ** 	np		- number of players;
@@ -31,6 +31,13 @@ typedef struct		s_op
     unsigned char 	is_codage;
     unsigned char	dir_size;
 }					t_op;
+
+typedef struct 		s_color
+{
+	char 			champ;
+	int 			cycle_n;
+    int             carretka;
+}					t_color;
 
 typedef struct 		s_proc
 {
@@ -60,6 +67,7 @@ typedef	struct		s_bs
 	t_chmp			*list_champs;
 	t_proc			*list_proc;
 	unsigned char 	map[MEM_SIZE];
+	t_color			color_map[MEM_SIZE];
 	int 			np;
 	unsigned int	winner;
 	unsigned short	is_num_flag;
@@ -71,6 +79,15 @@ typedef	struct		s_bs
 	unsigned short	is_aff;
 	unsigned short	is_beep;
 }					t_bs;
+
+typedef struct		s_ncur
+{
+    WINDOW          *window;
+    int              ready;
+    int                flag;
+    int                 n_cyc;
+
+}                   t_ncurs;
 
 extern  t_op		op_tab[17];
 extern unsigned int g_count;
@@ -103,12 +120,21 @@ void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
 				t_chmp *champs);
 void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
 						   unsigned short op_index);
-void	ft_st_sti(unsigned char *map, t_proc *proc, unsigned short op_index);
+void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index);
 void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
 							  unsigned short op_index);
 void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short index);
 void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 					  unsigned short op_index);
 void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index);
+
+
+void	add_color(int a, unsigned int champ, t_bs *bs);
+void	ncurses_init_win(t_ncurs *base);
+int		kb_proc(t_ncurs *base, int ch);
+void	draw_mass(t_bs *bs, int size);
+void    ncurses_init_colors();
+void create_box(WINDOW *p_win, int size);
+void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs);
 
 #endif
