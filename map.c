@@ -23,7 +23,7 @@ void	print_map(unsigned char *map)
 }
 
 
-void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
+void    check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map, t_chmp *champs)
 {
     t_proc *tmp;
 
@@ -35,7 +35,7 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 		else if (map[tmp->pc] == op_tab[1].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 1);
 		else if (map[tmp->pc] == op_tab[2].opcode)
-			ft_st_sti(map, tmp, 2);
+			ft_st_sti(bs, tmp, 2);
 		else if (map[tmp->pc] == op_tab[3].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 3);
 		else if (map[tmp->pc] == op_tab[4].opcode)
@@ -51,7 +51,7 @@ void    check_inst_proc(t_proc **procs, unsigned char *map, t_chmp *champs)
 		else if (map[tmp->pc] == op_tab[9].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 9);
 		else if (map[tmp->pc] == op_tab[10].opcode)
-			ft_st_sti(map, tmp, 10);
+			ft_st_sti(bs, tmp, 10);
 		else if (map[tmp->pc] == op_tab[11].opcode)
 			ft_fork_lfork(map, procs, tmp, 11);
 		else if (map[tmp->pc] == op_tab[12].opcode)
@@ -247,7 +247,7 @@ void	global_cycles(t_bs *bs)
 		if (ncurs->flag || ch == 'n') {
 			++g_count;
 			++cycle_to_die_curr;
-			check_inst_proc(&bs->list_proc, bs, bs->list_champs);
+			check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
 			if (bs->is_dump && bs->dump == g_count) {
 				// print_map(bs->map);
 				break;

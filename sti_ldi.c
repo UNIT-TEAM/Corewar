@@ -1,7 +1,10 @@
 #include "corewar.h"
 
 int	for_instruct(unsigned char *map, t_proc *proc, unsigned short op_index,
+					unsigned char *codage)
 {
+
+
 	if (++proc->inst_cycle != op_tab[op_index].cycles)
 		return (0);
 	*codage = map[(proc->pc + 1) % MEM_SIZE];
@@ -123,7 +126,7 @@ void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 	unsigned char codage;
 	int i;
 
-	if (for_instruct(map, proc, op_index, &codage) == 0)
+	if (for_instruct(bs->map, proc, op_index, &codage) == 0)
 		return ;
 	proc->inst_cycle = 0;
 	if (ft_strequ(op_tab[op_index].name, "st") && codage == 0x70)
@@ -131,7 +134,7 @@ void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 		codage = 0x60;
 		op_tab[op_index].dir_size = 1;
 	}
-	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
+	if ((heap_args = take_argument(bs->map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ?
@@ -151,13 +154,13 @@ void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 			(proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE :
 			(proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE;
 	add_color(i % MEM_SIZE, proc->id, bs);
-	map[i++ % MEM_SIZE] = (unsigned char) (arg[0] >> 24);
+	bs->map[i++ % MEM_SIZE] = (unsigned char) (arg[0] >> 24);
 	add_color(i % MEM_SIZE, proc->id, bs);
-	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
+	bs->map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
 	add_color(i % MEM_SIZE, proc->id, bs);
-	map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
+	bs->map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
 	add_color(i % MEM_SIZE, proc->id, bs);
-	map[i % MEM_SIZE] = (unsigned char)arg[0];
+	bs->map[i % MEM_SIZE] = (unsigned char)arg[0];
 	shift_pc(codage, proc, op_index);
 }
 
