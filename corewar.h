@@ -83,9 +83,9 @@ typedef	struct		s_bs
 typedef struct		s_ncur
 {
     WINDOW          *window;
-    int              ready;
-    int                flag;
-    int                 n_cyc;
+    int             ready;
+    int             flag;
+    int             n_cyc;
 
 }                   t_ncurs;
 
@@ -103,7 +103,7 @@ void	ft_instraction(char *av, t_bs *bs);
 
 void	add_new_champ(t_chmp **first, unsigned int num_player, t_proc **proc);
 
-void ft_fill_map(t_bs *bs);
+void 	ft_fill_map(t_bs *bs);
 void	print_map(unsigned char *map);
 
 int		check_op_h();
@@ -136,5 +136,6 @@ void	draw_mass(t_bs *bs, int size);
 void    ncurses_init_colors();
 void create_box(WINDOW *p_win, int size);
 void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs);
+
 
 #endif

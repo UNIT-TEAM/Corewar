@@ -169,7 +169,6 @@ void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 	int fd;
 	unsigned int tmp;
 
-	// чи треба тут обнулити tmp
 	if (ft_strequ(argv[*index], "-dump"))
 	{
 		if (*index + 2 > argc - 1)
@@ -197,7 +196,6 @@ void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 	int fd;
 	unsigned int tmp;
 
-	// чи треба тут обнулити tmp
 	if (ft_strequ(argv[*index], "-print"))
 	{
 		if (*index + 2 > argc - 1)
@@ -220,16 +218,8 @@ void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 
 void	parse_flag_visual(t_bs *bs, char **argv, int argc, int *index)
 {
-	int fd;
-
 	if (ft_strequ(argv[*index], "-v"))
 	{
-		if (*index + 1 >= argc)
-			ft_error(10, NULL);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
-			ft_error(2, NULL);
-		else
-			close(fd);
 		bs->is_visual = 1;
 		*index += 1;
 	}
@@ -237,16 +227,8 @@ void	parse_flag_visual(t_bs *bs, char **argv, int argc, int *index)
 
 void	parse_flag_aff(t_bs *bs, char **argv, int argc, int *index)
 {
-	int fd;
-
 	if (ft_strequ(argv[*index], "-a"))
 	{
-		if (*index + 1 >= argc)
-			ft_error(10, NULL);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
-			ft_error(2, NULL);
-		else
-			close(fd);
 		bs->is_aff = 1;
 		*index += 1;
 	}
@@ -254,38 +236,12 @@ void	parse_flag_aff(t_bs *bs, char **argv, int argc, int *index)
 
 void	parse_flag_beep(t_bs *bs, char **argv, int argc, int *index)
 {
-	int fd;
-
 	if (ft_strequ(argv[*index], "-b"))
 	{
-		if (*index + 1 >= argc)
-			ft_error(10, NULL);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
-			ft_error(2, NULL);
-		else
-			close(fd);
 		bs->is_beep = 1;
 		*index += 1;
 	}
 }
-
-//int parse_flag_dump()
-//{
-//	else if (ft_strequ(flag, "-dump"))
-//	{
-//		i = -1;
-//		while (number[++i])
-//			if (!ft_isdigit(number[i]))
-//				ft_error(7, number);
-//		if (!check_num_atoi(number, count))
-//			ft_error(8, "nbr_cycles");
-//		return (1);
-//	}
-//}
-//
-//int parse_flag_visual()
-//{
-//}
 
 void	num_champs(t_chmp *champs, t_proc *procs)
 {
@@ -329,7 +285,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	num_champs(base->list_champs, base->list_proc);
 	ft_printf(YEL"Introducing contestants...\n"RC);
 }
-
+//TODO перевірити розмір
 unsigned int g_count;
 
 //TODO: перевірка на коректність CAPS
@@ -347,11 +303,6 @@ int 	main(int argc, char **argv)
 	ft_printf("winner is %u\n", base.winner);
 	del_list_champ(&base.list_champs);
 	del_list_proc(&base.list_proc);
-	/*while(base.list_champs)
-	{
-		ft_printf("%u\n",base.list_proc->pc);
-		base.list_champs = base.list_champs->next;
-	}*/
 	return (0);
 }
 //TODO перевірка на максимальну кількість процесів? якщо буде перевищеня

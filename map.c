@@ -248,12 +248,13 @@ void	global_cycles(t_bs *bs)
 			++g_count;
 			++cycle_to_die_curr;
 			check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
-			if (bs->is_dump && bs->dump == g_count) {
-				// print_map(bs->map);
+			if (bs->is_dump && bs->dump == g_count)
+			{
+				print_map(bs->map);
 				break;
 			}
-//			if (bs->is_dump_go && bs->dump_go % g_count == 0)
-//				// print_map(bs->map);
+			if (bs->is_print && bs->cycle_print % g_count == 0)
+				print_map(bs->map);
 			if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 								   &cycle_to_die_curr) == 0)
 				break;
@@ -264,11 +265,42 @@ void	global_cycles(t_bs *bs)
 	who_win(bs->list_champs, &bs->winner);
 }
 
+void	global_cycles2(t_bs *bs)
+{
+	long cycle_to_die;
+	unsigned int cycle_to_die_curr;
+	unsigned int max_check;
+
+	cycle_to_die = CYCLE_TO_DIE;
+	cycle_to_die_curr = 0;
+	max_check = MAX_CHECKS;
+
+	while (cycle_to_die > 0)
+	{
+		++cycle_to_die_curr;
+		check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
+		if (bs->is_dump && bs->dump == g_count) {
+			// print_map(bs->map);
+			break;
+		}
+//		if (bs->is_dump_go && bs->dump_go % g_count == 0)
+//			// print_map(bs->map);
+		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
+							   &cycle_to_die_curr) == 0)
+			break;
+	}
+
+	who_win(bs->list_champs, &bs->winner);
+}
+
 void	ft_fill_map(t_bs *bs)
 {
 	if (bs->is_num_flag)
 		set_chmps_with_flag_num(bs);
 	set_chmps_without_flag_num(bs);
 	//print_map(bs->map);
-	global_cycles(bs);
+	if (bs->is_visual)
+		global_cycles(bs);
+	else
+		global_cycles2(bs);
 }
