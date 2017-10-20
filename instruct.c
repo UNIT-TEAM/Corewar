@@ -44,12 +44,13 @@ int		take_arg_ind(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc, t
 	code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
 	code[1] = map[*tmp_pc];
 	p = *((unsigned short *)code);
-	code[0] = map[(proc->pc + p + 3) % MEM_SIZE];
-	code[1] = map[(proc->pc + p + 2) % MEM_SIZE];
-	code[2] = map[(proc->pc + p + 1) % MEM_SIZE];
-	code[3] = map[(proc->pc + p) % MEM_SIZE];
-
-	*arg = *((unsigned int *)code);
+//	code[0] = map[(proc->pc + p + 3) % MEM_SIZE];
+//	code[1] = map[(proc->pc + p + 2) % MEM_SIZE];
+//	code[2] = map[(proc->pc + p + 1) % MEM_SIZE];
+//	code[3] = map[(proc->pc + p) % MEM_SIZE];
+//
+//	*arg = *((unsigned int *)code);
+	*arg = p;
 	*tmp_pc = (*tmp_pc + 2) % MEM_SIZE;
 	return (1);
 }

@@ -44,6 +44,7 @@ void	base_to_zero(t_bs *bs)
 		bs->color_map[i].champ = 0;
 	}
 	bs->np = 0;
+	bs->num_live = 0;
 	bs->is_dump = 0;
 	bs->is_print = 0;
 	bs->is_visual = 0;
@@ -193,7 +194,6 @@ void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 {
 	int i;
-	int fd;
 	unsigned int tmp;
 
 	if (ft_strequ(argv[*index], "-print"))
@@ -206,41 +206,23 @@ void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 				ft_error(6, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &tmp))
 			ft_error(8, argv[*index + 1]);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
-			ft_error(2, NULL);
-		else
-			close(fd);
 		bs->cycle_print = tmp;
 		bs->is_print = 1;
 		*index += 2;
 	}
 }
 
-void	parse_flag_visual(t_bs *bs, char **argv, int argc, int *index)
+void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 {
 	if (ft_strequ(argv[*index], "-v"))
-	{
 		bs->is_visual = 1;
-		*index += 1;
-	}
-}
-
-void	parse_flag_aff(t_bs *bs, char **argv, int argc, int *index)
-{
-	if (ft_strequ(argv[*index], "-a"))
-	{
+	else if (ft_strequ(argv[*index], "-a"))
 		bs->is_aff = 1;
-		*index += 1;
-	}
-}
-
-void	parse_flag_beep(t_bs *bs, char **argv, int argc, int *index)
-{
-	if (ft_strequ(argv[*index], "-b"))
-	{
+	else if (ft_strequ(argv[*index], "-b"))
 		bs->is_beep = 1;
+	if (ft_strequ(argv[*index], "-v") || ft_strequ(argv[*index], "-a") ||
+			ft_strequ(argv[*index], "-b"))
 		*index += 1;
-	}
 }
 
 void	num_champs(t_chmp *champs, t_proc *procs)
@@ -259,11 +241,12 @@ void	num_champs(t_chmp *champs, t_proc *procs)
 		tmp_proc = tmp_proc->next;
 	}
 }
-
+//TODO перевірка на сумісність декількох флагів
 void	ft_sprint(t_bs *base, char **av, int ac)
 {
 	int				i;
 	unsigned int	num_player;
+	int fd;
 
 	i = 1;
 	while (i < ac)
@@ -271,16 +254,21 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		num_player = parse_flag_num(base, av, ac, &i);
 		parse_flag_dump(base, av, ac, &i);
 		parse_flag_print(base, av, ac, &i);
-		parse_flag_visual(base, av, ac, &i);
-		parse_flag_aff(base, av, ac, &i);
-		parse_flag_beep(base, av, ac, &i);
-		add_new_champ(&base->list_champs, num_player, &base->list_proc);
-		ft_magic_size(av[i], &base->list_champs->head);
-		ft_name_comment(av[i], &base->list_champs->head, 0);
-		ft_name_comment(av[i], &base->list_champs->head, 1);
-		ft_instraction(av[i], base);
+		parse_flag_visual_aff_beep(base, av, &i);
+		if ((fd = open(av[i], O_RDONLY)) != -1)
+		{
+			close(fd);
+			add_new_champ(&base->list_champs, num_player, &base->list_proc);
+			ft_magic_size(av[i], &base->list_champs->head);
+			ft_name_comment(av[i], &base->list_champs->head, 0);
+			ft_name_comment(av[i], &base->list_champs->head, 1);
+			ft_instraction(av[i], base);
+		}
 		i++;
 	}
+	//TODO зробити повідомлення про помилку
+	if (base->list_champs == NULL)
+		exit(1);
 	base->winner = base->list_champs->num;
 	num_champs(base->list_champs, base->list_proc);
 	ft_printf(YEL"Introducing contestants...\n"RC);

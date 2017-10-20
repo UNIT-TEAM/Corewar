@@ -69,6 +69,7 @@ typedef	struct		s_bs
 	unsigned char 	map[MEM_SIZE];
 	t_color			color_map[MEM_SIZE];
 	int 			np;
+	int				num_live;
 	unsigned int	winner;
 	unsigned short	is_num_flag;
 	unsigned int 	dump;
@@ -116,7 +117,7 @@ int		check_codage(unsigned char codage, t_proc *proc, unsigned short index);
 void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index);
 
 
-void	ft_live(unsigned char *map, t_proc *proc, unsigned short op_index,
+void	ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
 				t_chmp *champs);
 void	ft_ld_lld_ldi_lldi(unsigned char *map, t_proc *proc,
 						   unsigned short op_index);

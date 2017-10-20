@@ -31,7 +31,7 @@ void    check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map, t_chmp *ch
     while (tmp)
     {
 		if (map[tmp->pc] == op_tab[0].opcode)
-			ft_live(map, tmp, 0, champs);
+			ft_live(bs, tmp, 0, champs);
 		else if (map[tmp->pc] == op_tab[1].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 1);
 		else if (map[tmp->pc] == op_tab[2].opcode)
@@ -102,25 +102,11 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 						unsigned int *max_check,
 						unsigned int *cycle_to_die_curr)
 {
-	t_chmp			*tmp;
-	unsigned int	nbr_live;
-
 	if (*cycle_to_die_curr == *cycle_to_die)
 	{
-		nbr_live = 0;
-		tmp = bs->list_champs;
-		while (tmp)
-		{
-			if (tmp->live != 0)
-			{
-				nbr_live += tmp->live;
-				tmp->live = 0;
-			}
-			tmp = tmp->next;
-		}
 		if (check_is_live(&bs->list_proc) == 0)
 			return (0);
-		if (nbr_live >= NBR_LIVE || *max_check == 0)
+		if (bs->num_live >= NBR_LIVE || *max_check == 1)
 		{
 			*max_check = MAX_CHECKS;
 			*cycle_to_die -= CYCLE_DELTA;
@@ -128,6 +114,7 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 		else
 			--(*max_check);
 		*cycle_to_die_curr = 0;
+		bs->num_live = 0;
 	}
 	return (1);
 }
@@ -217,7 +204,7 @@ void	set_chmps_without_flag_num(t_bs *bs)
 	//print_map(bs->map);
 }
 
-void	global_cycles(t_bs *bs)
+void	global_cycles_with_visual(t_bs *bs)
 {
 	long cycle_to_die;
 	unsigned int cycle_to_die_curr;
@@ -261,11 +248,12 @@ void	global_cycles(t_bs *bs)
 		}
 		ch = 0;
 	}
+	++g_count;
 	endwin();
 	who_win(bs->list_champs, &bs->winner);
 }
 
-void	global_cycles2(t_bs *bs)
+void	global_cycles_without_visual(t_bs *bs)
 {
 	long cycle_to_die;
 	unsigned int cycle_to_die_curr;
@@ -277,19 +265,21 @@ void	global_cycles2(t_bs *bs)
 
 	while (cycle_to_die > 0)
 	{
+		++g_count;
 		++cycle_to_die_curr;
 		check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
-		if (bs->is_dump && bs->dump == g_count) {
-			// print_map(bs->map);
-			break;
-		}
+//		if (bs->is_dump && bs->dump == g_count) {
+//			 print_map(bs->map);
+//			break;
+//		}
 //		if (bs->is_dump_go && bs->dump_go % g_count == 0)
 //			// print_map(bs->map);
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 							   &cycle_to_die_curr) == 0)
 			break;
 	}
-
+	++g_count;
+	ft_printf("g_count = %u", g_count);
 	who_win(bs->list_champs, &bs->winner);
 }
 
@@ -300,7 +290,7 @@ void	ft_fill_map(t_bs *bs)
 	set_chmps_without_flag_num(bs);
 	//print_map(bs->map);
 	if (bs->is_visual)
-		global_cycles(bs);
+		global_cycles_with_visual(bs);
 	else
-		global_cycles2(bs);
+		global_cycles_without_visual(bs);
 }
