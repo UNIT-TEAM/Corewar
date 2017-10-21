@@ -36,7 +36,31 @@ int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
 	return (1);
 }
 
-int		take_arg_ind(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc, t_proc *proc)
+unsigned int	take_value_from_addres(unsigned char *map, t_proc *proc,
+									   short address, short flag_long)
+{
+	unsigned int index;
+	unsigned int value;
+
+	if (flag_long == 0)
+		index = (unsigned int)((long)proc->pc + address % IDX_MOD < 0 ?
+							   MEM_SIZE +
+							((long)proc->pc + address % IDX_MOD) % MEM_SIZE :
+				 			((long)proc->pc + address % IDX_MOD) % MEM_SIZE);
+	else
+		index = (unsigned int)((long)proc->pc + address < 0 ?
+							   MEM_SIZE +
+									   ((long)proc->pc + address) % MEM_SIZE :
+							   ((long)proc->pc + address) % MEM_SIZE);
+	value = map[index++ % MEM_SIZE];
+	value = (value << 8) | (unsigned int) map[index++ % MEM_SIZE];
+	value = (value << 8) | (unsigned int) map[index++ % MEM_SIZE];
+	value = (value << 8) | (unsigned int) map[index % MEM_SIZE];
+	return (value);
+}
+
+int		take_arg_ind(unsigned char *map, unsigned int *arg,
+						unsigned int *tmp_pc, t_proc *proc, short flag_long)
 {
 	unsigned char code[2];
 	unsigned short p;
@@ -44,19 +68,13 @@ int		take_arg_ind(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc, t
 	code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
 	code[1] = map[*tmp_pc];
 	p = *((unsigned short *)code);
-//	code[0] = map[(proc->pc + p + 3) % MEM_SIZE];
-//	code[1] = map[(proc->pc + p + 2) % MEM_SIZE];
-//	code[2] = map[(proc->pc + p + 1) % MEM_SIZE];
-//	code[3] = map[(proc->pc + p) % MEM_SIZE];
-//
-//	*arg = *((unsigned int *)code);
-	*arg = p;
+	*arg = take_value_from_addres(map, proc, p, flag_long);
 	*tmp_pc = (*tmp_pc + 2) % MEM_SIZE;
 	return (1);
 }
 
 unsigned int	*take_argument(unsigned char *map, unsigned char codage,
-						 t_proc *proc, unsigned short op_index)
+						 t_proc *proc, unsigned short op_index, short flag_long)
 {
 	int res;
 	int i;
@@ -78,11 +96,9 @@ unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 		if (((codage >> j) & 0x3) == REG_CODE)
 			res = take_arg_reg(map, arg + i, &tmp_pc);
 		else if (((codage >> j) & 0x3) == DIR_CODE)
-			// мені впадлу для цієї функції робити 4 параметра, потім зробим,
-			// зараз для розуміння і так норм
 			res = take_arg_dir(map, arg + i, &tmp_pc, op_index);
 		else if (((codage >> j) & 0x3) == IND_CODE)
-			res = take_arg_ind(map, arg + i, &tmp_pc, proc);
+			res = take_arg_ind(map, arg + i, &tmp_pc, proc, flag_long);
 		if (res == 0)
 		{
 			shift_pc(codage, proc, op_index);

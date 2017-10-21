@@ -167,68 +167,68 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 	return (num_player);
 }
 
-void	parse_flag_dump(t_bs *bs, char **argv, int argc, int index)
+void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 {
 	int i;
 	int fd;
 	unsigned int tmp;
 
-	if (ft_strequ(argv[index], "-dump"))
+	if (ft_strequ(argv[*index], "-dump"))
 	{
-		if (index + 2 > argc - 1)
+		if (*index + 2 > argc - 1)
 			ft_error(10, NULL);
 		i = -1;
-		while (argv[index + 1][++i])
-			if (!ft_isdigit(argv[index + 1][i]))
-				ft_error(6, argv[index + 1]);
-		if (!check_num_atoi(argv[index + 1], &tmp))
-			ft_error(8, argv[index + 1]);
-		if ((fd = open(argv[index + 2], O_RDONLY)) < 0)
+		while (argv[*index + 1][++i])
+			if (!ft_isdigit(argv[*index + 1][i]))
+				ft_error(6, argv[*index + 1]);
+		if (!check_num_atoi(argv[*index + 1], &tmp))
+			ft_error(8, argv[*index + 1]);
+		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
 			ft_error(2, NULL);
 		else
 			close(fd);
 		bs->dump = tmp;
 		bs->is_dump = 1;
-		index += 2;
+		*index += 2;
 	}
 }
 
 
-void	parse_flag_print(t_bs *bs, char **argv, int argc, int index)
+void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 {
 	int i;
 	unsigned int tmp;
 
-	if (ft_strequ(argv[index], "-print"))
+	if (ft_strequ(argv[*index], "-print"))
 	{
-		if (index + 2 > argc - 1)
+		if (*index + 2 > argc - 1)
 			ft_error(10, NULL);
 		i = -1;
-		while (argv[index + 1][++i])
-			if (!ft_isdigit(argv[index + 1][i]))
-				ft_error(6, argv[index + 1]);
-		if (!check_num_atoi(argv[index + 1], &tmp))
-			ft_error(8, argv[index + 1]);
+		while (argv[*index + 1][++i])
+			if (!ft_isdigit(argv[*index + 1][i]))
+				ft_error(6, argv[*index + 1]);
+		if (!check_num_atoi(argv[*index + 1], &tmp))
+			ft_error(8, argv[*index + 1]);
 		bs->cycle_print = tmp;
 		bs->is_print = 1;
-		index += 2;
+		*index += 2;
 	}
 }
 
-void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int index)
+void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 {
-	if (ft_strequ(argv[index], "-v"))
+	if (ft_strequ(argv[*index], "-v"))
 		bs->is_visual = 1;
-	else if (ft_strequ(argv[index], "-a"))
+	else if (ft_strequ(argv[*index], "-a"))
 		bs->is_aff = 1;
-	else if (ft_strequ(argv[index], "-b"))
+	else if (ft_strequ(argv[*index], "-b"))
 		bs->is_beep = 1;
-	if (ft_strequ(argv[index], "-v") || ft_strequ(argv[index], "-a") ||
-			ft_strequ(argv[index], "-b"))
-		index += 1;
+	if (ft_strequ(argv[*index], "-v") || ft_strequ(argv[*index], "-a") ||
+			ft_strequ(argv[*index], "-b"))
+		*index += 1;
 }
 
-void	num_champs(t_chmp *champs, t_proc *procs)
+void	num_champs(t_chmp *champs, t_proc *procs, unsigned short is_visual)
 {
 	t_chmp *tmp;
 	t_proc *tmp_proc;
@@ -237,12 +237,15 @@ void	num_champs(t_chmp *champs, t_proc *procs)
 	tmp = champs;
 	tmp_proc = procs;
 	number = 1;
-	ft_printf(YEL"Introducing contestants...\n"RC);
+	if (is_visual == 0)
+		ft_printf(YEL"Introducing contestants...\n"RC);
 	while (tmp)
 	{
 		tmp->num = number++;
-		ft_printf("* Player %u, weighing %u bytes, \"%s\" (\"%s\")\n", tmp->num,
-				  tmp->head.prog_size, tmp->head.prog_name, tmp->head.comment);
+		if (is_visual == 0)
+			ft_printf("* Player %u, weighing %u bytes, \"%s\" (\"%s\")\n",
+					  tmp->num, tmp->head.prog_size, tmp->head.prog_name,
+					  tmp->head.comment);
 		tmp = tmp->next;
 		tmp_proc = tmp_proc->next;
 	}
@@ -254,9 +257,9 @@ int		check_flags_corewar(t_bs *bs, char **av, int ac, int *index)
 		ft_strequ(av[*index], "-n") || ft_strequ(av[*index], "-v") ||
 		ft_strequ(av[*index], "-a") || ft_strequ(av[*index], "-b"))
 	{
-		parse_flag_dump(bs, av, ac, *index);
-		parse_flag_print(bs, av, ac, *index);
-		parse_flag_visual_aff_beep(bs, av, *index);
+		parse_flag_dump(bs, av, ac, index);
+		parse_flag_print(bs, av, ac, index);
+		parse_flag_visual_aff_beep(bs, av, index);
 	}
 	return (0);
 }
@@ -281,6 +284,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	i = 1;
 	while (i < ac)
 	{
+		num_player = 0;
 		if (check_flags_corewar(base, av, ac, &i))
 			num_player = parse_flag_num(base, av, ac, &i);
 		if ((fd = open(av[i], O_RDONLY)) != -1)
@@ -298,7 +302,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	if (base->list_champs == NULL)
 		ft_error(13, NULL);
 	base->winner = base->list_champs->num;
-	num_champs(base->list_champs, base->list_proc);
+	num_champs(base->list_champs, base->list_proc, base->is_visual);
 }
 
 void	print_winner(t_chmp *list_champs, unsigned int winner)
@@ -309,8 +313,11 @@ void	print_winner(t_chmp *list_champs, unsigned int winner)
 	while (tmp)
 	{
 		if (winner == tmp->num)
+		{
 			ft_printf("Contestant %u, \"%s\", has won !\n", winner,
 					  tmp->head.prog_name);
+			return ;
+		}
 		tmp = tmp->next;
 	}
 }
@@ -330,9 +337,8 @@ int 	main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-
-	print_winner(base.list_champs, base.winner);
-
+	if (base.is_visual == 0)
+		print_winner(base.list_champs, base.winner);
 	del_list_champ(&base.list_champs);
 	del_list_proc(&base.list_proc);
 	return (0);

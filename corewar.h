@@ -110,7 +110,10 @@ void	print_map(unsigned char *map);
 int		check_op_h();
 
 unsigned int	*take_argument(unsigned char *map, unsigned char codage,
-						  t_proc *proc, unsigned short op_index);
+							   t_proc *proc, unsigned short op_index,
+							   short flag_long);
+unsigned int	take_value_from_addres(unsigned char *map, t_proc *proc,
+									   short address, short flag_long);
 
 int		check_codage(unsigned char codage, t_proc *proc, unsigned short index);
 

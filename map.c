@@ -283,7 +283,7 @@ void	global_cycles_without_visual(t_bs *bs)
 			break;
 	}
 	++g_count;
-	ft_printf("g_count = %u\n", g_count);
+//	ft_printf("g_count = %u\n", g_count);
 	who_win(bs->list_champs, &bs->winner);
 }
 
