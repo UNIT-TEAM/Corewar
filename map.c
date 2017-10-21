@@ -61,14 +61,14 @@ void    check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map, t_chmp *ch
 		else if (map[tmp->pc] == op_tab[14].opcode)
 			ft_fork_lfork(map, procs, tmp, 14);
 		else if (map[tmp->pc] == op_tab[15].opcode)
-			ft_aff(map, tmp, 15);
+			ft_aff(map, tmp, 15, bs->is_aff);
 		else
 			tmp->pc = (tmp->pc + 1) % MEM_SIZE;
 		tmp = tmp->next;
     }
 }
 
-int		check_is_live(t_proc **procs)
+int check_is_live(t_proc **procs, unsigned short is_beep)
 {
 	t_proc *tmp;
 	t_proc *prev;
@@ -90,6 +90,8 @@ int		check_is_live(t_proc **procs)
 				*procs = tmp->next;
 			prev->next = tmp->next;
 			free(tmp);
+			if (is_beep == 1)
+				;//TODO вивести звукове супроводження смерті
 		}
 		tmp = prev->next;
 	}
@@ -104,7 +106,7 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 {
 	if (*cycle_to_die_curr == *cycle_to_die)
 	{
-		if (check_is_live(&bs->list_proc) == 0)
+		if (check_is_live(&bs->list_proc, bs->is_beep) == 0)
 			return (0);
 		if (bs->num_live >= NBR_LIVE || *max_check == 1)
 		{
@@ -231,7 +233,8 @@ void	global_cycles_with_visual(t_bs *bs)
 		draw_mass(bs, 4096);
 		ncurses_stats(ncurs->window, ncurs,bs);
 
-		if (ncurs->flag || ch == 'n') {
+		if (ncurs->flag || ch == 'n')
+		{
 			++g_count;
 			++cycle_to_die_curr;
 			check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
@@ -268,18 +271,19 @@ void	global_cycles_without_visual(t_bs *bs)
 		++g_count;
 		++cycle_to_die_curr;
 		check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
-//		if (bs->is_dump && bs->dump == g_count) {
-//			 print_map(bs->map);
-//			break;
-//		}
-//		if (bs->is_dump_go && bs->dump_go % g_count == 0)
-//			// print_map(bs->map);
+		if (bs->is_dump && bs->dump == g_count)
+		{
+			print_map(bs->map);
+			break;
+		}
+		if (bs->is_print && bs->cycle_print % g_count == 0)
+			print_map(bs->map);
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 							   &cycle_to_die_curr) == 0)
 			break;
 	}
 	++g_count;
-	ft_printf("g_count = %u", g_count);
+	ft_printf("g_count = %u\n", g_count);
 	who_win(bs->list_champs, &bs->winner);
 }
 

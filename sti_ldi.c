@@ -272,7 +272,8 @@ void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 	shift_pc(codage, tmp, op_index);
 }
 
-void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
+void ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index,
+			unsigned short is_aff)
 {
 	unsigned int arg[op_tab[op_index].count_arg];
 	unsigned int *heap_args;
@@ -282,12 +283,14 @@ void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index)
 		return ;
 	proc->inst_cycle = 0;
 	codage = DIR_CODE << 6;
-	if ((heap_args = take_argument(map, codage, proc, op_index))
-		== NULL)
+	if ((heap_args = take_argument(map, codage, proc, op_index)) == NULL)
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 
-	//if (bs->is_aff == 0) не друкуємо а при 1 друкуємо
+	if (is_aff == 1)
+		ft_printf("aff is "YEL"%u"RC, arg[0]);
 	shift_pc(codage, proc, op_index);
 }
 //TODO якщо передадуть відємне значення!!!!! треба всюди зробити (x + MEM_SIZE) % MEM_SIZE
+
+

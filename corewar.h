@@ -127,7 +127,8 @@ void	ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,
 void	ft_zjump(unsigned char *map, t_proc *proc, unsigned short index);
 void	ft_fork_lfork(unsigned char *map, t_proc **procs, t_proc *tmp,
 					  unsigned short op_index);
-void	ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index);
+void ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index,
+			unsigned short is_aff);
 
 
 void	add_color(int a, unsigned int champ, t_bs *bs);

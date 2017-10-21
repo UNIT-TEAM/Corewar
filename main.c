@@ -132,6 +132,9 @@ void	ft_error(int i, char *str)
 	else if (i == 12)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - identical numbers"\
 		"\n");
+	else if (i ==13)
+		ft_printf(RED"Error:"RC"\n\t\tchamps - should be in the range 1 <= num"\
+		"ber <= MAX_PLAYER\n");
 	//TODO видалити всі лісти
 	exit(1);
 }
@@ -164,65 +167,65 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 	return (num_player);
 }
 
-void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
+void	parse_flag_dump(t_bs *bs, char **argv, int argc, int index)
 {
 	int i;
 	int fd;
 	unsigned int tmp;
 
-	if (ft_strequ(argv[*index], "-dump"))
+	if (ft_strequ(argv[index], "-dump"))
 	{
-		if (*index + 2 > argc - 1)
+		if (index + 2 > argc - 1)
 			ft_error(10, NULL);
 		i = -1;
-		while (argv[*index + 1][++i])
-			if (!ft_isdigit(argv[*index + 1][i]))
-				ft_error(6, argv[*index + 1]);
-		if (!check_num_atoi(argv[*index + 1], &tmp))
-			ft_error(8, argv[*index + 1]);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
+		while (argv[index + 1][++i])
+			if (!ft_isdigit(argv[index + 1][i]))
+				ft_error(6, argv[index + 1]);
+		if (!check_num_atoi(argv[index + 1], &tmp))
+			ft_error(8, argv[index + 1]);
+		if ((fd = open(argv[index + 2], O_RDONLY)) < 0)
 			ft_error(2, NULL);
 		else
 			close(fd);
 		bs->dump = tmp;
 		bs->is_dump = 1;
-		*index += 2;
+		index += 2;
 	}
 }
 
 
-void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
+void	parse_flag_print(t_bs *bs, char **argv, int argc, int index)
 {
 	int i;
 	unsigned int tmp;
 
-	if (ft_strequ(argv[*index], "-print"))
+	if (ft_strequ(argv[index], "-print"))
 	{
-		if (*index + 2 > argc - 1)
+		if (index + 2 > argc - 1)
 			ft_error(10, NULL);
 		i = -1;
-		while (argv[*index + 1][++i])
-			if (!ft_isdigit(argv[*index + 1][i]))
-				ft_error(6, argv[*index + 1]);
-		if (!check_num_atoi(argv[*index + 1], &tmp))
-			ft_error(8, argv[*index + 1]);
+		while (argv[index + 1][++i])
+			if (!ft_isdigit(argv[index + 1][i]))
+				ft_error(6, argv[index + 1]);
+		if (!check_num_atoi(argv[index + 1], &tmp))
+			ft_error(8, argv[index + 1]);
 		bs->cycle_print = tmp;
 		bs->is_print = 1;
-		*index += 2;
+		index += 2;
 	}
 }
 
-void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
+void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int index)
 {
-	if (ft_strequ(argv[*index], "-v"))
+	if (ft_strequ(argv[index], "-v"))
 		bs->is_visual = 1;
-	else if (ft_strequ(argv[*index], "-a"))
+	else if (ft_strequ(argv[index], "-a"))
 		bs->is_aff = 1;
-	else if (ft_strequ(argv[*index], "-b"))
+	else if (ft_strequ(argv[index], "-b"))
 		bs->is_beep = 1;
-	if (ft_strequ(argv[*index], "-v") || ft_strequ(argv[*index], "-a") ||
-			ft_strequ(argv[*index], "-b"))
-		*index += 1;
+	if (ft_strequ(argv[index], "-v") || ft_strequ(argv[index], "-a") ||
+			ft_strequ(argv[index], "-b"))
+		index += 1;
 }
 
 void	num_champs(t_chmp *champs, t_proc *procs)
@@ -234,13 +237,40 @@ void	num_champs(t_chmp *champs, t_proc *procs)
 	tmp = champs;
 	tmp_proc = procs;
 	number = 1;
+	ft_printf(YEL"Introducing contestants...\n"RC);
 	while (tmp)
 	{
 		tmp->num = number++;
+		ft_printf("* Player %u, weighing %u bytes, \"%s\" (\"%s\")\n", tmp->num,
+				  tmp->head.prog_size, tmp->head.prog_name, tmp->head.comment);
 		tmp = tmp->next;
 		tmp_proc = tmp_proc->next;
 	}
 }
+
+int		check_flags_corewar(t_bs *bs, char **av, int ac, int *index)
+{
+	if (ft_strequ(av[*index], "-dump") || ft_strequ(av[*index], "-print") ||
+		ft_strequ(av[*index], "-n") || ft_strequ(av[*index], "-v") ||
+		ft_strequ(av[*index], "-a") || ft_strequ(av[*index], "-b"))
+	{
+		parse_flag_dump(bs, av, ac, *index);
+		parse_flag_print(bs, av, ac, *index);
+		parse_flag_visual_aff_beep(bs, av, *index);
+	}
+	return (0);
+}
+
+void	check_is_flags(t_bs *bs)
+{
+	if (bs->is_visual)
+	{
+		bs->is_dump = 0;
+		bs->is_print = 0;
+		bs->is_aff = 0;
+	}
+}
+
 //TODO перевірка на сумісність декількох флагів
 void	ft_sprint(t_bs *base, char **av, int ac)
 {
@@ -251,13 +281,12 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	i = 1;
 	while (i < ac)
 	{
-		num_player = parse_flag_num(base, av, ac, &i);
-		parse_flag_dump(base, av, ac, &i);
-		parse_flag_print(base, av, ac, &i);
-		parse_flag_visual_aff_beep(base, av, &i);
+		if (check_flags_corewar(base, av, ac, &i))
+			num_player = parse_flag_num(base, av, ac, &i);
 		if ((fd = open(av[i], O_RDONLY)) != -1)
 		{
 			close(fd);
+			check_is_flags(base);
 			add_new_champ(&base->list_champs, num_player, &base->list_proc);
 			ft_magic_size(av[i], &base->list_champs->head);
 			ft_name_comment(av[i], &base->list_champs->head, 0);
@@ -266,13 +295,26 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		}
 		i++;
 	}
-	//TODO зробити повідомлення про помилку
 	if (base->list_champs == NULL)
-		exit(1);
+		ft_error(13, NULL);
 	base->winner = base->list_champs->num;
 	num_champs(base->list_champs, base->list_proc);
-	ft_printf(YEL"Introducing contestants...\n"RC);
 }
+
+void	print_winner(t_chmp *list_champs, unsigned int winner)
+{
+	t_chmp *tmp;
+
+	tmp = list_champs;
+	while (tmp)
+	{
+		if (winner == tmp->num)
+			ft_printf("Contestant %u, \"%s\", has won !\n", winner,
+					  tmp->head.prog_name);
+		tmp = tmp->next;
+	}
+}
+
 //TODO перевірити розмір
 unsigned int g_count;
 
@@ -288,10 +330,14 @@ int 	main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
 	ft_fill_map(&base);
-	ft_printf("winner is %u\n", base.winner);
+
+	print_winner(base.list_champs, base.winner);
+
 	del_list_champ(&base.list_champs);
 	del_list_proc(&base.list_proc);
 	return (0);
 }
+
+//TODO перевірити сумісність флагів!!!!!
 //TODO перевірка на максимальну кількість процесів? якщо буде перевищеня
 //TODO перевірка на максимальний g_count
