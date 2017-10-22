@@ -128,6 +128,12 @@ void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 	parse_heap_to_stack_args(arg, &heap_args, op_tab[op_index].count_arg);
 	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ?
 			 proc->regs[arg[0]] : arg[0];
+	if (ft_strequ(op_tab[op_index].name, "st") && codage == 0x50)
+	{
+		proc->regs[arg[1]] = arg[0];
+		shift_pc(codage, proc, op_index);
+		return ;
+	}
 	arg[1] = (((codage >> 4) & 0x3) == REG_CODE) ?
 			 proc->regs[arg[1]] : arg[1];
 	if (ft_strequ(op_tab[op_index].name, "sti"))
@@ -135,15 +141,10 @@ void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 				 proc->regs[arg[2]] : arg[2];
 	if (ft_strequ(op_tab[op_index].name, "st"))
 	{
-		if (codage == 0x60)
-		{
-			i = (unsigned int)((long)proc->pc + (short)arg[1] % IDX_MOD < 0 ?
+		i = (unsigned int)((long)proc->pc + (short)arg[1] % IDX_MOD < 0 ?
 						   MEM_SIZE +
-						   ((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE :
-						   ((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE);
-		}
-		else
-			i = arg[1];
+						((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE :
+						((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE);
 	}
 	else if (ft_strequ(op_tab[op_index].name, "sti"))
 		i = (unsigned int)
