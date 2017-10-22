@@ -22,7 +22,7 @@ void draw_cart(t_bs *bs)
         if (bs->color_map[a].champ == 0)
             attron(COLOR_PAIR(100));
         else
-            attron(COLOR_PAIR(proc->id + 100));
+            attron(COLOR_PAIR(bs->color_map[a].champ + 100));
         y = base[(bs->map[a] / 16) % 16];
         mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 2, "%c", y);
         y = base[bs->map[a] % 16];
@@ -30,11 +30,11 @@ void draw_cart(t_bs *bs)
         if (bs->color_map[a].champ == 0)
             attroff(COLOR_PAIR(100));
         else
-            attroff(COLOR_PAIR(proc->id + 100));
-        bs->color_map[a].carretka = 1;
-        bs->color_map[a].cycle_n = g_count;
-        if (g_count == 0)
-            bs->color_map[a].cycle_n = 1;
+            attroff(COLOR_PAIR(bs->color_map[a].champ + 100));
+       // bs->color_map[a].carretka = 1;
+      //  bs->color_map[a].cycle_n = g_count;
+//        if (g_count == 0)
+//            bs->color_map[a].cycle_n = 1;
         proc = proc->next;
     }
 }
@@ -44,8 +44,10 @@ int     find_color(t_bs *bs, int a)
         return (112);
 //    if (bs->color_map[a].carretka == 1)
 //        return (bs->color_map[a].champ);
-    if (g_count - bs->color_map[a].cycle_n < 49 &&  bs->color_map[a].cycle_n != 0 && bs->color_map[a].carretka != 1)
+    if (g_count - bs->color_map[a].cycle_n < 49 &&  bs->color_map[a].cycle_n != 0 )
+    {
         return (bs->color_map[a].champ * 10);
+    }
     return (bs->color_map[a].champ);
 }
 void draw_mass(t_bs *bs, int size)
@@ -60,8 +62,8 @@ void draw_mass(t_bs *bs, int size)
             char y;
             a = 0;
             while (a < 64) {
-                if (g_count - bs->color_map[b].cycle_n < 50 || g_count == 0)
-                {
+//                if (g_count - bs->color_map[b].cycle_n < 50 || g_count == 0)
+//                {
                     attron(COLOR_PAIR(find_color(bs, b)));
                     y = base[(bs->map[b] / 16) % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
@@ -72,13 +74,13 @@ void draw_mass(t_bs *bs, int size)
                     a++;
                     b++;
                     bs->color_map[b].carretka = 0;
-                }
-                else
-                {
-                    a++;
-                    b++;
-                    startx = startx + 3;
-                }
+//                }
+//                else
+//                {
+//                    a++;
+//                    b++;
+//                    startx = startx + 3;
+//                }
             }
             starty++;
             startx = 2;
