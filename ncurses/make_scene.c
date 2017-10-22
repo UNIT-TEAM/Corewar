@@ -1,26 +1,6 @@
 #include "unistd.h"
 #include "../corewar.h"
 
-//t_cell    *make_body(t_bs *bs)
-//{
-//    int a;
-//    t_cell *body;
-//     a = MEM_SIZE;
-//    unsigned char b = 0;
-//    body = (t_cell *)malloc(sizeof(t_cell)*a);
-//    while (a >= 0){
-//        body[a].cell = bs->map[a];
-//        b++;
-//        body[a].champ = 1;
-//        if (a > 20)
-//            body[a].champ = 2;
-//        if (a > 50)
-//            body[a].champ = 3;
-//        a--;
-//    }
-//    return body;
-//}
-
 void init_win_params(WINDOW *p_win, int size);
 void create_box(WINDOW *win, int size);
 
@@ -39,17 +19,29 @@ void draw_cart(t_bs *bs)
     {
         a = proc->pc;
         champ = proc->id;
-        attron(COLOR_PAIR(proc->id + 100));
+        if (bs->color_map[a].champ == 0)
+            attron(COLOR_PAIR(100));
+        else
+            attron(COLOR_PAIR(proc->id + 100));
         y = base[(bs->map[a] / 16) % 16];
         mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 2, "%c", y);
         y = base[bs->map[a] % 16];
         mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 1 + 2, "%c", y);
-        attroff(COLOR_PAIR(proc->id + 100));
-        proc = proc->next;
+        if (bs->color_map[a].champ == 0)
+            attroff(COLOR_PAIR(100));
+        else
+            attroff(COLOR_PAIR(proc->id + 100));
         bs->color_map[a].carretka = 1;
-        if (g_count == 25)
-            beep();
+        proc = proc->next;
     }
+}
+int     find_color(t_bs *bs, int a)
+{
+    if (bs->color_map[a].carretka == 1 && bs->color_map[a].champ == 0)
+        return (0);
+    if (g_count - bs->color_map[a].cycle_n < 6 &&  bs->color_map[a].cycle_n != 0)
+        return (bs->color_map[a].champ * 10);
+    return (bs->color_map[a].champ);
 }
 void draw_mass(t_bs *bs, int size)
 {
@@ -63,29 +55,31 @@ void draw_mass(t_bs *bs, int size)
             char y;
             a = 0;
             while (a < 64) {
-                if (g_count - bs->color_map[b].cycle_n < 11 || g_count == 0 ||bs->color_map[b].carretka == 1)
-                {
-                    attron(COLOR_PAIR(bs->color_map[b].champ));
-                    if (g_count - bs->color_map[b].cycle_n < 6 &&  bs->color_map[b].cycle_n != 0)
-                        attron(COLOR_PAIR(bs->color_map[b].champ * 10));
+//               if (g_count - bs->color_map[b].cycle_n < 11 || g_count == 0 || bs->color_map[b].carretka == 1)
+//                {
+//                    attron(COLOR_PAIR(bs->color_map[b].champ));
+//                    if (g_count - bs->color_map[b].cycle_n < 6 &&  bs->color_map[b].cycle_n != 0)
+//                        attron(COLOR_PAIR(bs->color_map[b].champ * 10));
+                    attron(COLOR_PAIR(find_color(bs, b)));
                     y = base[(bs->map[b] / 16) % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
                     y = base[bs->map[b] % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
                     startx++;
-                    attroff(COLOR_PAIR(bs->color_map[b].champ+1));
-                    if (g_count - bs->color_map[b].cycle_n < 6)
-                        attroff(COLOR_PAIR(bs->color_map[b].champ * 10));
+//                    attroff(COLOR_PAIR(bs->color_map[b].champ+1));
+//                    if (g_count - bs->color_map[b].cycle_n < 6)
+//                        attroff(COLOR_PAIR(bs->color_map[b].champ * 10));
+                    attroff(COLOR_PAIR(find_color(bs, b)));
                     a++;
                     b++;
                     bs->color_map[b].carretka = 0;
-                }
-                else
-                {
-                    a++;
-                    b++;
-                    startx = startx + 3;
-                }
+//                }
+//                else
+//                {
+//                    a++;
+//                    b++;
+//                    startx = startx + 3;
+//                }
             }
             starty++;
             startx = 2;

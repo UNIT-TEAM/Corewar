@@ -40,8 +40,8 @@ void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs){
         attron(COLOR_PAIR(chmps->num));
         mvwprintw(window, b++, a + 15, "%s", chmps->head.prog_name);
         attroff(COLOR_PAIR(chmps->num));
-        mvwprintw(window, b++, a,"Last live :                 %d", chmps->num);
-        mvwprintw(window, b++, a,"Lives in curesnt period :   %d", chmps->live);
+        mvwprintw(window, b++, a,"Last live :                 %d", chmps->cycle_live);
+        mvwprintw(window, b++, a,"Lives in curent period :   %d        ", chmps->live);
         b++;
         chmps = chmps->next;
     }

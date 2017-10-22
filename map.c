@@ -91,7 +91,7 @@ int check_is_live(t_proc **procs, unsigned short is_beep)
 			prev->next = tmp->next;
 			free(tmp);
 			if (is_beep == 1)
-				;//TODO вивести звукове супроводження смерті
+				beep();//TODO вивести звукове супроводження смерті
 		}
 		tmp = prev->next;
 	}
@@ -104,8 +104,16 @@ int		check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 						unsigned int *max_check,
 						unsigned int *cycle_to_die_curr)
 {
+	t_chmp *tmp_champ;
+
+	tmp_champ = bs->list_champs;
 	if (*cycle_to_die_curr == *cycle_to_die)
 	{
+		while (tmp_champ)
+		{
+			tmp_champ->live = 0;
+			tmp_champ = tmp_champ->next;
+		}
 		if (check_is_live(&bs->list_proc, bs->is_beep) == 0)
 			return (0);
 		if (bs->num_live >= NBR_LIVE || *max_check == 1)

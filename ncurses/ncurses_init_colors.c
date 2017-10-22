@@ -19,6 +19,7 @@ void    ncurses_init_colors()
     init_pair(60, 0, 6);
     init_pair(70, 0, 9);
     init_pair(80,  0, 8);
+    init_pair(100, COLOR_BLACK, COLOR_BLACK|COLOR_WHITE);
     init_pair(101,  1,COLOR_WHITE);
     init_pair(102,  2,COLOR_WHITE);
     init_pair(103, 3,COLOR_WHITE);
