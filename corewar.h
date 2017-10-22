@@ -46,6 +46,7 @@ typedef struct 		s_proc
 	unsigned short	carry;
 	unsigned short	is_live;
     unsigned int    inst_cycle;
+	unsigned int	opcode;
 	unsigned int	id;
 
 	struct s_proc	*next;

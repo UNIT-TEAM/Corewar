@@ -123,11 +123,12 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 		i -= 2;
 		tmp = (unsigned char)((codage >> i) & 0x3);
 		if (tmp == REG_CODE)
-			proc->pc += 1;
+			proc->pc = (proc->pc + 1) % MEM_SIZE;
 		else if (tmp == DIR_CODE)
-			proc->pc += (op_tab[op_index].dir_size) ? 2 : 4;
+			proc->pc = (proc->pc + ((op_tab[op_index].dir_size) ? 2 : 4)) %
+					   MEM_SIZE;
 		else if (tmp == IND_CODE)
-			proc->pc += IND_SIZE;
+			proc->pc = (proc->pc + IND_SIZE) % MEM_SIZE;
 		++j;
 	}
 }

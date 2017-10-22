@@ -30,37 +30,39 @@ void    check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map, t_chmp *ch
     tmp = *procs;
     while (tmp)
     {
-		if (map[tmp->pc] == op_tab[0].opcode)
+		if (tmp->inst_cycle == 0)
+			tmp->opcode = map[tmp->pc];
+		if (tmp->opcode == op_tab[0].opcode)
 			ft_live(bs, tmp, 0, champs);
-		else if (map[tmp->pc] == op_tab[1].opcode)
+		else if (tmp->opcode == op_tab[1].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 1);
-		else if (map[tmp->pc] == op_tab[2].opcode)
+		else if (tmp->opcode == op_tab[2].opcode)
 			ft_st_sti(bs, tmp, 2);
-		else if (map[tmp->pc] == op_tab[3].opcode)
+		else if (tmp->opcode == op_tab[3].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 3);
-		else if (map[tmp->pc] == op_tab[4].opcode)
+		else if (tmp->opcode == op_tab[4].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 4);
-		else if (map[tmp->pc] == op_tab[5].opcode)
+		else if (tmp->opcode == op_tab[5].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 5);
-		else if (map[tmp->pc] == op_tab[6].opcode)
+		else if (tmp->opcode == op_tab[6].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 6);
-		else if (map[tmp->pc] == op_tab[7].opcode)
+		else if (tmp->opcode == op_tab[7].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 7);
-		else if (map[tmp->pc] == op_tab[8].opcode)
+		else if (tmp->opcode == op_tab[8].opcode)
 			ft_zjump(map, tmp, 8);
-		else if (map[tmp->pc] == op_tab[9].opcode)
+		else if (tmp->opcode == op_tab[9].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 9);
-		else if (map[tmp->pc] == op_tab[10].opcode)
+		else if (tmp->opcode == op_tab[10].opcode)
 			ft_st_sti(bs, tmp, 10);
-		else if (map[tmp->pc] == op_tab[11].opcode)
+		else if (tmp->opcode == op_tab[11].opcode)
 			ft_fork_lfork(map, procs, tmp, 11);
-		else if (map[tmp->pc] == op_tab[12].opcode)
+		else if (tmp->opcode == op_tab[12].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 12);
-		else if (map[tmp->pc] == op_tab[13].opcode)
+		else if (tmp->opcode == op_tab[13].opcode)
 			ft_ld_lld_ldi_lldi(map, tmp, 13);
-		else if (map[tmp->pc] == op_tab[14].opcode)
+		else if (tmp->opcode == op_tab[14].opcode)
 			ft_fork_lfork(map, procs, tmp, 14);
-		else if (map[tmp->pc] == op_tab[15].opcode)
+		else if (tmp->opcode == op_tab[15].opcode)
 			ft_aff(map, tmp, 15, bs->is_aff);
 		else
 			tmp->pc = (tmp->pc + 1) % MEM_SIZE;
