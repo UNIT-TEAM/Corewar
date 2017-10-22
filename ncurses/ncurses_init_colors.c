@@ -3,40 +3,24 @@
 void    ncurses_init_colors()
 {
 
-    init_pair(2, 1, 0);
-    init_pair(1, 2, 0);
-    init_pair(3, 3, 0);
-    init_pair(4, 4, 0);
-    init_pair(5, 5, 0);
-    init_pair(6, 6, 0);
-    init_pair(7, 9, 0);
-    init_pair(8, 8, 0);
-    init_pair(20, 0, 1);
-    init_pair(10, 0, 2);
-    init_pair(30, 0, 3);
-    init_pair(40,  0, 4);
-    init_pair(50, 0, 5);
-    init_pair(60, 0, 6);
-    init_pair(70, 0, 9);
-    init_pair(80,  0, 8);
-    init_pair(100, COLOR_BLACK, COLOR_BLACK|COLOR_WHITE);
-    init_pair(102,  1,COLOR_WHITE);
-    init_pair(101,  2,COLOR_WHITE);
-    init_pair(103, 3,COLOR_WHITE);
-    init_pair(104, 4,COLOR_WHITE);
-    init_pair(105,  5,COLOR_WHITE);
-    init_pair(106,  6,COLOR_WHITE);
-    init_pair(107, 9,COLOR_WHITE);
-    init_pair(108, 8,COLOR_WHITE);
+    init_pair(1, 2, 0); //green
+    init_pair(2, 4, 0); //blue
+    init_pair(3, 1, 0); // red
+    init_pair(4, 6, 0); //cyan
+    init_pair(5, 3, 0); //yellow
+    init_pair(10, 82, 0);
+    init_pair(20, 33, 0);
+    init_pair(30, 197, 0);
+    init_pair(40, 194, 0);
+    init_pair(50, 11, 0);
+    init_pair(101,  0,2);
+    init_pair(102,  0,4);
+    init_pair(103, 0,1);
+    init_pair(104, 0,6);
+    init_pair(105, 0,3);
 
-
-
-
-
-
-
-    init_pair(111, COLOR_WHITE, COLOR_BLACK|COLOR_WHITE);
-    init_pair(112, COLOR_BLACK|COLOR_WHITE, COLOR_BLACK);
+    init_pair(111, 8, 8);
+    init_pair(112, 8, 0);
 }
 
 //void    ncurses_init_colors()
@@ -99,5 +83,5 @@ void    ncurses_init_colors()
 //            b++;
 //    }
 //
-////   draw_cart(bs);
+//   draw_cart(bs);
 //}
