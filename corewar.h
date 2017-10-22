@@ -88,6 +88,8 @@ typedef struct		s_ncur
     int             flag;
     int             n_cyc;
 	long 			cyc_to_die;
+	int 			a;
+	int 			b;
 
 }                   t_ncurs;
 
@@ -142,6 +144,7 @@ void	draw_mass(t_bs *bs, int size);
 void    ncurses_init_colors();
 void create_box(WINDOW *p_win, int size);
 void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs);
+void    ncurses_result(t_ncurs *base, t_bs *bs);
 
 
 #endif

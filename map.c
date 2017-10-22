@@ -261,8 +261,13 @@ void	global_cycles_with_visual(t_bs *bs)
 		ch = 0;
 	}
 	++g_count;
-	endwin();
 	who_win(bs->list_champs, &bs->winner);
+	ncurses_result(ncurs, bs);
+	while (getch() < 0)
+	{
+
+	}
+	endwin();
 }
 
 void	global_cycles_without_visual(t_bs *bs)

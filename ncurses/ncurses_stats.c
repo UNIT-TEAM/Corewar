@@ -14,44 +14,70 @@ int     proc_count(t_bs *bs)
     return a;
 }
 
+void    ncurses_result(t_ncurs *base, t_bs *bs)
+{
+    t_chmp *chmp;
+    char *name;
+    int col;
+
+    chmp = bs->list_champs;
+    while (chmp)
+    {
+        if (chmp->num == bs->winner)
+        {
+            name = chmp->head.prog_name;
+            col = chmp->num;
+        }
+        chmp = chmp->next;
+    }
+
+    base->b += 2;
+    mvwprintw(base->window, base->b, base->a, "The winner is : ");
+    attron(COLOR_PAIR(col));
+    mvwprintw(base->window, base->b, base->a + 19, "%s", name);
+    base->b += 2;
+    attroff(COLOR_PAIR(col));
+    mvwprintw(base->window, base->b, base->a, "Press any key to finish");
+
+}
 void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs){
-    int a = 206;
-    int b = 2;
+    base->a = 206;
+    base->b = 2;
     t_chmp *chmps;
 
     chmps = bs->list_champs;
     if (!base->flag)
-        mvwprintw(window, b++, a, "%s","** PAUSED **");
+        mvwprintw(window, base->b++, base->a, "%s","** PAUSED **");
     else
-        mvwprintw(window, b++, a, "%s","** RUNING **");
-    mvwprintw(window, b, a, "%s","Cycles/second limit :");
-    mvwprintw(window, b++, a + 25, "%d     ", base->n_cyc);
-    b += 2;
-    mvwprintw(window, b, a, "%s","Cycle :");
-    mvwprintw(window, b++, a + 10, "%d", g_count);
-    b++;
-    mvwprintw(window, b, a, "%s","Processes :");
-    mvwprintw(window, b++, a + 15, "%d", proc_count(bs));
-    b++;
+        mvwprintw(window, base->b++, base->a, "%s","** RUNING **");
+    mvwprintw(window, base->b, base->a, "%s","Cycles/second limit :");
+    mvwprintw(window, base->b++, base->a + 25, "%d     ", base->n_cyc);
+    base->b += 2;
+    mvwprintw(window, base->b, base->a, "%s","Cycle :");
+    mvwprintw(window, base->b++, base->a + 10, "%d", g_count);
+    base->b++;
+    mvwprintw(window, base->b, base->a, "%s","Processes :");
+    mvwprintw(window, base->b++, base->a + 15, "%d", proc_count(bs));
+    base->b++;
 
     while (chmps)
     {
-        mvwprintw(window, b, a,"Player -%d :", chmps->num);
+        mvwprintw(window, base->b, base->a,"Player -%d :", chmps->num);
         attron(COLOR_PAIR(chmps->num));
-        mvwprintw(window, b++, a + 15, "%s", chmps->head.prog_name);
+        mvwprintw(window, base->b++, base->a + 15, "%s", chmps->head.prog_name);
         attroff(COLOR_PAIR(chmps->num));
-        mvwprintw(window, b++, a,"Last live :                 %d", chmps->cycle_live);
-        mvwprintw(window, b++, a,"Lives in curent period :   %d        ", chmps->live);
-        b++;
+        mvwprintw(window, base->b++, base->a,"Last live :                 %d", chmps->cycle_live);
+        mvwprintw(window, base->b++, base->a,"Lives in curent period :   %d        ", chmps->live);
+        base->b++;
         chmps = chmps->next;
     }
-    mvwprintw(window, b++, a, "CYCLES TO DIE : %d   ", base->cyc_to_die);
-    b++;
-    mvwprintw(window, b++, a, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
-    b++;
-    mvwprintw(window, b++, a, "NBR_LIVE : %d   ", NBR_LIVE);
-    b++;
-    mvwprintw(window, b++, a, "MAX_CHECKS : %d   ", MAX_CHECKS);
+    mvwprintw(window, base->b++, base->a, "CYCLES TO DIE : %d   ", base->cyc_to_die);
+    base->b++;
+    mvwprintw(window, base->b++, base->a, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
+    base->b++;
+    mvwprintw(window, base->b++, base->a, "NBR_LIVE : %d   ", NBR_LIVE);
+    base->b++;
+    mvwprintw(window, base->b++, base->a, "MAX_CHECKS : %d   ", MAX_CHECKS);
 
 //    mvwprintw(window, b++, a, "%s","Cycles/second limit");
 //    mvwprintw(window, 5, a, "%s","g_count");
