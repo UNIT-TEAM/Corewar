@@ -37,6 +37,7 @@ typedef struct 		s_color
 	char 			champ;
 	int 			cycle_n;
     int             carretka;
+    int             live;
 }					t_color;
 
 typedef struct 		s_proc
@@ -85,7 +86,6 @@ typedef	struct		s_bs
 typedef struct		s_ncur
 {
     WINDOW          *window;
-    int             ready;
     int             flag;
     int             n_cyc;
 	long 			cyc_to_die;

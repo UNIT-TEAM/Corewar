@@ -54,7 +54,7 @@ void	ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
 		if (curr->num * -1 == arg[0])
 		{
 			++curr->live;
-			//TODO
+			bs->color_map[proc->pc].live = g_count;
 			curr->cycle_live = g_count;
 		}
 		curr = curr->next;

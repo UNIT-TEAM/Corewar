@@ -18,7 +18,11 @@ void    ncurses_init_colors()
     init_pair(103, 0,1);
     init_pair(104, 0,6);
     init_pair(105, 0,3);
-
+    init_pair(51, COLOR_WHITE, 2); //green
+    init_pair(52, COLOR_WHITE, 4); //blue
+    init_pair(53, COLOR_WHITE, 1); // red
+    init_pair(54, COLOR_WHITE, 6); //cyan
+    init_pair(55, COLOR_WHITE, 3); //yellow
     init_pair(100, COLOR_BLACK, COLOR_WHITE);
     init_pair(111, 8, 8);
     init_pair(112, 8, 0);

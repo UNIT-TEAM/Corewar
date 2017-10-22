@@ -18,23 +18,26 @@ void draw_cart(t_bs *bs)
     while (proc)
     {
         a = proc->pc;
-        champ = proc->id;
-        if (bs->color_map[a].champ == 0)
-            attron(COLOR_PAIR(100));
-        else
-            attron(COLOR_PAIR(bs->color_map[a].champ + 100));
-        y = base[(bs->map[a] / 16) % 16];
-        mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 2, "%c", y);
-        y = base[bs->map[a] % 16];
-        mvwprintw(stdscr, a/64 + 2, (a%64)*3 + 1 + 2, "%c", y);
-        if (bs->color_map[a].champ == 0)
-            attroff(COLOR_PAIR(100));
-        else
-            attroff(COLOR_PAIR(bs->color_map[a].champ + 100));
-       // bs->color_map[a].carretka = 1;
-      //  bs->color_map[a].cycle_n = g_count;
+        if (!bs->color_map[a].live)
+        {
+            champ = proc->id;
+            if (bs->color_map[a].champ == 0)
+                attron(COLOR_PAIR(100));
+            else
+                attron(COLOR_PAIR(bs->color_map[a].champ + 100));
+            y = base[(bs->map[a] / 16) % 16];
+            mvwprintw(stdscr, a / 64 + 2, (a % 64) * 3 + 2, "%c", y);
+            y = base[bs->map[a] % 16];
+            mvwprintw(stdscr, a / 64 + 2, (a % 64) * 3 + 1 + 2, "%c", y);
+            if (bs->color_map[a].champ == 0)
+                attroff(COLOR_PAIR(100));
+            else
+                attroff(COLOR_PAIR(bs->color_map[a].champ + 100));
+            // bs->color_map[a].carretka = 1;
+            //  bs->color_map[a].cycle_n = g_count;
 //        if (g_count == 0)
 //            bs->color_map[a].cycle_n = 1;
+        }
         proc = proc->next;
     }
 }
@@ -42,6 +45,10 @@ int     find_color(t_bs *bs, int a)
 {
     if (bs->color_map[a].champ == 0)
         return (112);
+    if (g_count - bs->color_map[a].live <= 50 && bs->color_map[a].live != 0)
+    {
+        return (bs->color_map[a].champ + 50);
+    }
 //    if (bs->color_map[a].carretka == 1)
 //        return (bs->color_map[a].champ);
     if (g_count - bs->color_map[a].cycle_n < 49 &&  bs->color_map[a].cycle_n != 0 )
@@ -57,6 +64,7 @@ void draw_mass(t_bs *bs, int size)
     int b = 0;
     int startx = 2;
     int starty = 2;
+    int color;
     while (b < size) {
 
             char y;
@@ -64,13 +72,14 @@ void draw_mass(t_bs *bs, int size)
             while (a < 64) {
 //                if (g_count - bs->color_map[b].cycle_n < 50 || g_count == 0)
 //                {
-                    attron(COLOR_PAIR(find_color(bs, b)));
+                    color = find_color(bs, b);
+                    attron(COLOR_PAIR(color));
                     y = base[(bs->map[b] / 16) % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
                     y = base[bs->map[b] % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
                     startx++;
-                    attroff(COLOR_PAIR(find_color(bs, b)));
+                    attroff(COLOR_PAIR(color));
                     a++;
                     b++;
                     bs->color_map[b].carretka = 0;

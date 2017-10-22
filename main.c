@@ -42,6 +42,7 @@ void	base_to_zero(t_bs *bs)
 	{
 		bs->map[i] = 0;
 		bs->color_map[i].champ = 0;
+		bs->color_map[i].live = 0;
 	}
 	bs->np = 0;
 	bs->num_live = 0;
