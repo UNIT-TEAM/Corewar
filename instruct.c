@@ -116,8 +116,8 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 
 	i = 8;
 	j = 0;
-	++proc->pc;
-	proc->pc += (op_tab[op_index].is_codage) ? 1 : 0;
+	proc->pc = (proc->pc + 1) % MEM_SIZE;
+	proc->pc = (proc->pc + (op_tab[op_index].is_codage ? 1 : 0)) % MEM_SIZE;
 	while (j < op_tab[op_index].count_arg)
 	{
 		i -= 2;
@@ -125,7 +125,7 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 		if (tmp == REG_CODE)
 			proc->pc = (proc->pc + 1) % MEM_SIZE;
 		else if (tmp == DIR_CODE)
-			proc->pc = (proc->pc + ((op_tab[op_index].dir_size) ? 2 : 4)) %
+			proc->pc = (proc->pc + (op_tab[op_index].dir_size ? 2 : 4)) %
 					   MEM_SIZE;
 		else if (tmp == IND_CODE)
 			proc->pc = (proc->pc + IND_SIZE) % MEM_SIZE;

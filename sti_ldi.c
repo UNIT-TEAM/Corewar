@@ -9,7 +9,10 @@ int	for_instruct(unsigned char *map, t_proc *proc, unsigned short op_index,
 		return (0);
 	*codage = map[(proc->pc + 1) % MEM_SIZE];
 	if (op_tab[op_index].is_codage && !check_codage(*codage, proc, op_index))
+	{
+		proc->inst_cycle = 0;
 		return (0);
+	}
 	return (1);
 }
 
