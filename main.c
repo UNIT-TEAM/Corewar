@@ -232,11 +232,9 @@ void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 void	num_champs(t_chmp *champs, t_proc *procs, unsigned short is_visual)
 {
 	t_chmp *tmp;
-	t_proc *tmp_proc;
 	unsigned int number;
 
 	tmp = champs;
-	tmp_proc = procs;
 	number = 1;
 	if (is_visual == 0)
 		ft_printf(YEL"Introducing contestants...\n"RC);
@@ -248,7 +246,6 @@ void	num_champs(t_chmp *champs, t_proc *procs, unsigned short is_visual)
 					  tmp->num, tmp->head.prog_size, tmp->head.prog_name,
 					  tmp->head.comment);
 		tmp = tmp->next;
-		tmp_proc = tmp_proc->next;
 	}
 }
 

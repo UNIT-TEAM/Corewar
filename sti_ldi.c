@@ -285,6 +285,3 @@ void ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index,
 		ft_printf("aff is "YEL"%u"RC, arg[0]);
 	shift_pc(codage, proc, op_index);
 }
-//TODO якщо передадуть відємне значення!!!!! треба всюди зробити (x + MEM_SIZE) % MEM_SIZE
-
-

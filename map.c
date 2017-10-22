@@ -70,32 +70,45 @@ void    check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map, t_chmp *ch
     }
 }
 
+int	get_len_procs(t_proc *procs)
+{
+	int i = 0;
+
+	while (procs)
+	{
+		procs = procs->next;
+		i++;
+	}
+	return i;
+}
+
 int check_is_live(t_proc **procs, unsigned short is_beep)
 {
 	t_proc *tmp;
 	t_proc *prev;
+	t_proc *address;
 
 	tmp = *procs;
 	prev = tmp;
-	if (tmp == NULL)
-		return (0);
 	while (tmp)
 	{
 		if (tmp->is_live)
 		{
 			tmp->is_live = 0;
 			prev = tmp;
+			address = tmp->next;
 		}
 		else
 		{
 			if (*procs == tmp)
 				*procs = tmp->next;
 			prev->next = tmp->next;
+			address = tmp->next;
 			free(tmp);
 			if (is_beep == 1)
 				beep();//TODO вивести звукове супроводження смерті
 		}
-		tmp = prev->next;
+		tmp = address;
 	}
 	if (*procs == NULL)
 		return (0);
