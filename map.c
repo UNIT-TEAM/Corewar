@@ -230,18 +230,19 @@ void	global_cycles_with_visual(t_bs *bs)
 	nodelay(stdscr,TRUE);
 	while (cycle_to_die > 0)
 	{
+		ncurs->cyc_to_die = cycle_to_die;
 		create_box(ncurs->window, 1);
 		ch = getch();
 		if (kb_proc(ncurs,ch) && ch == 27)
 		{
 			break;
 		}
-		if (ch != 'n')
+		if (ch != 's')
 			usleep(1000000/ncurs->n_cyc);
 		draw_mass(bs, 4096);
 		ncurses_stats(ncurs->window, ncurs,bs);
 
-		if (ncurs->flag || ch == 'n')
+		if (ncurs->flag || ch == 's')
 		{
 			++g_count;
 			++cycle_to_die_curr;

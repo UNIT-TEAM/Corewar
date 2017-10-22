@@ -31,7 +31,7 @@ int kb_proc(t_ncurs *base, int ch)
 //    while(base->flag && ch != 'n' && ch != 'g'){
 //        ch = getch();
 //    }
-    if (ch == 'g')
+    if (ch == 32)
     {
         if (base->flag == 0)
             base->flag = 1;
