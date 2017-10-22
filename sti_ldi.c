@@ -134,7 +134,17 @@ void	ft_st_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 		arg[2] = (((codage >> 2) & 0x3) == REG_CODE) ?
 				 proc->regs[arg[2]] : arg[2];
 	if (ft_strequ(op_tab[op_index].name, "st"))
-		i = arg[1];
+	{
+		if (codage == 0x60)
+		{
+			i = (unsigned int)((long)proc->pc + (short)arg[1] % IDX_MOD < 0 ?
+						   MEM_SIZE +
+						   ((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE :
+						   ((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE);
+		}
+		else
+			i = arg[1];
+	}
 	else if (ft_strequ(op_tab[op_index].name, "sti"))
 		i = (unsigned int)
 				(((long)proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) < 0 ?
