@@ -33,14 +33,18 @@ void draw_cart(t_bs *bs)
             attroff(COLOR_PAIR(proc->id + 100));
         bs->color_map[a].carretka = 1;
         bs->color_map[a].cycle_n = g_count;
+        if (g_count == 0)
+            bs->color_map[a].cycle_n = 1;
         proc = proc->next;
     }
 }
 int     find_color(t_bs *bs, int a)
 {
-    if (bs->color_map[a].carretka == 1 && bs->color_map[a].champ == 0)
-        return (0);
-    if (g_count - bs->color_map[a].cycle_n < 6 &&  bs->color_map[a].cycle_n != 0)
+    if (bs->color_map[a].champ == 0)
+        return (112);
+//    if (bs->color_map[a].carretka == 1)
+//        return (bs->color_map[a].champ);
+    if (g_count - bs->color_map[a].cycle_n < 49 &&  bs->color_map[a].cycle_n != 0 && bs->color_map[a].carretka != 1)
         return (bs->color_map[a].champ * 10);
     return (bs->color_map[a].champ);
 }
@@ -56,20 +60,14 @@ void draw_mass(t_bs *bs, int size)
             char y;
             a = 0;
             while (a < 64) {
-               if (g_count - bs->color_map[b].cycle_n < 50 || g_count == 0 || bs->color_map[b].carretka == 1)
+                if (g_count - bs->color_map[b].cycle_n < 50 || g_count == 0)
                 {
-//                    attron(COLOR_PAIR(bs->color_map[b].champ));
-//                    if (g_count - bs->color_map[b].cycle_n < 6 &&  bs->color_map[b].cycle_n != 0)
-//                        attron(COLOR_PAIR(bs->color_map[b].champ * 10));
                     attron(COLOR_PAIR(find_color(bs, b)));
                     y = base[(bs->map[b] / 16) % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
                     y = base[bs->map[b] % 16];
                     mvwprintw(stdscr, starty, startx++, "%c", y);
                     startx++;
-//                    attroff(COLOR_PAIR(bs->color_map[b].champ+1));
-//                    if (g_count - bs->color_map[b].cycle_n < 6)
-//                        attroff(COLOR_PAIR(bs->color_map[b].champ * 10));
                     attroff(COLOR_PAIR(find_color(bs, b)));
                     a++;
                     b++;
