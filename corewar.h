@@ -87,6 +87,7 @@ typedef struct		s_ncur
     int             ready;
     int             flag;
     int             n_cyc;
+	long 			cyc_to_die;
 
 }                   t_ncurs;
 

@@ -32,6 +32,7 @@ void draw_cart(t_bs *bs)
         else
             attroff(COLOR_PAIR(proc->id + 100));
         bs->color_map[a].carretka = 1;
+        bs->color_map[a].cycle_n = g_count;
         proc = proc->next;
     }
 }
@@ -55,8 +56,8 @@ void draw_mass(t_bs *bs, int size)
             char y;
             a = 0;
             while (a < 64) {
-//               if (g_count - bs->color_map[b].cycle_n < 11 || g_count == 0 || bs->color_map[b].carretka == 1)
-//                {
+               if (g_count - bs->color_map[b].cycle_n < 50 || g_count == 0 || bs->color_map[b].carretka == 1)
+                {
 //                    attron(COLOR_PAIR(bs->color_map[b].champ));
 //                    if (g_count - bs->color_map[b].cycle_n < 6 &&  bs->color_map[b].cycle_n != 0)
 //                        attron(COLOR_PAIR(bs->color_map[b].champ * 10));
@@ -73,13 +74,13 @@ void draw_mass(t_bs *bs, int size)
                     a++;
                     b++;
                     bs->color_map[b].carretka = 0;
-//                }
-//                else
-//                {
-//                    a++;
-//                    b++;
-//                    startx = startx + 3;
-//                }
+                }
+                else
+                {
+                    a++;
+                    b++;
+                    startx = startx + 3;
+                }
             }
             starty++;
             startx = 2;

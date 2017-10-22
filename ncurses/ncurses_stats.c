@@ -25,7 +25,7 @@ void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs){
     else
         mvwprintw(window, b++, a, "%s","** RUNING **");
     mvwprintw(window, b, a, "%s","Cycles/second limit :");
-    mvwprintw(window, b++, a + 25, "%d", base->n_cyc);
+    mvwprintw(window, b++, a + 25, "%d     ", base->n_cyc);
     b += 2;
     mvwprintw(window, b, a, "%s","Cycle :");
     mvwprintw(window, b++, a + 10, "%d", g_count);
@@ -45,28 +45,13 @@ void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs){
         b++;
         chmps = chmps->next;
     }
-    mvwprintw(window, b++, a, "CYCLES TO DIE : %d", CYCLE_TO_DIE);
+    mvwprintw(window, b++, a, "CYCLES TO DIE : %d   ", base->cyc_to_die);
     b++;
-    mvwprintw(window, b++, a, "CYCLE_DELTA : %d", CYCLE_DELTA);
+    mvwprintw(window, b++, a, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
     b++;
-    mvwprintw(window, b++, a, "NBR_LIVE : %d", NBR_LIVE);
+    mvwprintw(window, b++, a, "NBR_LIVE : %d   ", NBR_LIVE);
     b++;
-    mvwprintw(window, b++, a, "MAX_CHECKS : %d", MAX_CHECKS);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    mvwprintw(window, b++, a, "MAX_CHECKS : %d   ", MAX_CHECKS);
 
 //    mvwprintw(window, b++, a, "%s","Cycles/second limit");
 //    mvwprintw(window, 5, a, "%s","g_count");
