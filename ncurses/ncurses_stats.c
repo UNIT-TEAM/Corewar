@@ -6,7 +6,7 @@
 /*   By: ysavenko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 14:20:20 by ysavenko          #+#    #+#             */
-/*   Updated: 2017/10/23 14:46:02 by ysavenko         ###   ########.fr       */
+/*   Updated: 2017/10/23 15:47:41 by ysavenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void		ncurses_stats2(WINDOW *w, t_ncurs *base, t_bs *bs, int a)
 		chmps = chmps->next;
 	}
 	if (a == 0)
-		mvwprintw(w, base->b++, base->a, "CYCLES TO DIE : %d   ", 0);
+		base->cyc_to_die = 0;
 	mvwprintw(w, base->b++, base->a, "CYCLES TO DIE : %d   ", base->cyc_to_die);
 	base->b++;
 	mvwprintw(w, base->b++, base->a, "CYCLE_DELTA : %d   ", CYCLE_DELTA);
