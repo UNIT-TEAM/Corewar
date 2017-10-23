@@ -326,8 +326,27 @@ void	global_cycles_without_visual(t_bs *bs)
 	who_win(bs->list_champs, &bs->winner);
 }
 
+void	reverse_champs(t_chmp **champs)
+{
+	t_chmp *prev;
+	t_chmp *curr;
+	t_chmp *next;
+
+	prev = NULL;
+	curr = *champs;
+	while (curr)
+	{
+		next = curr->next;
+		curr->next = prev;
+		prev = curr;
+		curr = next;
+	}
+	*champs = prev;
+}
+
 void	ft_fill_map(t_bs *bs)
 {
+	reverse_champs(&bs->list_champs);
 	if (bs->is_num_flag)
 		set_chmps_with_flag_num(bs);
 	set_chmps_without_flag_num(bs);

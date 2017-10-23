@@ -105,7 +105,7 @@ void	ft_error(int i, char *str)
 		" from \"aff\" (Default is to hide it);\n\t-b\t\t\t: Enable sound when"\
 		" process is die;\n\t-n number\t: Sets the number of the next player\n"\
 		"\n#### NCURSES OUTPUT MODE ##########################################"\
-		"#############\n\t-v\t\t\t: Ncurses output mode", MAX_PLAYERS);
+		"#############\n\t-v\t\t\t: Ncurses output mode\n", MAX_PLAYERS);
 	else if (i == 2)
 		perror("error");
 	else if (i == 3)
@@ -136,6 +136,12 @@ void	ft_error(int i, char *str)
 	else if (i ==13)
 		ft_printf(RED"Error:"RC"\n\t\tchamps - should be in the range 1 <= num"\
 		"ber <= MAX_PLAYER\n");
+	else if (i == 14)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit"\
+		"\n");
+	else if (i == 15)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
+		"\n");
 	//TODO видалити всі лісти
 	exit(1);
 }
@@ -181,7 +187,7 @@ void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 		i = -1;
 		while (argv[*index + 1][++i])
 			if (!ft_isdigit(argv[*index + 1][i]))
-				ft_error(6, argv[*index + 1]);
+				ft_error(12, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &tmp))
 			ft_error(8, argv[*index + 1]);
 		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
@@ -207,7 +213,7 @@ void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 		i = -1;
 		while (argv[*index + 1][++i])
 			if (!ft_isdigit(argv[*index + 1][i]))
-				ft_error(6, argv[*index + 1]);
+				ft_error(15, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &tmp))
 			ft_error(8, argv[*index + 1]);
 		bs->cycle_print = tmp;
