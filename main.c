@@ -93,6 +93,34 @@ int		check_num_atoi(char *line, unsigned int *num)
 **	11 - number of player must be a 1 <= number < MAX_PLAYERS
 **	12 - identical numbers
 */
+void 	ft_error1(int i, char *str)
+{
+	if (i == 7)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
+	else if (i == 8)
+		ft_printf(RED"Error:"BLU"\n\t\t%s"RC" is not unsigned int\n", str);
+	else if (i == 9)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit\n");
+	else if (i == 10)
+		ft_printf(RED"Error:"BLU"\n\t\tnot enough arguments"RC"\n", str);
+	else if (i == 11)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - should be in the "\
+        "range 1 <= number <= MAX_PLAYER\n");
+	else if (i == 12)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - identical numbers"\
+        "\n");
+	else if (i == 13)
+		ft_printf(RED"Error:"RC"\n\t\tchamps - should be in the range 1 <= num"\
+        "ber <= MAX_PLAYER\n");
+	else if (i == 14)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit"\
+        "\n");
+	else if (i == 15)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
+        "\n");
+//TODO видалити всі лісти
+	exit(1);
+}
 
 void	ft_error(int i, char *str)
 {
@@ -119,31 +147,7 @@ void	ft_error(int i, char *str)
 	else if (i == 6)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - must be a digit"\
 		"\n");
-	else if (i == 7)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
-	else if (i == 8)
-		ft_printf(RED"Error:"BLU"\n\t\t%s"RC" is not unsigned int\n", str);
-	else if (i == 9)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit\n");
-	else if (i == 10)
-		ft_printf(RED"Error:"BLU"\n\t\tnot enough arguments"RC"\n", str);
-	else if (i ==11)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - should be in the "\
-		"range 1 <= number <= MAX_PLAYER\n");
-	else if (i == 12)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - identical numbers"\
-		"\n");
-	else if (i ==13)
-		ft_printf(RED"Error:"RC"\n\t\tchamps - should be in the range 1 <= num"\
-		"ber <= MAX_PLAYER\n");
-	else if (i == 14)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit"\
-		"\n");
-	else if (i == 15)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
-		"\n");
-	//TODO видалити всі лісти
-	exit(1);
+	ft_error1(i, str);
 }
 unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 {
@@ -235,7 +239,7 @@ void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 		*index += 1;
 }
 
-void	num_champs(t_chmp *champs, t_proc *procs, unsigned short is_visual)
+void	num_champs(t_chmp *champs, unsigned short is_visual)
 {
 	t_chmp *tmp;
 	unsigned int number;
@@ -306,7 +310,6 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	if (base->list_champs == NULL)
 		ft_error(13, NULL);
 	base->winner = base->list_champs->num;
-	num_champs(base->list_champs, base->list_proc, base->is_visual);
 }
 
 void	print_winner(t_chmp *list_champs, unsigned int winner)
@@ -326,10 +329,8 @@ void	print_winner(t_chmp *list_champs, unsigned int winner)
 	}
 }
 
-//TODO перевірити розмір
 unsigned int g_count;
 
-//TODO: перевірка на коректність CAPS
 int 	main(int argc, char **argv)
 {
 	t_bs		base;
@@ -340,6 +341,7 @@ int 	main(int argc, char **argv)
 		return (1);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc);
+	num_champs(base.list_champs, base.is_visual);
 	ft_fill_map(&base);
 	if (base.is_visual == 0)
 		print_winner(base.list_champs, base.winner);
@@ -347,6 +349,3 @@ int 	main(int argc, char **argv)
 	del_list_proc(&base.list_proc);
 	return (0);
 }
-
-//TODO перевірка на максимальну кількість процесів? якщо буде перевищеня
-//TODO перевірка на максимальний g_count
