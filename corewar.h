@@ -108,7 +108,7 @@ typedef struct		s_ncur
 
 }					t_ncurs;
 
-extern t_op			op_tab[17];
+extern t_op			g_tab[17];
 extern unsigned int	g_count;
 
 void				ft_error(int i, char *str);
@@ -119,7 +119,7 @@ void				ft_magic_size(char *av, header_t *p);
 void				ft_name_comment(char *av, header_t *p, int flag);
 void				ft_instraction(char *av, t_bs *bs);
 void				add_new_champ(t_chmp **first, unsigned int num_player,
-					t_proc **proc);
+					t_proc **proc, char *av);
 void				ft_fill_map(t_bs *bs);
 void				print_map(unsigned char *map);
 int					check_op_h();
@@ -166,5 +166,17 @@ void				set_chmps_without_flag_num(t_bs *bs, unsigned int i, int k,
 					t_proc *tmp_proc);
 void				g_c_prep(t_ncurs *ncurs, t_bs *bs);
 void				who_win(t_chmp *champ, unsigned int *winner);
+int					check_num_atoi(char *line, unsigned int *num);
+unsigned int		parse_flag_num(t_bs *bs, char **argv, int argc, int *index);
+void				parse_flag_dump(t_bs *bs, char **argv, int argc,
+									int *index);
+void				parse_flag_visual_aff_beep(t_bs *bs, char **argv,
+											   int *index);
+void				num_champs(t_chmp *champs, unsigned short is_visual);
+void				parse_flag_print(t_bs *bs, char **argv, int argc,
+									 int *index);
+void				del_list_champ(t_chmp **champ);
+void				del_list_proc(t_proc **proc);
+void				base_to_zero(t_bs *bs);
 
 #endif

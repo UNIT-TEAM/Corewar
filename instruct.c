@@ -17,7 +17,7 @@ int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
 {
 	unsigned char code[4];
 
-	if (op_tab[op_index].dir_size == 0)
+	if (g_tab[op_index].dir_size == 0)
 	{
 		code[0] = map[(*tmp_pc + 3) % MEM_SIZE];
 		code[1] = map[(*tmp_pc + 2) % MEM_SIZE];
@@ -83,13 +83,13 @@ unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 	unsigned int *arg;
 
 	if ((arg = (unsigned int *)malloc(
-			sizeof(unsigned int) * op_tab[op_index].count_arg)) == NULL)
+			sizeof(unsigned int) * g_tab[op_index].count_arg)) == NULL)
 		ft_error(5, NULL);
-	tmp_pc = (op_tab[op_index].is_codage ?
+	tmp_pc = (g_tab[op_index].is_codage ?
 			  	proc->pc + 2 : proc->pc + 1) % MEM_SIZE;
 	j = 8;
 	i = -1;
-	while (++i < op_tab[op_index].count_arg)
+	while (++i < g_tab[op_index].count_arg)
 	{
 		j -= 2;
 		res = 0;
@@ -117,15 +117,15 @@ void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
 	i = 8;
 	j = 0;
 	proc->pc = (proc->pc + 1) % MEM_SIZE;
-	proc->pc = (proc->pc + (op_tab[op_index].is_codage ? 1 : 0)) % MEM_SIZE;
-	while (j < op_tab[op_index].count_arg)
+	proc->pc = (proc->pc + (g_tab[op_index].is_codage ? 1 : 0)) % MEM_SIZE;
+	while (j < g_tab[op_index].count_arg)
 	{
 		i -= 2;
 		tmp = (unsigned char)((codage >> i) & 0x3);
 		if (tmp == REG_CODE)
 			proc->pc = (proc->pc + 1) % MEM_SIZE;
 		else if (tmp == DIR_CODE)
-			proc->pc = (proc->pc + (op_tab[op_index].dir_size ? 2 : 4)) %
+			proc->pc = (proc->pc + (g_tab[op_index].dir_size ? 2 : 4)) %
 					   MEM_SIZE;
 		else if (tmp == IND_CODE)
 			proc->pc = (proc->pc + IND_SIZE) % MEM_SIZE;
@@ -142,7 +142,7 @@ int		check_codage(unsigned char codage, t_proc *proc, unsigned short index)
 	i = 8;
 	j = 0;
 //	01 10 10 00
-	while (j < op_tab[index].count_arg)
+	while (j < g_tab[index].count_arg)
 	{
 		i -= 2; //00000111
 		//кожен раз зсовуємо, щоб виділити розряди для порівняння:
@@ -153,11 +153,11 @@ int		check_codage(unsigned char codage, t_proc *proc, unsigned short index)
 //		(для кожної команди різне) і прирівнюємо його до числа типу (001, 010, 100)
 //		якшо рівні, то ок, в команді в j-му аргументі є такий тип, який закодований
 //		в бінарному коді, якщо ні, то помилка. //00000001 & 00000001 == 00000001
-		if (tmp == REG_CODE && ((op_tab[index].arg[j] & T_REG) == T_REG))
+		if (tmp == REG_CODE && ((g_tab[index].arg[j] & T_REG) == T_REG))
 			;
-		else if (tmp == DIR_CODE && ((op_tab[index].arg[j] & T_DIR) == T_DIR))
+		else if (tmp == DIR_CODE && ((g_tab[index].arg[j] & T_DIR) == T_DIR))
 			;
-		else if (tmp == IND_CODE && ((op_tab[index].arg[j] & T_IND) == T_IND))
+		else if (tmp == IND_CODE && ((g_tab[index].arg[j] & T_IND) == T_IND))
 			;
 		else
 		{
