@@ -91,6 +91,8 @@ typedef struct		s_ncur
 	long 			cyc_to_die;
 	int 			a;
 	int 			b;
+	int 			ch;
+	unsigned int cy;
 
 }                   t_ncurs;
 
@@ -146,6 +148,17 @@ void    ncurses_init_colors();
 void create_box(WINDOW *p_win, int size);
 void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs, int a);
 void    ncurses_result(t_ncurs *base, t_bs *bs);
+int			check_is_live(t_proc **procs, unsigned short is_beep, t_proc *tmp);
+void		check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
+                            t_chmp *champs);
+int			check_cycle_to_die(t_bs *bs, long *cycle_to_die,
+                                  unsigned int *max_check,
+                                  unsigned int *cycle_to_die_curr);
+void	set_chmps_with_flag_num(t_bs *bs);
+void	set_chmps_without_flag_num(t_bs *bs, unsigned int i, int k,
+                                   t_proc *tmp_proc);
+void	g_c_prep(t_ncurs *ncurs, t_bs *bs);
+void		who_win(t_chmp *champ, unsigned int *winner);
 
 
 #endif
