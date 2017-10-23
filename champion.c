@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   champion.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/23 23:55:21 by ddovzhik          #+#    #+#             */
+/*   Updated: 2017/10/23 23:55:22 by ddovzhik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	add_new_process(t_proc **proc)
 {
 	t_proc	*tmp_proc;
-	int 	i;
+	int		i;
 
 	if (!(tmp_proc = (t_proc *)malloc(sizeof(t_proc))))
 		ft_error(5, NULL);
@@ -17,8 +29,8 @@ void	add_new_process(t_proc **proc)
 	*proc = tmp_proc;
 }
 
-void add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc,
-				   char *av)
+void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc,
+						char *av)
 {
 	t_chmp	*tmp_cmp;
 	t_chmp	*curr;

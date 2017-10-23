@@ -1,6 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   instruct.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/24 00:14:11 by ddovzhik          #+#    #+#             */
+/*   Updated: 2017/10/24 00:14:12 by ddovzhik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-int		take_arg_reg(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
+int				take_arg_reg(unsigned char *map, unsigned int *arg,
+								unsigned int *tmp_pc)
 {
 	unsigned char index;
 
@@ -12,10 +25,10 @@ int		take_arg_reg(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc)
 	return (1);
 }
 
-int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
-						unsigned short op_index)
+int				take_arg_dir(unsigned char *map, unsigned int *arg,
+								unsigned int *tmp_pc, unsigned short op_index)
 {
-	unsigned char code[4];
+	unsigned char	code[4];
 
 	if (g_tab[op_index].dir_size == 0)
 	{
@@ -36,39 +49,16 @@ int		take_arg_dir(unsigned char *map, unsigned int *arg, unsigned int *tmp_pc,
 	return (1);
 }
 
-unsigned int	take_value_from_addres(unsigned char *map, t_proc *proc,
-									   short address, short flag_long)
-{
-	unsigned int index;
-	unsigned int value;
-
-	if (flag_long == 0)
-		index = (unsigned int)((long)proc->pc + address % IDX_MOD < 0 ?
-							   MEM_SIZE +
-							((long)proc->pc + address % IDX_MOD) % MEM_SIZE :
-				 			((long)proc->pc + address % IDX_MOD) % MEM_SIZE);
-	else
-		index = (unsigned int)((long)proc->pc + address < 0 ?
-							   MEM_SIZE +
-									   ((long)proc->pc + address) % MEM_SIZE :
-							   ((long)proc->pc + address) % MEM_SIZE);
-	value = map[index++ % MEM_SIZE];
-	value = (value << 8) | (unsigned int) map[index++ % MEM_SIZE];
-	value = (value << 8) | (unsigned int) map[index++ % MEM_SIZE];
-	value = (value << 8) | (unsigned int) map[index % MEM_SIZE];
-	return (value);
-}
-
 int		take_arg_ind(unsigned char *map, unsigned int *arg,
 						unsigned int *tmp_pc, t_proc *proc, short flag_long)
 {
-	unsigned char code[2];
-	unsigned short p;
+	unsigned char	code[2];
+	unsigned short	p;
 
 	code[0] = map[(*tmp_pc + 1) % MEM_SIZE];
 	code[1] = map[*tmp_pc];
 	p = *((unsigned short *)code);
-	*arg = take_value_from_addres(map, proc, p, flag_long);
+	*arg = take_value_from_address(map, proc, p, flag_long);
 	*tmp_pc = (*tmp_pc + 2) % MEM_SIZE;
 	return (1);
 }
@@ -76,11 +66,11 @@ int		take_arg_ind(unsigned char *map, unsigned int *arg,
 unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 						 t_proc *proc, unsigned short op_index, short flag_long)
 {
-	int res;
-	int i;
-	int j;
-	unsigned int tmp_pc;
-	unsigned int *arg;
+	int				res;
+	int				i;
+	int				j;
+	unsigned int	tmp_pc;
+	unsigned int	*arg;
 
 	if ((arg = (unsigned int *)malloc(
 			sizeof(unsigned int) * g_tab[op_index].count_arg)) == NULL)
@@ -108,51 +98,18 @@ unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 	return (arg);
 }
 
-void	shift_pc(unsigned char codage, t_proc *proc, unsigned short op_index)
+int		check_codage(unsigned char codage, t_proc *proc, unsigned short index)
 {
-	unsigned char tmp;
-	int i;
-	int j;
+    unsigned char	tmp;
+	int				i;
+	int				j;
 
 	i = 8;
 	j = 0;
-	proc->pc = (proc->pc + 1) % MEM_SIZE;
-	proc->pc = (proc->pc + (g_tab[op_index].is_codage ? 1 : 0)) % MEM_SIZE;
-	while (j < g_tab[op_index].count_arg)
+	while (j < g_tab[index].count_arg)
 	{
 		i -= 2;
 		tmp = (unsigned char)((codage >> i) & 0x3);
-		if (tmp == REG_CODE)
-			proc->pc = (proc->pc + 1) % MEM_SIZE;
-		else if (tmp == DIR_CODE)
-			proc->pc = (proc->pc + (g_tab[op_index].dir_size ? 2 : 4)) %
-					   MEM_SIZE;
-		else if (tmp == IND_CODE)
-			proc->pc = (proc->pc + IND_SIZE) % MEM_SIZE;
-		++j;
-	}
-}
-
-int		check_codage(unsigned char codage, t_proc *proc, unsigned short index)
-{
-    unsigned char tmp;
-	int i;
-	int j;
-
-	i = 8;
-	j = 0;
-//	01 10 10 00
-	while (j < g_tab[index].count_arg)
-	{
-		i -= 2; //00000111
-		//кожен раз зсовуємо, щоб виділити розряди для порівняння:
-		//00 00 00 01, потім 00 00 00 10, 00 00 00 10
-		tmp = (unsigned char)((codage >> i) & 0x3); // & 00000011
-//		виділяємо розряд в аргументі який відповідає за тип аргументу
-// 		(T_REG, T_DIR, T_IND), буде 0 або 1, тобто 00000101-> 00000100
-//		(для кожної команди різне) і прирівнюємо його до числа типу (001, 010, 100)
-//		якшо рівні, то ок, в команді в j-му аргументі є такий тип, який закодований
-//		в бінарному коді, якщо ні, то помилка. //00000001 & 00000001 == 00000001
 		if (tmp == REG_CODE && ((g_tab[index].arg[j] & T_REG) == T_REG))
 			;
 		else if (tmp == DIR_CODE && ((g_tab[index].arg[j] & T_DIR) == T_DIR))

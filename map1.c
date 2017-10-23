@@ -34,7 +34,7 @@ void		print_map(unsigned char *map)
 	ft_printf("\n");
 }
 
-void		check_inst_proc2(t_bs *bs, t_proc **procs, unsigned char *map,
+void		for_check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
 				t_proc *tmp)
 {
 	if (tmp->opcode == g_tab[7].opcode)
@@ -42,17 +42,17 @@ void		check_inst_proc2(t_bs *bs, t_proc **procs, unsigned char *map,
 	else if (tmp->opcode == g_tab[8].opcode)
 		ft_zjump(map, tmp, 8);
 	else if (tmp->opcode == g_tab[9].opcode)
-		ft_ld_lld_ldi_lldi(map, tmp, 9);
+		ft_ldi_lldi(map, tmp, 9, 0);
 	else if (tmp->opcode == g_tab[10].opcode)
-		ft_st_sti(bs, tmp, 10);
+		ft_sti(bs, tmp, 10);
 	else if (tmp->opcode == g_tab[11].opcode)
-		ft_fork_lfork(map, procs, tmp, 11);
+		ft_fork(map, procs, tmp, 11);
 	else if (tmp->opcode == g_tab[12].opcode)
-		ft_ld_lld_ldi_lldi(map, tmp, 12);
+		ft_ld_lld(map, tmp, 12, 1);
 	else if (tmp->opcode == g_tab[13].opcode)
-		ft_ld_lld_ldi_lldi(map, tmp, 13);
+		ft_ldi_lldi(map, tmp, 13, 1);
 	else if (tmp->opcode == g_tab[14].opcode)
-		ft_fork_lfork(map, procs, tmp, 14);
+		ft_lfork(map, procs, tmp, 14);
 	else if (tmp->opcode == g_tab[15].opcode)
 		ft_aff(map, tmp, 15, bs->is_aff);
 	else
@@ -72,9 +72,9 @@ void		check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
 		if (tmp->opcode == g_tab[0].opcode)
 			ft_live(bs, tmp, 0, champs);
 		else if (tmp->opcode == g_tab[1].opcode)
-			ft_ld_lld_ldi_lldi(map, tmp, 1);
+			ft_ld_lld(map, tmp, 1, 0);
 		else if (tmp->opcode == g_tab[2].opcode)
-			ft_st_sti(bs, tmp, 2);
+			ft_st(bs, tmp, 2);
 		else if (tmp->opcode == g_tab[3].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 3);
 		else if (tmp->opcode == g_tab[4].opcode)
@@ -84,22 +84,9 @@ void		check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
 		else if (tmp->opcode == g_tab[6].opcode)
 			ft_add_sub_and_or_xor(map, tmp, 6);
 		else
-			check_inst_proc2(bs, procs, map, tmp);
+			for_check_inst_proc(bs, procs, map, tmp);
 		tmp = tmp->next;
 	}
-}
-
-int			get_len_procs(t_proc *procs)
-{
-	int i;
-
-	i = 0;
-	while (procs)
-	{
-		procs = procs->next;
-		i++;
-	}
-	return (i);
 }
 
 int			check_is_live(t_proc **procs, unsigned short is_beep, t_proc *tmp)

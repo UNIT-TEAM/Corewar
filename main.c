@@ -1,8 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/24 00:14:02 by ddovzhik          #+#    #+#             */
+/*   Updated: 2017/10/24 00:14:03 by ddovzhik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
-
-
-int		check_num_atoi(char *line, unsigned int *num)
+int				check_num_atoi(char *line, unsigned int *num)
 {
 	int		count;
 
@@ -25,14 +35,14 @@ int		check_num_atoi(char *line, unsigned int *num)
 	return (1);
 }
 
-int		check_flags_corewar(char **av, int *index)
+int				check_flags_corewar(char **av, int *index)
 {
 	return (ft_strequ(av[*index], "-dump") || ft_strequ(av[*index], "-print") ||
 			ft_strequ(av[*index], "-n") || ft_strequ(av[*index], "-v") ||
 			ft_strequ(av[*index], "-a") || ft_strequ(av[*index], "-b"));
 }
 
-void	check_is_flags(t_bs *bs)
+void			check_is_flags(t_bs *bs)
 {
 	if (bs->is_visual)
 	{
@@ -44,11 +54,11 @@ void	check_is_flags(t_bs *bs)
 		bs->is_print = 0;
 }
 
-void	ft_sprint(t_bs *base, char **av, int ac)
+void			ft_sprint(t_bs *base, char **av, int ac)
 {
 	int				i;
 	unsigned int	num_player;
-	int fd;
+	int				fd;
 
 	i = 1;
 	while (i < ac)
@@ -65,7 +75,7 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 		{
 			check_is_flags(base);
 			add_new_champ(&base->list_champs, num_player, &base->list_proc,
-						  av[i]);
+							av[i]);
 			ft_magic_size(av[i], &base->list_champs->head);
 			ft_name_comment(av[i], &base->list_champs->head, 0);
 			ft_name_comment(av[i], &base->list_champs->head, 1);
@@ -78,9 +88,9 @@ void	ft_sprint(t_bs *base, char **av, int ac)
 	base->winner = base->list_champs->num;
 }
 
-void	print_winner(t_chmp *list_champs, unsigned int winner)
+void			print_winner(t_chmp *list_champs, unsigned int winner)
 {
-	t_chmp *tmp;
+	t_chmp	*tmp;
 
 	tmp = list_champs;
 	while (tmp)
@@ -88,16 +98,16 @@ void	print_winner(t_chmp *list_champs, unsigned int winner)
 		if (winner == tmp->num)
 		{
 			ft_printf("Contestant %u, \"%s\", has won !\n", winner,
-					  tmp->head.prog_name);
+						tmp->head.prog_name);
 			return ;
 		}
 		tmp = tmp->next;
 	}
 }
 
-unsigned int g_count;
+unsigned int	g_count;
 
-int 	main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	t_bs		base;
 

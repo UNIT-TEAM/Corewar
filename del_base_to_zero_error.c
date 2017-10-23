@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   del_base_to_zero_error.c                           :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/24 00:02:19 by ddovzhik          #+#    #+#             */
+/*   Updated: 2017/10/24 00:02:20 by ddovzhik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 void	del_list_champ(t_chmp **champ)
@@ -70,7 +82,8 @@ void	base_to_zero(t_bs *bs)
 **	11 - number of player must be a 1 <= number < MAX_PLAYERS
 **	12 - identical numbers
 */
-void 	ft_error1(int i, char *str)
+
+void	ft_error1(int i, char *str)
 {
 	if (i == 7)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
@@ -82,20 +95,19 @@ void 	ft_error1(int i, char *str)
 		ft_printf(RED"Error:"BLU"\n\t\tnot enough arguments"RC"\n", str);
 	else if (i == 11)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - should be in the "\
-        "range 1 <= number <= MAX_PLAYER\n");
+		"range 1 <= number <= MAX_PLAYER\n");
 	else if (i == 12)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - identical numbers"\
-        "\n");
+		"\n");
 	else if (i == 13)
 		ft_printf(RED"Error:"RC"\n\t\tchamps - should be in the range 1 <= num"\
-        "ber <= MAX_PLAYER\n");
+		"ber <= MAX_PLAYER\n");
 	else if (i == 14)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit"\
-        "\n");
+		"\n");
 	else if (i == 15)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
-        "\n");
-//TODO видалити всі лісти
+		"\n");
 	exit(1);
 }
 

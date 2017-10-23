@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   flags.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/10/24 00:10:37 by ddovzhik          #+#    #+#             */
+/*   Updated: 2017/10/24 00:10:38 by ddovzhik         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "corewar.h"
 
 unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 {
-	int i;
-	int fd;
-	unsigned int num_player;
+	int				i;
+	int				fd;
+	unsigned int	num_player;
 
 	num_player = 0;
 	if (ft_strequ(argv[*index], "-n"))
@@ -29,11 +41,11 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 	return (num_player);
 }
 
-void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
+void			parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 {
-	int i;
-	int fd;
-	unsigned int tmp;
+	int				i;
+	int				fd;
+	unsigned int	tmp;
 
 	if (ft_strequ(argv[*index], "-dump"))
 	{
@@ -55,11 +67,10 @@ void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 	}
 }
 
-
-void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
+void			parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 {
-	int i;
-	unsigned int tmp;
+	int				i;
+	unsigned int	tmp;
 
 	if (ft_strequ(argv[*index], "-print"))
 	{
@@ -77,7 +88,7 @@ void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 	}
 }
 
-void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
+void			parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 {
 	if (ft_strequ(argv[*index], "-v"))
 		bs->is_visual = 1;
@@ -90,10 +101,10 @@ void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 		*index += 1;
 }
 
-void	num_champs(t_chmp *champs, unsigned short is_visual)
+void			num_champs(t_chmp *champs, unsigned short is_visual)
 {
-	t_chmp *tmp;
-	unsigned int number;
+	t_chmp			*tmp;
+	unsigned int	number;
 
 	tmp = champs;
 	number = 1;
@@ -104,8 +115,8 @@ void	num_champs(t_chmp *champs, unsigned short is_visual)
 		tmp->num = number++;
 		if (is_visual == 0)
 			ft_printf("* Player %u, weighing %u bytes, \"%s\" (\"%s\")\n",
-					  tmp->num, tmp->head.prog_size, tmp->head.prog_name,
-					  tmp->head.comment);
+						tmp->num, tmp->head.prog_size, tmp->head.prog_name,
+						tmp->head.comment);
 		tmp = tmp->next;
 	}
 }
