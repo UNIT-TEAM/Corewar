@@ -254,8 +254,11 @@ void	global_cycles_with_visual(t_bs *bs)
 		}
 		if (ch != 's')
 			usleep(1000000/ncurs->n_cyc);
-		draw_mass(bs, 4096);
-		ncurses_stats(ncurs->window, ncurs,bs);
+		if (g_count == 0)
+		{
+			draw_mass(bs, 0, 0);
+			ncurses_stats(ncurs->window, ncurs, bs, 1);
+		}
 
 		if (ncurs->flag || ch == 's')
 		{
@@ -273,15 +276,22 @@ void	global_cycles_with_visual(t_bs *bs)
 								   &cycle_to_die_curr) == 0)
 				break;
 		}
+			if (g_count != 0)
+			{
+				draw_mass(bs, 0, 0);
+				ncurses_stats(ncurs->window, ncurs, bs, 1);
+			}
 		ch = 0;
 	}
-	++g_count;
+	if (ch == 0)
+	{++g_count;
 	who_win(bs->list_champs, &bs->winner);
+	//ncurses_stats(ncurs->window, ncurs, bs, 0);
 	ncurses_result(ncurs, bs);
 	while (getch() < 0)
 	{
 
-	}
+	}}
 	endwin();
 }
 

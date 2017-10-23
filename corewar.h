@@ -141,10 +141,10 @@ void ft_aff(unsigned char *map, t_proc *proc, unsigned short op_index,
 void	add_color(int a, unsigned int champ, t_bs *bs);
 void	ncurses_init_win(t_ncurs *base);
 int		kb_proc(t_ncurs *base, int ch);
-void	draw_mass(t_bs *bs, int size);
+void	draw_mass(t_bs *bs, int a, int b);
 void    ncurses_init_colors();
 void create_box(WINDOW *p_win, int size);
-void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs);
+void    ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs, int a);
 void    ncurses_result(t_ncurs *base, t_bs *bs);
 
 
