@@ -17,11 +17,14 @@ void	add_new_process(t_proc **proc)
 	*proc = tmp_proc;
 }
 
-void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc)
+void add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc,
+				   char *av)
 {
 	t_chmp	*tmp_cmp;
-	t_chmp *curr;
+	t_chmp	*curr;
+	int		fd;
 
+	((fd = open(av, O_RDONLY)) < 0) ? ft_error(2, NULL) : 0;
 	if (!(tmp_cmp = (t_chmp *)malloc(sizeof(t_chmp))))
 		ft_error(5, NULL);
 	tmp_cmp->live = 0;
@@ -39,4 +42,5 @@ void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc)
 	tmp_cmp->next = *first;
 	*first = tmp_cmp;
 	add_new_process(proc);
+	close(fd);
 }

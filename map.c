@@ -61,7 +61,7 @@ void	global_cycles_without_visual(t_bs *bs)
 			print_map(bs->map);
 			break ;
 		}
-		if (bs->is_print && bs->cycle_print % g_count == 0)
+		if (bs->is_print && g_count % bs->cycle_print == 0)
 			print_map(bs->map);
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 				&cycle_to_die_curr) == 0)
