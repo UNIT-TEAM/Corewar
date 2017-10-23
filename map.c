@@ -106,7 +106,7 @@ int check_is_live(t_proc **procs, unsigned short is_beep)
 			address = tmp->next;
 			free(tmp);
 			if (is_beep == 1)
-				beep();//TODO вивести звукове супроводження смерті
+				system("afplay die.mp3");//TODO вивести звукове супроводження смерті
 		}
 		tmp = address;
 	}
@@ -286,7 +286,6 @@ void	global_cycles_with_visual(t_bs *bs)
 	if (ch == 0)
 	{++g_count;
 	who_win(bs->list_champs, &bs->winner);
-	//ncurses_stats(ncurs->window, ncurs, bs, 0);
 	ncurses_result(ncurs, bs);
 	while (getch() < 0)
 	{
