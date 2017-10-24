@@ -118,8 +118,8 @@ void				fill_magic(unsigned int *magic_size, unsigned char *buf,
 void				ft_magic_size(char *av, t_header *p);
 void				ft_name_comment(char *av, t_header *p, int flag);
 void				ft_instraction(char *av, t_bs *bs);
-void				add_new_champ(t_chmp **first, unsigned int num_player,
-									t_proc **proc, char *av);
+void				a_n_c(t_chmp **first, unsigned int num_player,
+                          t_proc **proc, char *av);
 void				ft_fill_map(t_bs *bs);
 void				print_map(unsigned char *map);
 int					check_op_h();
@@ -189,5 +189,6 @@ void				parse_flag_print(t_bs *bs, char **argv, int argc,
 void				del_list_champ(t_chmp **champ);
 void				del_list_proc(t_proc **proc);
 void				base_to_zero(t_bs *bs);
+int				check_num_atoi(char *line, unsigned int *num);
 
 #endif
