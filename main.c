@@ -12,29 +12,6 @@
 
 #include "corewar.h"
 
-int				check_num_atoi(char *line, unsigned int *num)
-{
-	int		count;
-
-	*num = 0;
-	while (*line == '0')
-		line++;
-	count = 0;
-	while (count <= 10 && line[count])
-		count++;
-	if (count > 10)
-		return (0);
-	if (count == 10 && ft_strncmp(line, "4294967295", 10) > 0)
-		return (0);
-	while (count > 0)
-	{
-		*num = (*num * 10) + (*line - '0');
-		count--;
-		line++;
-	}
-	return (1);
-}
-
 int				check_flags_corewar(char **av, int *index)
 {
 	return (ft_strequ(av[*index], "-dump") || ft_strequ(av[*index], "-print") ||
@@ -54,14 +31,11 @@ void			check_is_flags(t_bs *bs)
 		bs->is_print = 0;
 }
 
-void			ft_sprint(t_bs *base, char **av, int ac)
+void			ft_sprint(t_bs *base, char **av, int ac, int i)
 {
-	int				i;
 	unsigned int	num_player;
-	int				fd;
 
-	i = 1;
-	while (i < ac)
+	while (++i < ac)
 	{
 		num_player = 0;
 		if (check_flags_corewar(av, &i))
@@ -74,14 +48,12 @@ void			ft_sprint(t_bs *base, char **av, int ac)
 		if (!check_flags_corewar(av, &i) && i < ac)
 		{
 			check_is_flags(base);
-			add_new_champ(&base->list_champs, num_player, &base->list_proc,
-							av[i]);
+			a_n_c(&base->list_champs, num_player, &base->list_proc, av[i]);
 			ft_magic_size(av[i], &base->list_champs->head);
 			ft_name_comment(av[i], &base->list_champs->head, 0);
 			ft_name_comment(av[i], &base->list_champs->head, 1);
 			ft_instraction(av[i], base);
 		}
-		i++;
 	}
 	if (base->list_champs == NULL)
 		ft_error(13, NULL);
@@ -116,7 +88,7 @@ int				main(int argc, char **argv)
 	if (check_op_h() == 0)
 		return (1);
 	base_to_zero(&base);
-	ft_sprint(&base, argv, argc);
+	ft_sprint(&base, argv, argc, 0);
 	num_champs(base.list_champs, base.is_visual);
 	ft_fill_map(&base);
 	if (base.is_visual == 0)

@@ -6,7 +6,7 @@
 /*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 23:55:21 by ddovzhik          #+#    #+#             */
-/*   Updated: 2017/10/23 23:55:22 by ddovzhik         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:34:06 by ysavenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ void	add_new_process(t_proc **proc)
 	*proc = tmp_proc;
 }
 
-void	add_new_champ(t_chmp **first, unsigned int flag_num, t_proc **proc,
-						char *av)
+void	a_n_c(t_chmp **first, unsigned int flag_num, t_proc **proc,
+			char *av)
 {
 	t_chmp	*tmp_cmp;
 	t_chmp	*curr;
