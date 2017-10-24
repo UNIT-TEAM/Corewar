@@ -94,8 +94,9 @@ void	ft_fill_map(t_bs *bs)
 	t_ncurs	*ncurs;
 	t_proc	*tmp_proc;
 
-	ncurs = malloc(sizeof(t_ncurs));
-	reverse_champs(&bs->list_champs);
+	ncurs = NULL;
+	if (bs->is_visual)
+		ncurs = malloc(sizeof(t_ncurs));
 	if (bs->is_num_flag)
 		set_chmps_with_flag_num(bs);
 	set_chmps_without_flag_num(bs, 0, 0, tmp_proc);
@@ -108,4 +109,6 @@ void	ft_fill_map(t_bs *bs)
 	}
 	else
 		global_cycles_without_visual(bs);
+	if (bs->is_visual && ncurs != NULL)
+		free(ncurs);
 }
