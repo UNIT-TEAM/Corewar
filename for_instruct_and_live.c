@@ -43,13 +43,15 @@ void			parse_heap_to_stack_args(unsigned int *args,
 	*heap_args = NULL;
 }
 
-void			shift_pc(unsigned char codage, t_proc *proc,
-							unsigned short op_index)
+unsigned int	*shift_pc(unsigned char codage, t_proc *proc,
+							unsigned short op_index, unsigned int **args)
 {
 	unsigned char	tmp;
 	int				i;
 	int				j;
 
+	if (args != NULL && *args != NULL)
+		free(*args);
 	i = 8;
 	j = 0;
 	proc->pc = (proc->pc + 1) % MEM_SIZE;
@@ -67,24 +69,26 @@ void			shift_pc(unsigned char codage, t_proc *proc,
 			proc->pc = (proc->pc + IND_SIZE) % MEM_SIZE;
 		++j;
 	}
+	return (NULL);
 }
 
 unsigned int	take_value_from_address(unsigned char *map, t_proc *proc,
-										short address, short flag_long)
+										short address)
 {
 	unsigned int	index;
 	unsigned int	value;
 
-	if (flag_long == 0)
+	if (proc->pc == 0x0f || proc->pc == 0x0d || proc->pc == 0x0e)
+		index = (unsigned int)((long)proc->pc + address < 0 ?
+						   MEM_SIZE +
+						   ((long)proc->pc + address) % MEM_SIZE :
+						   ((long)proc->pc + address) % MEM_SIZE);
+	else
 		index = (unsigned int)((long)proc->pc + address % IDX_MOD < 0 ?
 							MEM_SIZE +
 							((long)proc->pc + address % IDX_MOD) % MEM_SIZE :
 							((long)proc->pc + address % IDX_MOD) % MEM_SIZE);
-	else
-		index = (unsigned int)((long)proc->pc + address < 0 ?
-							MEM_SIZE +
-							((long)proc->pc + address) % MEM_SIZE :
-							((long)proc->pc + address) % MEM_SIZE);
+
 	value = map[index++ % MEM_SIZE];
 	value = (value << 8) | (unsigned int)map[index++ % MEM_SIZE];
 	value = (value << 8) | (unsigned int)map[index++ % MEM_SIZE];
@@ -101,7 +105,7 @@ void			ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
 
 	if (for_instruct(bs->map, proc, op_index, NULL) == 0)
 		return ;
-	if (!(heap_args = take_argument(bs->map, DIR_CODE << 6, proc, op_index, 0)))
+	if (!(heap_args = take_argument(bs->map, DIR_CODE << 6, proc, op_index)))
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, g_tab[op_index].count_arg);
 	proc->is_live = 1;
@@ -117,5 +121,5 @@ void			ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
 		}
 		curr = curr->next;
 	}
-	shift_pc(DIR_CODE << 6, proc, op_index);
+	shift_pc(DIR_CODE << 6, proc, op_index, NULL);
 }

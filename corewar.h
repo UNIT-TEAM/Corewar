@@ -124,14 +124,13 @@ void				ft_fill_map(t_bs *bs);
 void				print_map(unsigned char *map);
 int					check_op_h();
 unsigned int		*take_argument(unsigned char *map, unsigned char codage,
-									t_proc *proc, unsigned short op_index,
-									short flag_long);
-unsigned int		take_value_from_address(unsigned char *map, t_proc *proc,
-											short address, short flag_long);
+							   t_proc *proc, unsigned short op_index);
+unsigned int		take_value_from_address(unsigned char *map, t_proc *pr,
+											short address);
 int					check_codage(unsigned char codage, t_proc *proc,
 									unsigned short index);
-void				shift_pc(unsigned char codage, t_proc *proc,
-								unsigned short op_index);
+unsigned int		*shift_pc(unsigned char codage, t_proc *proc,
+						  unsigned short op_index, unsigned int **args);
 int					for_instruct(unsigned char *map, t_proc *proc,
 									unsigned short op_index,
 									unsigned char *codage);
@@ -141,9 +140,9 @@ void				parse_heap_to_stack_args(unsigned int *args,
 void				ft_live(t_bs *bs, t_proc *proc, unsigned short op_index,
 							t_chmp *champs);
 void				ft_ld_lld(unsigned char *map, t_proc *proc,
-								unsigned short op_index, short flag_long);
+								unsigned short op_index);
 void				ft_ldi_lldi(unsigned char *map, t_proc *proc,
-								unsigned short op_index, short flag_long);
+								unsigned short op_index);
 void				ft_st(t_bs *bs, t_proc *proc, unsigned short op_index);
 void				ft_sti(t_bs *bs, t_proc *proc, unsigned short op_index);
 void				ft_add_sub_and_or_xor(unsigned char *map, t_proc *proc,

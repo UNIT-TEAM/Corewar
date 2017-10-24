@@ -12,8 +12,7 @@
 
 #include "corewar.h"
 
-void	ft_ld_lld(unsigned char *map, t_proc *proc, unsigned short op_index,
-					short flag_long)
+void	ft_ld_lld(unsigned char *map, t_proc *proc, unsigned short op_index)
 {
 	unsigned int	arg[g_tab[op_index].count_arg];
 	unsigned int	*heap_args;
@@ -21,16 +20,15 @@ void	ft_ld_lld(unsigned char *map, t_proc *proc, unsigned short op_index,
 
 	if (for_instruct(map, proc, op_index, &codage) == 0)
 		return ;
-	if (!(heap_args = take_argument(map, codage, proc, op_index, flag_long)))
+	if (!(heap_args = take_argument(map, codage, proc, op_index)))
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, g_tab[op_index].count_arg);
 	proc->regs[arg[1]] = arg[0];
 	proc->carry = (unsigned char)(arg[0] == 0 ? 1 : 0);
-	shift_pc(codage, proc, op_index);
+	shift_pc(codage, proc, op_index, NULL);
 }
 
-void	ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short op_index,
-					short flag_long)
+void	ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short op_index)
 {
 	unsigned int	arg[g_tab[op_index].count_arg];
 	unsigned int	*heap_args;
@@ -38,15 +36,15 @@ void	ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short op_index,
 
 	if (for_instruct(map, proc, op_index, &codage) == 0)
 		return ;
-	if (!(heap_args = take_argument(map, codage, proc, op_index, flag_long)))
+	if (!(heap_args = take_argument(map, codage, proc, op_index)))
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, g_tab[op_index].count_arg);
 	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ? proc->regs[arg[0]] : arg[0];
 	arg[1] = (((codage >> 4) & 0x3) == REG_CODE) ? proc->regs[arg[1]] : arg[1];
 	proc->regs[arg[2]] = take_value_from_address(map, proc,
-								(unsigned short)(arg[0] + arg[1]), flag_long);
+								(unsigned short)(arg[0] + arg[1]));
 	proc->carry = (unsigned char)(proc->regs[arg[2]] == 0 ? 1 : 0);
-	shift_pc(codage, proc, op_index);
+	shift_pc(codage, proc, op_index, NULL);
 }
 
 void	set_bytes_on_map(t_bs *bs, unsigned int i, t_proc *proc,
@@ -74,21 +72,21 @@ void	ft_st(t_bs *bs, t_proc *proc, unsigned short op_index)
 	g_tab[op_index].dir_size = 1;
 	if (codage == 0x70)
 		codage = 0x60;
-	if (!(heap_args = take_argument(bs->map, codage, proc, op_index, 0)))
+	if (!(heap_args = take_argument(bs->map, codage, proc, op_index)))
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, g_tab[op_index].count_arg);
 	arg[0] = proc->regs[arg[0]];
 	if (codage == 0x50)
 	{
 		proc->regs[arg[1]] = arg[0];
-		shift_pc(codage, proc, op_index);
+		shift_pc(codage, proc, op_index, NULL);
 		return ;
 	}
 	i = (unsigned int)((long)proc->pc + (short)arg[1] % IDX_MOD < 0 ?
 			MEM_SIZE + ((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE :
 						((long)proc->pc + (short)arg[1] % IDX_MOD) % MEM_SIZE);
 	set_bytes_on_map(bs, i, proc, arg);
-	shift_pc(codage, proc, op_index);
+	shift_pc(codage, proc, op_index, NULL);
 }
 
 void	ft_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
@@ -100,7 +98,7 @@ void	ft_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 
 	if (for_instruct(bs->map, proc, op_index, &codage) == 0)
 		return ;
-	if (!(heap_args = take_argument(bs->map, codage, proc, op_index, 0)))
+	if (!(heap_args = take_argument(bs->map, codage, proc, op_index)))
 		return ;
 	parse_heap_to_stack_args(arg, &heap_args, g_tab[op_index].count_arg);
 	arg[0] = (((codage >> 6) & 0x3) == REG_CODE) ? proc->regs[arg[0]] : arg[0];
@@ -112,5 +110,5 @@ void	ft_sti(t_bs *bs, t_proc *proc, unsigned short op_index)
 			((long)proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE :
 			((long)proc->pc + (short)(arg[1] + arg[2]) % IDX_MOD) % MEM_SIZE);
 	set_bytes_on_map(bs, i, proc, arg);
-	shift_pc(codage, proc, op_index);
+	shift_pc(codage, proc, op_index, NULL);
 }

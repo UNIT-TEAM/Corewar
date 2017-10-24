@@ -42,15 +42,15 @@ void		for_check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
 	else if (tmp->opcode == g_tab[8].opcode)
 		ft_zjump(map, tmp, 8);
 	else if (tmp->opcode == g_tab[9].opcode)
-		ft_ldi_lldi(map, tmp, 9, 0);
+		ft_ldi_lldi(map, tmp, 9);
 	else if (tmp->opcode == g_tab[10].opcode)
 		ft_sti(bs, tmp, 10);
 	else if (tmp->opcode == g_tab[11].opcode)
 		ft_fork(map, procs, tmp, 11);
 	else if (tmp->opcode == g_tab[12].opcode)
-		ft_ld_lld(map, tmp, 12, 1);
+		ft_ld_lld(map, tmp, 12);
 	else if (tmp->opcode == g_tab[13].opcode)
-		ft_ldi_lldi(map, tmp, 13, 1);
+		ft_ldi_lldi(map, tmp, 13);
 	else if (tmp->opcode == g_tab[14].opcode)
 		ft_lfork(map, procs, tmp, 14);
 	else if (tmp->opcode == g_tab[15].opcode)
@@ -72,7 +72,7 @@ void		check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
 		if (tmp->opcode == g_tab[0].opcode)
 			ft_live(bs, tmp, 0, champs);
 		else if (tmp->opcode == g_tab[1].opcode)
-			ft_ld_lld(map, tmp, 1, 0);
+			ft_ld_lld(map, tmp, 1);
 		else if (tmp->opcode == g_tab[2].opcode)
 			ft_st(bs, tmp, 2);
 		else if (tmp->opcode == g_tab[3].opcode)
