@@ -10,7 +10,7 @@ FILES = corewar_vm/add_color.o\
         corewar_vm/fill_bot.o\
         corewar_vm/flags.o\
         corewar_vm/for_instruct_and_live.o\
-        corewar_vm/instruct.o\
+        corewar_vm/take_args.o\
         corewar_vm/main.o\
         corewar_vm/map.o\
         corewar_vm/map1.o\
@@ -28,7 +28,7 @@ $(NAME) : libft.a $(FILES)
 	@ $(GCC) $(FILES) -o $(NAME) ./libft/libft.a -lncurses
 	@ echo "\033[32mcorewar was compiled \033[0m"
 	@ make -C ./dasm
-	@ cp dasm/asm .
+	@ cp dasm/asm ./asm
 
 libft.a:
 	@ make -C ./libft

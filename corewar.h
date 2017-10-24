@@ -124,13 +124,13 @@ void				ft_fill_map(t_bs *bs);
 void				print_map(unsigned char *map);
 int					check_op_h();
 unsigned int		*take_argument(unsigned char *map, unsigned char codage,
-							   t_proc *proc, unsigned short op_index);
+								t_proc *proc, unsigned short op_index);
 unsigned int		take_value_from_address(unsigned char *map, t_proc *pr,
 											short address);
 int					check_codage(unsigned char codage, t_proc *proc,
 									unsigned short index);
 unsigned int		*shift_pc(unsigned char codage, t_proc *proc,
-						  unsigned short op_index, unsigned int **args);
+							unsigned short op_index, unsigned int **args);
 int					for_instruct(unsigned char *map, t_proc *proc,
 									unsigned short op_index,
 									unsigned char *codage);

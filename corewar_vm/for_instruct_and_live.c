@@ -80,15 +80,14 @@ unsigned int	take_value_from_address(unsigned char *map, t_proc *proc,
 
 	if (proc->pc == 0x0f || proc->pc == 0x0d || proc->pc == 0x0e)
 		index = (unsigned int)((long)proc->pc + address < 0 ?
-						   MEM_SIZE +
-						   ((long)proc->pc + address) % MEM_SIZE :
-						   ((long)proc->pc + address) % MEM_SIZE);
+							MEM_SIZE +
+							((long)proc->pc + address) % MEM_SIZE :
+							((long)proc->pc + address) % MEM_SIZE);
 	else
 		index = (unsigned int)((long)proc->pc + address % IDX_MOD < 0 ?
 							MEM_SIZE +
 							((long)proc->pc + address % IDX_MOD) % MEM_SIZE :
 							((long)proc->pc + address % IDX_MOD) % MEM_SIZE);
-
 	value = map[index++ % MEM_SIZE];
 	value = (value << 8) | (unsigned int)map[index++ % MEM_SIZE];
 	value = (value << 8) | (unsigned int)map[index++ % MEM_SIZE];
