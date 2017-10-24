@@ -6,7 +6,7 @@
 /*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 23:59:41 by ddovzhik          #+#    #+#             */
-/*   Updated: 2017/10/23 23:59:42 by ddovzhik         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:37:37 by ysavenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -189,6 +189,6 @@ void				parse_flag_print(t_bs *bs, char **argv, int argc,
 void				del_list_champ(t_chmp **champ);
 void				del_list_proc(t_proc **proc);
 void				base_to_zero(t_bs *bs);
-int				check_num_atoi(char *line, unsigned int *num);
+int					check_num_atoi(char *line, unsigned int *num);
 
 #endif
