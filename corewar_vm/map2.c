@@ -6,7 +6,7 @@
 /*   By: ysavenko <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 18:54:20 by ysavenko          #+#    #+#             */
-/*   Updated: 2017/10/23 20:06:09 by ysavenko         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:14:29 by ddovzhik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void		who_win(t_chmp *champ, unsigned int *winner)
 			max_cycle = tmp->cycle_live;
 		}
 		else if (max_cycle == tmp->cycle_live)
-			*winner = (tmp->num < *winner) ? tmp->num : *winner;
+			*winner = (tmp->num > *winner) ? tmp->num : *winner;
 		tmp = tmp->next;
 	}
 }
