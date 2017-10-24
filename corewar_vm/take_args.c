@@ -6,11 +6,11 @@
 /*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 00:14:11 by ddovzhik          #+#    #+#             */
-/*   Updated: 2017/10/24 20:28:38 by ddovzhik         ###   ########.fr       */
+/*   Updated: 2017/10/24 21:31:30 by ddovzhik         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "corewar.h"
+#include "../corewar.h"
 
 int				take_arg_reg(unsigned char *map, unsigned int *arg,
 								unsigned int *tmp_pc)
