@@ -67,7 +67,7 @@ typedef struct		s_proc
 
 typedef struct		s_chmp
 {
-	header_t		head;
+	t_header		head;
 	int				live;
 	unsigned int	cycle_live;
 	unsigned int	num;
@@ -115,8 +115,8 @@ void				ft_error(int i, char *str);
 
 void				fill_magic(unsigned int *magic_size, unsigned char *buf,
 								char *str, int flag);
-void				ft_magic_size(char *av, header_t *p);
-void				ft_name_comment(char *av, header_t *p, int flag);
+void				ft_magic_size(char *av, t_header *p);
+void				ft_name_comment(char *av, t_header *p, int flag);
 void				ft_instraction(char *av, t_bs *bs);
 void				add_new_champ(t_chmp **first, unsigned int num_player,
 									t_proc **proc, char *av);

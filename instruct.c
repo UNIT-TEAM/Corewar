@@ -6,7 +6,7 @@
 /*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 00:14:11 by ddovzhik          #+#    #+#             */
-/*   Updated: 2017/10/24 00:14:12 by ddovzhik         ###   ########.fr       */
+/*   Updated: 2017/10/24 14:51:59 by ysavenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int				take_arg_dir(unsigned char *map, unsigned int *arg,
 	return (1);
 }
 
-int		take_arg_ind(unsigned char *map, unsigned int *arg,
+int				take_arg_ind(unsigned char *map, unsigned int *arg,
 						unsigned int *tmp_pc, t_proc *proc, short flag_long)
 {
 	unsigned char	code[2];
@@ -64,7 +64,7 @@ int		take_arg_ind(unsigned char *map, unsigned int *arg,
 }
 
 unsigned int	*take_argument(unsigned char *map, unsigned char codage,
-						 t_proc *proc, unsigned short op_index, short flag_long)
+				t_proc *proc, unsigned short op_index, short flag_long)
 {
 	int				res;
 	int				i;
@@ -76,7 +76,7 @@ unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 			sizeof(unsigned int) * g_tab[op_index].count_arg)) == NULL)
 		ft_error(5, NULL);
 	tmp_pc = (g_tab[op_index].is_codage ?
-			  	proc->pc + 2 : proc->pc + 1) % MEM_SIZE;
+				proc->pc + 2 : proc->pc + 1) % MEM_SIZE;
 	j = 8;
 	i = -1;
 	while (++i < g_tab[op_index].count_arg)
@@ -98,9 +98,10 @@ unsigned int	*take_argument(unsigned char *map, unsigned char codage,
 	return (arg);
 }
 
-int		check_codage(unsigned char codage, t_proc *proc, unsigned short index)
+int				check_codage(unsigned char codage, t_proc *proc,
+						unsigned short index)
 {
-    unsigned char	tmp;
+	unsigned char	tmp;
 	int				i;
 	int				j;
 

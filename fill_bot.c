@@ -55,7 +55,7 @@ void	fill_magic(unsigned int *magic_size, unsigned char *buf, char *str,
 		ft_error(4, str);
 }
 
-void	ft_magic_size(char *av, header_t *p)
+void	ft_magic_size(char *av, t_header *p)
 {
 	int				fd;
 	unsigned char	buf[4];
@@ -84,7 +84,7 @@ void	ft_magic_size(char *av, header_t *p)
 ** flag 1 for comment;
 */
 
-void	ft_name_comment(char *av, header_t *p, int flag)
+void	ft_name_comment(char *av, t_header *p, int flag)
 {
 	int	fd;
 	int	k;
