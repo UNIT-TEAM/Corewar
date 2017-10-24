@@ -6,7 +6,7 @@
 #    By: tgogol <marvin@42.fr>                      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2016/11/27 14:45:40 by tgogol            #+#    #+#              #
-#    Updated: 2016/12/05 22:15:55 by tgogol           ###   ########.fr        #
+#    Updated: 2017/10/24 22:49:07 by ddovzhik         ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -95,16 +95,16 @@ OBJECTS = 						\
 all : $(NAME)
 
 $(NAME) : $(OBJECTS)
-	ar rc $(NAME) $(OBJECTS)
-	ranlib $(NAME)
+	@ ar rc $(NAME) $(OBJECTS)
+	@ ranlib $(NAME)
 
 %.o : %.c
-	$(GCC) -o $@ -c $< $(INCLUDES)
+	@ $(GCC) -o $@ -c $< $(INCLUDES)
 
 clean :
-	rm -rf $(OBJECTS)
+	@ rm -rf $(OBJECTS)
 
 fclean : clean
-	rm -rf $(NAME)
+	@ rm -rf $(NAME)
 
 re : fclean all
