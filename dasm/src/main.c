@@ -6,7 +6,7 @@
 /*   By: ysalata <marvin@42.fr>                     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/20 17:52:04 by ysalata           #+#    #+#             */
-/*   Updated: 2017/10/24 07:54:39 by ysalata          ###   ########.fr       */
+/*   Updated: 2017/10/24 21:32:59 by ysalata          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,10 @@ int					cw_e(int type)
 {
 	if (type == 0)
 	{
-		ft_printf("Usage: ./dasm [-m] <sourcefile.s>\f");
-		ft_printf("-m: Instead of creating 1 .cor, flag ./dasm can processing "
-					"into the .cor all your files, those was"
-					"transferred to the ./dasm argument\n");
+		ft_printf("Usage: ./asm [-m] <sourcefile.s>\n");
+		ft_printf("\t -m: Instead of creating 1 .cor, flag ./asm can "
+				"processing into the .cor all your files, those was"
+					"transferred to the ./asm argument\n");
 		return (0);
 	}
 	ft_putstr_fd(COL_RED"error #", 2);
