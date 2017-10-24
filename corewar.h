@@ -6,7 +6,7 @@
 /*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/23 23:59:41 by ddovzhik          #+#    #+#             */
-/*   Updated: 2017/10/24 15:37:37 by ysavenko         ###   ########.fr       */
+/*   Updated: 2017/10/24 15:49:37 by ysavenko         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ void				ft_magic_size(char *av, t_header *p);
 void				ft_name_comment(char *av, t_header *p, int flag);
 void				ft_instraction(char *av, t_bs *bs);
 void				a_n_c(t_chmp **first, unsigned int num_player,
-                          t_proc **proc, char *av);
+							t_proc **proc, char *av);
 void				ft_fill_map(t_bs *bs);
 void				print_map(unsigned char *map);
 int					check_op_h();
