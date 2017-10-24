@@ -190,5 +190,6 @@ void				del_list_champ(t_chmp **champ);
 void				del_list_proc(t_proc **proc);
 void				base_to_zero(t_bs *bs);
 int					check_num_atoi(char *line, unsigned int *num);
+void				reverse_champs(t_chmp **champs);
 
 #endif

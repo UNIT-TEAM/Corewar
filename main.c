@@ -45,7 +45,7 @@ void			ft_sprint(t_bs *base, char **av, int ac, int i)
 			parse_flag_print(base, av, ac, &i);
 			parse_flag_visual_aff_beep(base, av, &i);
 		}
-		if (!check_flags_corewar(av, &i) && i < ac)
+		if (i < ac && !check_flags_corewar(av, &i))
 		{
 			check_is_flags(base);
 			a_n_c(&base->list_champs, num_player, &base->list_proc, av[i]);
@@ -89,6 +89,7 @@ int				main(int argc, char **argv)
 		return (1);
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc, 0);
+	reverse_champs(&base.list_champs);
 	num_champs(base.list_champs, base.is_visual);
 	ft_fill_map(&base);
 	if (base.is_visual == 0)

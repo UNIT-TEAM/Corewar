@@ -59,7 +59,7 @@ void		who_win(t_chmp *champ, unsigned int *winner)
 			max_cycle = tmp->cycle_live;
 		}
 		else if (max_cycle == tmp->cycle_live)
-			*winner = (tmp->num > *winner) ? tmp->num : *winner;
+			*winner = (tmp->num < *winner) ? tmp->num : *winner;
 		tmp = tmp->next;
 	}
 }
