@@ -78,11 +78,13 @@ void			print_winner(t_chmp *list_champs, unsigned int winner)
 }
 
 unsigned int	g_count;
+t_bs            *g_p_base;
 
 int				main(int argc, char **argv)
 {
 	t_bs		base;
 
+    g_p_base = &base;
 	if (argc == 1)
 		ft_error(1, NULL);
 	if (check_op_h() == 0)

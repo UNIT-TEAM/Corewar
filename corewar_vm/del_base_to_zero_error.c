@@ -108,6 +108,8 @@ void	ft_error1(int i, char *str)
 	else if (i == 15)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
 		"\n");
+    del_list_proc(&g_p_base->list_proc);
+    del_list_champ(&g_p_base->list_champs);
 	exit(1);
 }
 
