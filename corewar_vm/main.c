@@ -33,28 +33,25 @@ void			check_is_flags(t_bs *bs)
 
 void			ft_sprint(t_bs *base, char **av, int ac, int i)
 {
-	unsigned int	num_player;
-
 	while (++i < ac)
 	{
-		num_player = 0;
-		if (check_flags_corewar(av, &i))
+		while (i < ac && check_flags_corewar(av, &i))
 		{
-			num_player = parse_flag_num(base, av, ac, &i);
-			parse_flag_dump(base, av, ac, &i);
-			parse_flag_print(base, av, ac, &i);
-			parse_flag_visual_aff_beep(base, av, &i);
+			(i < ac) ? parse_flag_num(&base, av, ac, &i) : 0;
+			(i < ac) ? parse_flag_dump(base, av, ac, &i) : 0;
+			(i < ac) ? parse_flag_print(base, av, ac, &i) : 0;
+			(i < ac) ? parse_flag_visual_aff_beep(base, av, &i) : 0;
 		}
 		if (i < ac && !check_flags_corewar(av, &i))
 		{
-			check_is_flags(base);
-			a_n_c(&base->list_champs, num_player, &base->list_proc, av[i]);
+			a_n_c(&base->list_champs, 0, &base->list_proc, av[i]);
 			ft_magic_size(av[i], &base->list_champs->head);
 			ft_name_comment(av[i], &base->list_champs->head, 0);
 			ft_name_comment(av[i], &base->list_champs->head, 1);
 			ft_instraction(av[i], base);
 		}
 	}
+	check_is_flags(base);
 	if (base->list_champs == NULL)
 		ft_error(13, NULL);
 	base->winner = base->list_champs->num;

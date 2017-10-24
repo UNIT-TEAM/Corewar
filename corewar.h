@@ -110,6 +110,7 @@ typedef struct		s_ncur
 
 extern t_op			g_tab[17];
 extern unsigned int	g_count;
+extern t_bs			*g_p_base;
 
 void				ft_error(int i, char *str);
 
@@ -177,7 +178,8 @@ void				set_chmps_without_flag_num(t_bs *bs, unsigned int i, int k,
 void				g_c_prep(t_ncurs *ncurs, t_bs *bs);
 void				who_win(t_chmp *champ, unsigned int *winner);
 int					check_num_atoi(char *line, unsigned int *num);
-unsigned int		parse_flag_num(t_bs *bs, char **argv, int argc, int *index);
+void				parse_flag_num(t_bs **bs, char **argv, int argc,
+									int *index);
 void				parse_flag_dump(t_bs *bs, char **argv, int argc,
 									int *index);
 void				parse_flag_visual_aff_beep(t_bs *bs, char **argv,

@@ -12,10 +12,9 @@
 
 #include "../corewar.h"
 
-unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
+void	parse_flag_num(t_bs **bs, char **argv, int argc, int *index)
 {
 	int				i;
-	int				fd;
 	unsigned int	num_player;
 
 	num_player = 0;
@@ -29,19 +28,20 @@ unsigned int	parse_flag_num(t_bs *bs, char **argv, int argc, int *index)
 				ft_error(6, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &num_player))
 			ft_error(8, argv[*index + 1]);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
-			ft_error(2, NULL);
-		else
-			close(fd);
+		a_n_c(&(*bs)->list_champs, num_player, &(*bs)->list_proc,
+				argv[*index + 2]);
+		ft_magic_size(argv[*index + 2], &(*bs)->list_champs->head);
+		ft_name_comment(argv[*index + 2], &(*bs)->list_champs->head, 0);
+		ft_name_comment(argv[*index + 2], &(*bs)->list_champs->head, 1);
+		ft_instraction(argv[*index + 2], *bs);
 		if (num_player < 1 || num_player > MAX_CHECKS)
 			ft_error(11, NULL);
-		bs->is_num_flag = 1;
-		*index += 2;
+		(*bs)->is_num_flag = 1;
+		*index += 3;
 	}
-	return (num_player);
 }
 
-void			parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
+void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 {
 	int				i;
 	int				fd;
@@ -67,7 +67,7 @@ void			parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 	}
 }
 
-void			parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
+void	parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 {
 	int				i;
 	unsigned int	tmp;
@@ -88,7 +88,7 @@ void			parse_flag_print(t_bs *bs, char **argv, int argc, int *index)
 	}
 }
 
-void			parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
+void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 {
 	if (ft_strequ(argv[*index], "-v"))
 		bs->is_visual = 1;
@@ -101,7 +101,7 @@ void			parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 		*index += 1;
 }
 
-void			num_champs(t_chmp *champs, unsigned short is_visual)
+void	num_champs(t_chmp *champs, unsigned short is_visual)
 {
 	t_chmp			*tmp;
 	unsigned int	number;
