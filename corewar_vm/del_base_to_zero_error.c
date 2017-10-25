@@ -6,7 +6,7 @@
 /*   By: ddovzhik <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/10/24 00:02:19 by ddovzhik          #+#    #+#             */
-/*   Updated: 2017/10/24 00:02:20 by ddovzhik         ###   ########.fr       */
+/*   Updated: 2017/10/25 13:10:42 by tgogol           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	base_to_zero(t_bs *bs)
 **	5 - error in malloc;
 **	6 - number of player is doesnt digit
 **	7 - number of cycles is doesnt digit
-**  8 - number is not unsigned int
+** 8 - number is not unsigned int
 **	9 - number of print cicles must be a digit
 **	10
 **	11 - number of player must be a 1 <= number < MAX_PLAYERS
@@ -92,19 +92,19 @@ void	ft_error1(int i, char *str)
 		ft_printf(RED"Error:"BLU"\n\t\tnot enough arguments"RC"\n", str);
 	else if (i == 11)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - should be in the "\
-		"range 1 <= number <= MAX_PLAYER\n");
+				"range 1 <= number <= MAX_PLAYER\n");
 	else if (i == 12)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - identical numbers"\
-		"\n");
+				"\n");
 	else if (i == 13)
 		ft_printf(RED"Error:"RC"\n\t\tchamps - should be in the range 1 <= num"\
-		"ber <= MAX_PLAYER\n");
+				"ber <= MAX_PLAYER\n");
 	else if (i == 14)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit"\
-		"\n");
+				"\n");
 	else if (i == 15)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
-		"\n");
+				"\n");
 	del_list_proc(&g_p_base->list_proc);
 	del_list_champ(&g_p_base->list_champs);
 	exit(1);
@@ -118,22 +118,22 @@ void	ft_error(int i, char *str)
 		" | [[-n number] champion1.cor] | -v] \n\tMax players is %d\n\n#### T"\
 		"EXT OUTPUT MODE #####################################################"\
 		"#####\n\t-dump N\t\t: Dumps memory after N cycles then exits;\n\t-pri"\
-		"nt N\t: Every N cycles, print dump memory;\n\t-a\t\t\t: Prints output"\
-		" from \"aff\" (Default is to hide it);\n\t-b\t\t\t: Enable sound when"\
-		" process is die;\n\t-n number\t: Sets the number of the next player\n"\
-		"\n#### NCURSES OUTPUT MODE ##########################################"\
-		"#############\n\t-v\t\t\t: Ncurses output mode\n", MAX_PLAYERS);
+		"nt N\t: Every N cycles, print dump memory;\n\t-a\t\t: Prints output"\
+		" from \"aff\" (Default is to hide it);\n\t-n number\t: Sets the numbe"\
+		"r of the next player\n\n#### NCURSES OUTPUT MODE ####################"\
+		"######################"\
+		"#############\n\t-v\t\t: Ncurses output mode\n", MAX_PLAYERS);
 	else if (i == 3)
 		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic na"\
-		"me\n", str);
+				"me\n", str);
 	else if (i == 4)
 		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has a code size that di"\
-		"ffer from what its header says\n", str);
+				"ffer from what its header says\n", str);
 	else if (i == 5)
 		ft_printf(RED"Error:"RC"\n\t\tin malloc\n");
 	else if (i == 6)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - must be a digit"\
-		"\n");
+				"\n");
 	else if (i == 7)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
 	ft_error1(i, str);

@@ -12,7 +12,7 @@
 
 #include "../corewar.h"
 
-int				check_num_atoi(char *line, unsigned int *num)
+int		check_num_atoi(char *line, unsigned int *num)
 {
 	int		count;
 
