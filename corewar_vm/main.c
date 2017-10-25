@@ -16,7 +16,7 @@ int				check_flags_corewar(char **av, int *index)
 {
 	return (ft_strequ(av[*index], "-dump") || ft_strequ(av[*index], "-print") ||
 			ft_strequ(av[*index], "-n") || ft_strequ(av[*index], "-v") ||
-			ft_strequ(av[*index], "-a") || ft_strequ(av[*index], "-b"));
+			ft_strequ(av[*index], "-a"));
 }
 
 void			check_is_flags(t_bs *bs)

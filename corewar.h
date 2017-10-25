@@ -92,7 +92,6 @@ typedef	struct		s_bs
 	unsigned short	is_print;
 	unsigned short	is_v;
 	unsigned short	is_aff;
-	unsigned short	is_beep;
 }					t_bs;
 
 typedef struct		s_ncur
@@ -165,8 +164,7 @@ void				create_box(WINDOW *p_win, int size);
 void				ncurses_stats(WINDOW *window, t_ncurs *base, t_bs *bs,
 									int a);
 void				ncurses_result(t_ncurs *base, t_bs *bs);
-int					check_is_live(t_proc **procs, unsigned short is_beep,
-									t_proc *tmp);
+int					check_is_live(t_proc **procs, t_proc *tmp);
 void				check_inst_proc(t_bs *bs, t_proc **procs,
 									unsigned char *map, t_chmp *champs);
 int					check_cycle_to_die(t_bs *bs, long *cycle_to_die,

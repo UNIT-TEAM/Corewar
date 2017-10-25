@@ -89,7 +89,7 @@ void		check_inst_proc(t_bs *bs, t_proc **procs, unsigned char *map,
 	}
 }
 
-int			check_is_live(t_proc **procs, unsigned short is_beep, t_proc *tmp)
+int			check_is_live(t_proc **procs, t_proc *tmp)
 {
 	t_proc *prev;
 	t_proc *address;
@@ -109,7 +109,6 @@ int			check_is_live(t_proc **procs, unsigned short is_beep, t_proc *tmp)
 			if (*procs == tmp)
 				*procs = tmp->next;
 			prev->next = tmp->next;
-			is_beep ? system("afplay die2.mp3 &") : 0;
 			free(tmp);
 		}
 		tmp = address;
