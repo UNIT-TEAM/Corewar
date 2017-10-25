@@ -2,7 +2,7 @@
 <project version="4">
   <component name="CMakeRunConfigurationManager" shouldGenerate="true" shouldDeleteObsolete="true" buildAllGenerated="true">
     <generated>
-      <config projectName="Project" targetName="corewar" />
+      <config projectName="corewar" targetName="corewar" />
     </generated>
   </component>
   <component name="CMakeSettings">
@@ -11,7 +11,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="176cce4c-96b0-4c08-86db-899cdb6a5b9d" name="Default" comment="номер гравця зробив не докінці, переробив інструкції та записа їх на карту" />
+    <list default="true" id="176cce4c-96b0-4c08-86db-899cdb6a5b9d" name="Default" comment="номер гравця зробив не докінці, переробив інструкції та записа їх на карту">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" afterPath="$PROJECT_DIR$/cmake-build-debug/CMakeFiles/clion-log.txt" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/corewar_vm/check_num_atoi.c" afterPath="$PROJECT_DIR$/corewar_vm/check_num_atoi.c" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/corewar_vm/map.c" afterPath="$PROJECT_DIR$/corewar_vm/map.c" />
+    </list>
     <ignored path="$PROJECT_DIR$/cmake-build-debug/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,34 +26,14 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <splitter split-orientation="horizontal" split-proportion="0.2798419">
+    <splitter split-orientation="horizontal" split-proportion="0.3074236">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
           <file leaf-file-name="fill_bot.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/corewar_vm/fill_bot.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="flags.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/corewar_vm/flags.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="for_instruct_and_live.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/corewar_vm/for_instruct_and_live.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="51">
-                  <caret line="3" column="12" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="12" />
+                <state relative-caret-position="195">
+                  <caret line="46" column="25" lean-forward="false" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
                   <folding />
                 </state>
               </provider>
@@ -57,6 +42,16 @@
           <file leaf-file-name="main.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/corewar_vm/main.c">
               <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="270">
+                  <caret line="18" column="39" lean-forward="false" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/.gitignore">
+              <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
                   <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
                   <folding />
@@ -64,11 +59,41 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="map.c" pinned="false" current-in-tab="false">
+          <file leaf-file-name="ft_atoi.c" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dasm/libft/ft_atoi.c">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="195">
+                  <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="map.c" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/corewar_vm/map.c">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="426">
+                  <caret line="59" column="9" lean-forward="false" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="ft_isaldigit.c" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/dasm/libft/ft_isaldigit.c">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="0">
                   <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                  <folding />
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="champion.c" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/corewar_vm/champion.c">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="453">
+                  <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
                   <folding />
                 </state>
               </provider>
@@ -77,48 +102,18 @@
           <file leaf-file-name="map1.c" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/corewar_vm/map1.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                <state relative-caret-position="522">
+                  <caret line="91" column="12" lean-forward="false" selection-start-line="91" selection-start-column="12" selection-end-line="91" selection-end-column="12" />
                   <folding />
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="map2.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/corewar_vm/map2.c">
+          <file leaf-file-name="del_base_to_zero_error.c" pinned="false" current-in-tab="false">
+            <entry file="file://$PROJECT_DIR$/corewar_vm/del_base_to_zero_error.c">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="op.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/corewar_vm/op.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="st_ld.c" pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/corewar_vm/st_ld.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-                  <folding />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file leaf-file-name="take_args.c" pinned="false" current-in-tab="true">
-            <entry file="file://$PROJECT_DIR$/corewar_vm/take_args.c">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="204">
-                  <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+                <state relative-caret-position="-33">
+                  <caret line="77" column="3" lean-forward="false" selection-start-line="77" selection-start-column="3" selection-end-line="77" selection-end-column="3" />
                   <folding />
                 </state>
               </provider>
@@ -130,11 +125,21 @@
         <splitter split-orientation="horizontal" split-proportion="0.5252688">
           <split-first>
             <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-              <file leaf-file-name="fill_bot.c" pinned="false" current-in-tab="true">
+              <file leaf-file-name="fill_bot.c" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/corewar_vm/fill_bot.c">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="0">
-                      <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+                    <state relative-caret-position="-406">
+                      <caret line="16" column="27" lean-forward="false" selection-start-line="16" selection-start-column="27" selection-end-line="16" selection-end-column="27" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="check_num_atoi.c" pinned="false" current-in-tab="true">
+                <entry file="file://$PROJECT_DIR$/corewar_vm/check_num_atoi.c">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="540">
+                      <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
                       <folding />
                     </state>
                   </provider>
@@ -147,10 +152,25 @@
               <file leaf-file-name="corewar.h" pinned="false" current-in-tab="true">
                 <entry file="file://$PROJECT_DIR$/corewar.h">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="479">
-                      <caret line="132" column="28" lean-forward="false" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
+                    <state relative-caret-position="840">
+                      <caret line="190" column="75" lean-forward="false" selection-start-line="190" selection-start-column="75" selection-end-line="190" selection-end-column="75" />
                       <folding>
                         <element signature="e#930#957#0" expanded="true" />
+                      </folding>
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="flags.c" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/corewar_vm/flags.c">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="672">
+                      <caret line="92" column="20" lean-forward="false" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+                      <folding>
+                        <marker date="1508926851197" expanded="true" signature="1842:2225" ph="{...}" />
+                        <marker date="1508926851197" expanded="true" signature="2294:2686" ph="{...}" />
+                        <marker date="1508926851197" expanded="true" signature="2755:2953" ph="{...}" />
+                        <marker date="1508926851197" expanded="true" signature="3013:3144" ph="{...}" />
                       </folding>
                     </state>
                   </provider>
@@ -159,8 +179,38 @@
               <file leaf-file-name="op.h" pinned="false" current-in-tab="false">
                 <entry file="file://$PROJECT_DIR$/op.h">
                   <provider selected="true" editor-type-id="text-editor">
-                    <state relative-caret-position="527">
+                    <state relative-caret-position="465">
                       <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="map2.c" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/corewar_vm/map2.c">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="-30">
+                      <caret line="76" column="35" lean-forward="false" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="cmds.c" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/dasm/src/cmds.c">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="175">
+                      <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="18" />
+                      <folding />
+                    </state>
+                  </provider>
+                </entry>
+              </file>
+              <file leaf-file-name="asm.h" pinned="false" current-in-tab="false">
+                <entry file="file://$PROJECT_DIR$/dasm/includes/asm.h">
+                  <provider selected="true" editor-type-id="text-editor">
+                    <state relative-caret-position="285">
+                      <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="29" />
                       <folding />
                     </state>
                   </provider>
@@ -188,6 +238,8 @@
       <find>who_win</find>
       <find>flag_long</find>
       <find>shift_pc</find>
+      <find>add_colo</find>
+      <find>add_col</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -222,8 +274,19 @@
         <option value="$PROJECT_DIR$/for_instruct_and_live.c" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
         <option value="$PROJECT_DIR$/corewar_vm/for_instruct_and_live.c" />
-        <option value="$PROJECT_DIR$/corewar.h" />
         <option value="$PROJECT_DIR$/corewar_vm/take_args.c" />
+        <option value="$PROJECT_DIR$/dasm/src/main.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/add_color.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/champion.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/map2.c" />
+        <option value="$PROJECT_DIR$/dasm/src/cmds.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/main.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/flags.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/map1.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/del_base_to_zero_error.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/map.c" />
+        <option value="$PROJECT_DIR$/corewar_vm/check_num_atoi.c" />
+        <option value="$PROJECT_DIR$/corewar.h" />
       </list>
     </option>
   </component>
@@ -235,8 +298,8 @@
   </component>
   <component name="OCFindUsagesOptions" text="false" ivars="false" properties="true" derivedClasses="false" />
   <component name="ProjectFrameBounds" fullScreen="true">
-    <option name="width" value="2880" />
-    <option name="height" value="1620" />
+    <option name="width" value="2560" />
+    <option name="height" value="1440" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -258,12 +321,12 @@
         <subPane>
           <expand>
             <path>
-              <item name="corewar_git" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
-              <item name="corewar_git" type="462c0819:PsiDirectoryNode" />
+              <item name="corewar" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="gitcor" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="corewar_git" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
-              <item name="corewar_git" type="462c0819:PsiDirectoryNode" />
+              <item name="corewar" type="dad4c3:CidrFilesViewHelper$MyProjectTreeStructure$1" />
+              <item name="gitcor" type="462c0819:PsiDirectoryNode" />
               <item name="corewar_vm" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
@@ -275,234 +338,6 @@
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
-  </component>
-  <component name="RestoreUpdateTree" date="Moments ago" ActionInfo="_Update">
-    <UpdatedFiles>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Updated from server" />
-        <option name="myStatusName" value="Changed on server" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="CHANGED_ON_SERVER" />
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Updated" />
-          <option name="myStatusName" value="Changed" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/Makefile</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Created" />
-          <option name="myStatusName" value="Created" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/add_color.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/add_or_zjump_fork_aff.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/champion.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/check_num_atoi.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/check_op_h.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/del_base_to_zero_error.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/fill_bot.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/flags.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/for_instruct_and_live.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/main.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/map.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/map1.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/map2.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/op.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/corewar_vm/st_ld.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/.nfs.2005109d.0d40</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/Makefile</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/includes/asm.h</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/includes/asm.h~</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/includes/op.h</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/Makefile</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/author</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_atoi.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_bzero.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_countword.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_isaldigit.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_isalnum.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_isalpha.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_isascii.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_isdigit.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_isprint.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_iswhite.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_itoa.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lineln.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lstadd.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lstdel.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lstdelone.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lstiter.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lstmap.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_lstnew.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memalloc.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memccpy.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memchr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memcmp.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memcpy.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memdel.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memmove.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_memset.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/for_specif.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/ft_printf.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/ft_printf.h</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/itoa_base.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/lft_func.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/parse_core.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/small_shit.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/to_write.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_printf/woodman.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putchar.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putchar_fd.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putendl.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putendl_fd.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putnbr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putnbr_fd.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putstr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_putstr_fd.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strcat.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strchr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strclr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strcmp.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strcpy.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strdel.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strdup.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strequ.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_striter.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_striteri.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strjoin.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strlcat.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strlen.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strmap.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strmapi.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strncat.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strncmp.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strncpy.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strnequ.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strnew.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strnstr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strrchr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strrev.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strsplit.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strstr.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strsub.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_strtrim.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_tolower.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/ft_toupper.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/get_next_line.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/libft/libft.h</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/src/cmds.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/src/head.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/src/label.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/src/main.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/dasm/src/output.c</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Deleted" />
-          <option name="myStatusName" value="Deleted" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="true" />
-          <option name="myId" value="REMOVED_FROM_REPOSITORY" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/TODOList.txt</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/add_color.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/add_or_zjump_fork_aff.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/champion.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/check_num_atoi.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/check_op_h.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/del_base_to_zero_error.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/fill_bot.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/flags.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/for_instruct_and_live.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/libft/libft.a</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/main.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/map.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/map1.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/map2.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/op.c</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/st_ld.c</PATH>
-        </FILE-GROUP>
-        <FILE-GROUP>
-          <option name="myUpdateName" value="Restored" />
-          <option name="myStatusName" value="Will be restored" />
-          <option name="mySupportsDeletion" value="false" />
-          <option name="myCanBeAbsent" value="false" />
-          <option name="myId" value="RESTORED" />
-        </FILE-GROUP>
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Modified" />
-        <option name="myStatusName" value="Modified" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MODIFIED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Skipped" />
-        <option name="myStatusName" value="Skipped" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SKIPPED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with conflicts" />
-        <option name="myStatusName" value="Will be merged with conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_CONFLICTS" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with tree conflicts" />
-        <option name="myStatusName" value="Merged with tree conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_TREE_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged with property conflicts" />
-        <option name="myStatusName" value="Will be merged with property conflicts" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED_WITH_PROPERTY_CONFLICT" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Merged" />
-        <option name="myStatusName" value="Will be merged" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="MERGED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Not in repository" />
-        <option name="myStatusName" value="Not in repository" />
-        <option name="mySupportsDeletion" value="true" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="UNKNOWN" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally added" />
-        <option name="myStatusName" value="Locally added" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_ADDED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Locally removed" />
-        <option name="myStatusName" value="Locally removed" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="LOCALLY_REMOVED" />
-      </FILE-GROUP>
-      <FILE-GROUP>
-        <option name="myUpdateName" value="Switched" />
-        <option name="myStatusName" value="Switched" />
-        <option name="mySupportsDeletion" value="false" />
-        <option name="myCanBeAbsent" value="false" />
-        <option name="myId" value="SWITCHED" />
-      </FILE-GROUP>
-    </UpdatedFiles>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -697,7 +532,7 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method />
     </configuration>
-    <configuration name="corewar" type="CMakeRunConfiguration" factoryName="Application" PROGRAM_PARAMS="-v -b -n 2 zork.cor" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="Project" RUN_TARGET_NAME="corewar" EXPLICIT_BUILD_TARGET_NAME="all">
+    <configuration name="corewar" type="CMakeRunConfiguration" factoryName="Application" WORKING_DIR="file://$PROJECT_DIR$" PASS_PARENT_ENVS_2="true" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="corewar" RUN_TARGET_NAME="corewar" EXPLICIT_BUILD_TARGET_NAME="all">
       <envs />
     </configuration>
     <list size="2">
@@ -745,6 +580,7 @@
       <workItem from="1508773826335" duration="8519000" />
       <workItem from="1508789112311" duration="4754000" />
       <workItem from="1508852747437" duration="11177000" />
+      <workItem from="1508911310563" duration="11953000" />
     </task>
     <task id="LOCAL-00001" summary="magic name">
       <created>1503167774616</created>
@@ -767,11 +603,46 @@
       <option name="project" value="LOCAL" />
       <updated>1504800263279</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="is_beep, нумерація гравців і норми">
+      <created>1508912756019</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1508912756019</updated>
+    </task>
+    <task id="LOCAL-00005" summary="поправили сегфолт. Все пронормовано. Готово до захисту">
+      <created>1508915640279</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1508915640279</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Вставив тернарник на перевірку гравця">
+      <created>1508918124482</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1508918124482</updated>
+    </task>
+    <task id="LOCAL-00007" summary="прибрав is_beep">
+      <created>1508922264369</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1508922264369</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Usage пофіксив">
+      <created>1508926841459</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1508926841459</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="184795000" />
+    <option name="totallyTimeSpent" value="196748000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -783,21 +654,20 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="2880" height="1620" extended-state="0" />
-    <editor active="true" />
+    <frame x="0" y="0" width="2560" height="1440" extended-state="0" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32939634" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32874015" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="CMake" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30971128" sideWeight="0.49788582" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30952382" sideWeight="0.49788582" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32902393" sideWeight="0.5028189" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32874015" sideWeight="0.49718112" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.21062993" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.10433071" sideWeight="0.49841145" order="10" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.089852005" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32874015" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44568452" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.49718112" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.23586309" sideWeight="0.49841145" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.09054805" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.328125" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27604166" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18175852" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Data View" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -843,11 +713,23 @@
     <MESSAGE value="magic name" />
     <MESSAGE value="записав імя, розмір, коментар та коди гравців на карту" />
     <MESSAGE value="зробив перевірку на флаги -n, -dump" />
-    <option name="LAST_COMMIT_MESSAGE" value="зробив перевірку на флаги -n, -dump" />
+    <MESSAGE value="is_beep, нумерація гравців і норми" />
+    <MESSAGE value="поправили сегфолт. Все пронормовано. Готово до захисту" />
+    <MESSAGE value="Вставив тернарник на перевірку гравця" />
+    <MESSAGE value="прибрав is_beep" />
+    <MESSAGE value="Usage пофіксив" />
+    <option name="LAST_COMMIT_MESSAGE" value="Usage пофіксив" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="79" />
+      <breakpoints>
+        <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
+          <url>file://$PROJECT_DIR$/corewar_vm/map2.c</url>
+          <line>108</line>
+          <option name="timeStamp" value="79" />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="80" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="CMakeRunConfiguration">
@@ -856,198 +738,35 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/libft/libft.h" />
-    <entry file="file://$PROJECT_DIR$/libft/ft_printf.h" />
-    <entry file="file://$PROJECT_DIR$/zork.cor" />
-    <entry file="file://$PROJECT_DIR$/get_binary.c" />
-    <entry file="file://$PROJECT_DIR$/ncurses/nc.c" />
-    <entry file="file://$PROJECT_DIR$/ncurses2/ncurs.h" />
     <entry file="file://$PROJECT_DIR$/ncurses2/make_scene.c" />
     <entry file="file://$PROJECT_DIR$/ncurses2/main.c" />
     <entry file="file://$PROJECT_DIR$/ncurses/ncurs.h" />
     <entry file="file://$PROJECT_DIR$/ncurses/proc_key.c" />
-    <entry file="file://$PROJECT_DIR$/ncurses/make_scene.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <marker date="1508776112759" expanded="true" signature="159:368" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ncurses/ncurses_init_colors.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="0" lean-forward="false" selection-start-line="38" selection-start-column="0" selection-end-line="38" selection-end-column="0" />
-          <folding>
-            <marker date="1508776113047" expanded="true" signature="55:475" ph="{...}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/add_color.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="4" lean-forward="false" selection-start-line="17" selection-start-column="4" selection-end-line="17" selection-end-column="4" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/check_op_h.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="930">
-          <caret line="56" column="30" lean-forward="false" selection-start-line="56" selection-start-column="30" selection-end-line="56" selection-end-column="30" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/fill_bot.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="794">
-          <caret line="118" column="10" lean-forward="false" selection-start-line="118" selection-start-column="10" selection-end-line="118" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/check_num_atoi.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/include/ncurses.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="661" column="27" lean-forward="false" selection-start-line="661" selection-start-column="27" selection-end-line="661" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/champion.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="11" lean-forward="false" selection-start-line="24" selection-start-column="11" selection-end-line="24" selection-end-column="11" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/flags.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="8" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1173">
-          <caret line="97" column="12" lean-forward="false" selection-start-line="97" selection-start-column="12" selection-end-line="97" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/del_base_to_zero_error.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="39" column="20" lean-forward="false" selection-start-line="39" selection-start-column="20" selection-end-line="39" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/op.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="527">
-          <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/instruct.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="89" column="51" lean-forward="false" selection-start-line="89" selection-start-column="51" selection-end-line="89" selection-end-column="51" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1717">
-          <caret line="101" column="23" lean-forward="false" selection-start-line="101" selection-start-column="23" selection-end-line="101" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map2.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1751">
-          <caret line="103" column="36" lean-forward="true" selection-start-line="103" selection-start-column="36" selection-end-line="103" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/map1.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1547">
-          <caret line="91" column="64" lean-forward="true" selection-start-line="91" selection-start-column="64" selection-end-line="91" selection-end-column="64" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/op.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="32" column="10" lean-forward="true" selection-start-line="32" selection-start-column="10" selection-end-line="32" selection-end-column="10" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/take_args.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="765">
-          <caret line="61" column="39" lean-forward="false" selection-start-line="61" selection-start-column="39" selection-end-line="61" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/add_or_zjump_fork_aff.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1047">
-          <caret line="117" column="12" lean-forward="false" selection-start-line="117" selection-start-column="4" selection-end-line="117" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/st_ld.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="43" column="40" lean-forward="true" selection-start-line="43" selection-start-column="40" selection-end-line="43" selection-end-column="40" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/for_instruct_and_live.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="438">
-          <caret line="52" column="8" lean-forward="true" selection-start-line="52" selection-start-column="8" selection-end-line="52" selection-end-column="8" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="132" column="28" lean-forward="false" selection-start-line="132" selection-start-column="28" selection-end-line="132" selection-end-column="28" />
-          <folding>
-            <element signature="e#930#957#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/add_color.c" />
+    <entry file="file://$PROJECT_DIR$/check_op_h.c" />
+    <entry file="file://$PROJECT_DIR$/fill_bot.c" />
+    <entry file="file://$PROJECT_DIR$/check_num_atoi.c" />
+    <entry file="file://$PROJECT_DIR$/champion.c" />
+    <entry file="file://$PROJECT_DIR$/flags.c" />
+    <entry file="file://$PROJECT_DIR$/main.c" />
+    <entry file="file://$PROJECT_DIR$/del_base_to_zero_error.c" />
+    <entry file="file://$PROJECT_DIR$/instruct.c" />
+    <entry file="file://$PROJECT_DIR$/map.c" />
+    <entry file="file://$PROJECT_DIR$/map2.c" />
+    <entry file="file://$PROJECT_DIR$/map1.c" />
+    <entry file="file://$PROJECT_DIR$/op.c" />
+    <entry file="file://$PROJECT_DIR$/take_args.c" />
+    <entry file="file://$PROJECT_DIR$/add_or_zjump_fork_aff.c" />
+    <entry file="file://$PROJECT_DIR$/st_ld.c" />
+    <entry file="file://$PROJECT_DIR$/for_instruct_and_live.c" />
     <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="544">
@@ -1072,14 +791,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/add_color.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/corewar_vm/add_or_zjump_fork_aff.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1088,79 +799,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/champion.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/check_num_atoi.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/corewar_vm/check_op_h.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/del_base_to_zero_error.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/flags.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/for_instruct_and_live.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="12" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/map.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/map1.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/corewar_vm/map2.c">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -1184,19 +823,186 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/dasm/src/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="24" column="68" lean-forward="false" selection-start-line="24" selection-start-column="68" selection-end-line="24" selection-end-column="68" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/corewar_vm/take_args.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
+        <state relative-caret-position="180">
           <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/include/ncurses.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="353">
+          <caret line="583" column="32" lean-forward="false" selection-start-line="583" selection-start-column="32" selection-end-line="583" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ncurses/make_scene.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1094">
+          <caret line="119" column="8" lean-forward="false" selection-start-line="119" selection-start-column="8" selection-end-line="119" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/add_color.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="0" lean-forward="false" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/champion.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="453">
+          <caret line="48" column="42" lean-forward="false" selection-start-line="48" selection-start-column="42" selection-end-line="48" selection-end-column="42" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/for_instruct_and_live.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-957">
+          <caret line="3" column="12" lean-forward="false" selection-start-line="3" selection-start-column="5" selection-end-line="3" selection-end-column="12" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dasm/libft/ft_atoi.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="13" column="0" lean-forward="false" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dasm/libft/ft_isaldigit.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dasm/src/cmds.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="175">
+          <caret line="34" column="15" lean-forward="false" selection-start-line="34" selection-start-column="15" selection-end-line="34" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/op.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="39" lean-forward="false" selection-start-line="31" selection-start-column="39" selection-end-line="31" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dasm/includes/asm.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="24" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/main.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="18" column="39" lean-forward="false" selection-start-line="18" selection-start-column="39" selection-end-line="18" selection-end-column="39" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/flags.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="92" column="20" lean-forward="false" selection-start-line="92" selection-start-column="20" selection-end-line="92" selection-end-column="20" />
+          <folding>
+            <marker date="1508926851197" expanded="true" signature="1842:2225" ph="{...}" />
+            <marker date="1508926851197" expanded="true" signature="2294:2686" ph="{...}" />
+            <marker date="1508926851197" expanded="true" signature="2755:2953" ph="{...}" />
+            <marker date="1508926851197" expanded="true" signature="3013:3144" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/del_base_to_zero_error.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-33">
+          <caret line="77" column="3" lean-forward="false" selection-start-line="77" selection-start-column="3" selection-end-line="77" selection-end-column="3" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/map2.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-30">
+          <caret line="76" column="35" lean-forward="false" selection-start-line="76" selection-start-column="35" selection-end-line="76" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/map1.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="522">
+          <caret line="91" column="12" lean-forward="false" selection-start-line="91" selection-start-column="12" selection-end-line="91" selection-end-column="12" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/corewar_vm/fill_bot.c">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="195">
+          <caret line="46" column="25" lean-forward="false" selection-start-line="46" selection-start-column="25" selection-end-line="46" selection-end-column="25" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/map.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="426">
+          <caret line="59" column="9" lean-forward="false" selection-start-line="59" selection-start-column="9" selection-end-line="59" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar_vm/check_num_atoi.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="540">
+          <caret line="36" column="0" lean-forward="false" selection-start-line="36" selection-start-column="0" selection-end-line="36" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/corewar.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="190" column="75" lean-forward="false" selection-start-line="190" selection-start-column="75" selection-end-line="190" selection-end-column="75" />
+          <folding>
+            <element signature="e#930#957#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

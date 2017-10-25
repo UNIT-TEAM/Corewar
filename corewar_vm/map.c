@@ -53,14 +53,14 @@ void	global_cycles_without_visual(t_bs *bs)
 	max_check = MAX_CHECKS;
 	while (cycle_to_die > 0)
 	{
-		++g_count;
-		++cycle_to_die_curr;
-		check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
 		if (bs->is_dump && bs->dump == g_count)
 		{
 			print_map(bs->map);
 			break ;
 		}
+		++g_count;
+		++cycle_to_die_curr;
+		check_inst_proc(bs, &bs->list_proc, bs->map, bs->list_champs);
 		if (bs->is_print && g_count % bs->cycle_print == 0)
 			ft_printf("Flag print is on :\n\n") ? print_map(bs->map) : 0;
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
