@@ -73,7 +73,8 @@ void		set_chmps_with_flag_num(t_bs *bs, int k)
 	tmp_proc = bs->list_proc;
 	while (tmp_chmp)
 	{
-		if (tmp_chmp->flag_num != 0 && tmp_chmp->flag_num <= bs->np)
+		tmp_chmp->flag_num > bs->np ? ft_error(11, NULL) : 0;
+		if (tmp_chmp->flag_num != 0)
 		{
 			tmp_chmp->num = tmp_chmp->flag_num;
 			tmp_proc->regs[0] = (unsigned int)(-tmp_chmp->num);
@@ -86,8 +87,6 @@ void		set_chmps_with_flag_num(t_bs *bs, int k)
 				bs->is_v ? add_color(tmp_proc->pc + k, tmp_chmp->num, bs) : 0;
 			}
 		}
-		else
-			ft_error(11, NULL);
 		tmp_chmp = tmp_chmp->next;
 		tmp_proc = tmp_proc->next;
 	}

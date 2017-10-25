@@ -62,13 +62,12 @@ void	global_cycles_without_visual(t_bs *bs)
 			break ;
 		}
 		if (bs->is_print && g_count % bs->cycle_print == 0)
-			print_map(bs->map);
+			ft_printf("Flag print is on :\n\n") ? print_map(bs->map) : 0;
 		if (check_cycle_to_die(bs, &cycle_to_die, &max_check,
 				&cycle_to_die_curr) == 0)
 			break ;
 	}
-	++g_count;
-	who_win(bs->list_champs, &bs->winner);
+	++g_count ? who_win(bs->list_champs, &bs->winner) : 0;
 }
 
 void	reverse_champs(t_chmp **champs)

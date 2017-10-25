@@ -12,6 +12,8 @@
 
 #include "../includes/asm.h"
 
+#define RE REG_NUMBER
+
 char	*g_l;
 
 int			cw_check_value(t_cmnd *cmnd, int j, char *label, int i)
@@ -87,7 +89,9 @@ int			cw_args_parse(int i, char *arg, t_cmnd *cmnd)
 	if ((g_tab[cmnd->cmd].kind[i] & T_REG) && arg[0] == 'r' && arg[1])
 	{
 		g_file->cmnd->cipher |= REG_CODE;
-		if ((g_file->cmnd->i_arg[i] = (UI)ft_atoi(arg + 1)) > REG_NUMBER)
+		g_file->cmnd->i_arg[i] = (UI)ft_atoi(arg + 1);
+		if (!ft_isaldigit(arg + 1) || g_file->cmnd->i_arg[i] > RE || \
+			g_file->cmnd->i_arg[i] < 1)
 			return (cw_e(19));
 		cmnd->size += T_REG;
 	}
@@ -100,7 +104,6 @@ int			cw_args_parse(int i, char *arg, t_cmnd *cmnd)
 	if (!error && ++i)
 		return (i != g_tab[cmnd->cmd].arg ? \
 				cw_args_parse(i, g_file->cmnd->args[i], g_file->cmnd) : 1);
-	else
 		return (-13);
 }
 
