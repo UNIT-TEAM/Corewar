@@ -44,7 +44,6 @@ void	parse_flag_num(t_bs **bs, char **argv, int argc, int *index)
 void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 {
 	int				i;
-	int				fd;
 	unsigned int	tmp;
 
 	if (ft_strequ(argv[*index], "-dump"))
@@ -57,10 +56,6 @@ void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 				ft_error(12, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &tmp))
 			ft_error(8, argv[*index + 1]);
-		if ((fd = open(argv[*index + 2], O_RDONLY)) < 0)
-			ft_error(2, NULL);
-		else
-			close(fd);
 		bs->dump = tmp;
 		bs->is_dump = 1;
 		*index += 2;
