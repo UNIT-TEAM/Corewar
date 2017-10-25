@@ -90,7 +90,7 @@ typedef	struct		s_bs
 	unsigned short	is_dump;
 	unsigned int	cycle_print;
 	unsigned short	is_print;
-	unsigned short	is_visual;
+	unsigned short	is_v;
 	unsigned short	is_aff;
 	unsigned short	is_beep;
 }					t_bs;
@@ -172,7 +172,7 @@ void				check_inst_proc(t_bs *bs, t_proc **procs,
 int					check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 										unsigned int *max_check,
 										unsigned int *cycle_to_die_curr);
-void				set_chmps_with_flag_num(t_bs *bs);
+void				set_chmps_with_flag_num(t_bs *bs, int k);
 void				set_chmps_without_flag_num(t_bs *bs, unsigned int i, int k,
 												t_proc *tmp_proc);
 void				g_c_prep(t_ncurs *ncurs, t_bs *bs);

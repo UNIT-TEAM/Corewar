@@ -50,13 +50,13 @@ void	ft_ldi_lldi(unsigned char *map, t_proc *proc, unsigned short op_index)
 void	set_bytes_on_map(t_bs *bs, unsigned int i, t_proc *proc,
 							unsigned int *arg)
 {
-	(bs->is_visual) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
+	(bs->is_v) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
 	bs->map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 24);
-	(bs->is_visual) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
+	(bs->is_v) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
 	bs->map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 16);
-	(bs->is_visual) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
+	(bs->is_v) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
 	bs->map[i++ % MEM_SIZE] = (unsigned char)(arg[0] >> 8);
-	(bs->is_visual) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
+	(bs->is_v) ? add_color(i % MEM_SIZE, proc->id, bs) : 0;
 	bs->map[i % MEM_SIZE] = (unsigned char)arg[0];
 }
 

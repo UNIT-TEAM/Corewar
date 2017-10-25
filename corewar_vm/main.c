@@ -21,7 +21,7 @@ int				check_flags_corewar(char **av, int *index)
 
 void			check_is_flags(t_bs *bs)
 {
-	if (bs->is_visual)
+	if (bs->is_v)
 	{
 		bs->is_dump = 0;
 		bs->is_print = 0;
@@ -89,9 +89,9 @@ int				main(int argc, char **argv)
 	base_to_zero(&base);
 	ft_sprint(&base, argv, argc, 0);
 	reverse_champs(&base.list_champs);
-	num_champs(base.list_champs, base.is_visual);
+	num_champs(base.list_champs, base.is_v);
 	ft_fill_map(&base);
-	if (base.is_visual == 0)
+	if (base.is_v == 0)
 		print_winner(base.list_champs, base.winner);
 	del_list_champ(&base.list_champs);
 	del_list_proc(&base.list_proc);

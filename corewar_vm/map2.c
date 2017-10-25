@@ -64,17 +64,16 @@ void		who_win(t_chmp *champ, unsigned int *winner)
 	}
 }
 
-void		set_chmps_with_flag_num(t_bs *bs)
+void		set_chmps_with_flag_num(t_bs *bs, int k)
 {
 	t_chmp	*tmp_chmp;
 	t_proc	*tmp_proc;
-	int		k;
 
 	tmp_chmp = bs->list_champs;
 	tmp_proc = bs->list_proc;
 	while (tmp_chmp)
 	{
-		if (tmp_chmp->flag_num != 0)
+		if (tmp_chmp->flag_num != 0 && tmp_chmp->flag_num <= bs->np)
 		{
 			tmp_chmp->num = tmp_chmp->flag_num;
 			tmp_proc->regs[0] = (unsigned int)(-tmp_chmp->num);
@@ -84,9 +83,11 @@ void		set_chmps_with_flag_num(t_bs *bs)
 			while (++k < tmp_chmp->head.prog_size)
 			{
 				bs->map[tmp_proc->pc + k] = tmp_chmp->instructions[k];
-				add_color(tmp_proc->pc + k, tmp_chmp->num, bs);
+				bs->is_v ? add_color(tmp_proc->pc + k, tmp_chmp->num, bs) : 0;
 			}
 		}
+		else
+			ft_error(11, NULL);
 		tmp_chmp = tmp_chmp->next;
 		tmp_proc = tmp_proc->next;
 	}
@@ -113,7 +114,7 @@ void		set_chmps_without_flag_num(t_bs *bs, unsigned int i, int k,
 			while (++k < tmp_chmp->head.prog_size)
 			{
 				bs->map[tmp_proc->pc + k] = tmp_chmp->instructions[k];
-				add_color(tmp_proc->pc + k, tmp_chmp->num, bs);
+				bs->is_v ? add_color(tmp_proc->pc + k, tmp_chmp->num, bs) : 0;
 			}
 			i += MEM_SIZE / bs->np;
 		}

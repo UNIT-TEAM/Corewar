@@ -60,7 +60,7 @@ void	base_to_zero(t_bs *bs)
 	bs->num_live = 0;
 	bs->is_dump = 0;
 	bs->is_print = 0;
-	bs->is_visual = 0;
+	bs->is_v = 0;
 	bs->is_num_flag = 0;
 	bs->is_aff = 0;
 	bs->is_beep = 0;
