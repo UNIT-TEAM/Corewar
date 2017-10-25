@@ -16,16 +16,16 @@
 
 char	*g_l;
 
-int			cw_check_value(t_cmnd *cmnd, int j, char *label, int i)
+int			cw_check_value(t_cmnd *cmnd, int j, char *label, int t)
 {
-	cmnd->cipher |= (g_tab[cmnd->cmd].kind[j] & T_DIR) ? DIR_CODE : IND_CODE;
-	cmnd->size += \
-		((g_tab[cmnd->cmd].kind[j] & T_DIR) && !g_tab[cmnd->cmd].id2) ? 4 : 2;
+	int i;
+
+	i = 0;
+	cmnd->cipher |= t ? DIR_CODE : IND_CODE;
+	cmnd->size += (t && !g_tab[cmnd->cmd].id2) ? 4 : 2;
 	if (j + 1 == g_tab[cmnd->cmd].arg)
-	{
 		if (!cw_write_cmd(cmnd, j, 0))
 			return (cw_e(27));
-	}
 	if (IS_LBL(label[i]))
 		return (0);
 	cmnd->args[j][i] == '%' ? i++ : 0;
@@ -33,7 +33,7 @@ int			cw_check_value(t_cmnd *cmnd, int j, char *label, int i)
 	if (!(ft_isaldigit(cmnd->args[j] + i)))
 		return (cw_e(20));
 	cmnd->i_arg[j] = (UI)ft_atoi(label);
-	if ((g_tab[cmnd->cmd].kind[j] & T_DIR) && !g_tab[cmnd->cmd].id2)
+	if (t && !g_tab[cmnd->cmd].id2)
 	{
 		cmnd->i_arg[j] = ((cmnd->i_arg[j] << 8) & 0xFF00FF00) | 	\
 			((cmnd->i_arg[j] >> 8) & 0xFF00FF);
@@ -96,7 +96,7 @@ int			cw_args_parse(int i, char *arg, t_cmnd *cmnd)
 		cmnd->size += T_REG;
 	}
 	else if ((g_tab[cmnd->cmd].kind[i] & T_DIR) && IS_DIR(arg[0]))
-		error = cw_check_value(cmnd, i, (arg + 1), 0);
+		error = cw_check_value(cmnd, i, (arg + 1), 1);
 	else if ((g_tab[cmnd->cmd].kind[i] & T_IND))
 		error = cw_check_value(cmnd, i, arg, 0);
 	else

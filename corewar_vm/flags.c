@@ -53,7 +53,7 @@ void	parse_flag_dump(t_bs *bs, char **argv, int argc, int *index)
 		i = -1;
 		while (argv[*index + 1][++i])
 			if (!ft_isdigit(argv[*index + 1][i]))
-				ft_error(12, argv[*index + 1]);
+				ft_error(14, argv[*index + 1]);
 		if (!check_num_atoi(argv[*index + 1], &tmp))
 			ft_error(8, argv[*index + 1]);
 		bs->dump = tmp;

@@ -143,7 +143,7 @@ t_header *g_head;
 int					cw_e(int type);
 char				*cw_cut(char *s);
 unsigned int		cw_endian(unsigned int i);
-int					cw_check_value(t_cmnd *cmnd, int j, char *label, int i);
+int					cw_check_value(t_cmnd *cmnd, int j, char *label, int t);
 int					cw_write_cmd(t_cmnd *cmnd, int type, int i);
 int					cw_args_parse(int i, char *arg, t_cmnd *cmnd);
 t_cmnd				*cw_cmnd_init(int *i);
