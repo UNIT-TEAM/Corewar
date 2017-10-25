@@ -119,7 +119,7 @@ void	ft_instraction(char *av, t_bs *bs)
 		++k;
 	close(fd);
 	(k == 0) ? ft_error(4, av) : 0;
+	bs->np++;
 	if (bs->np > MAX_PLAYERS)
 		ft_error(11, NULL);
-	bs->np++;
 }
