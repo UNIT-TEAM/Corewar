@@ -14,7 +14,7 @@
 
 int		speed_change(t_ncurs *base, int a)
 {
-	if (base->n_cyc < 500 && a == 1)
+	if (base->n_cyc < 1000 && a == 1)
 	{
 		base->n_cyc = base->n_cyc + 1;
 		return (0);
@@ -24,7 +24,7 @@ int		speed_change(t_ncurs *base, int a)
 		base->n_cyc = base->n_cyc - 1;
 		return (0);
 	}
-	if (base->n_cyc <= 490 && a == 2)
+	if (base->n_cyc <= 990 && a == 2)
 	{
 		base->n_cyc = base->n_cyc + 10;
 		return (0);
