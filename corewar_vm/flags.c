@@ -94,10 +94,7 @@ void	parse_flag_visual_aff_beep(t_bs *bs, char **argv, int *index)
 		bs->is_v = 1;
 	else if (ft_strequ(argv[*index], "-a"))
 		bs->is_aff = 1;
-	else if (ft_strequ(argv[*index], "-b"))
-		bs->is_beep = 1;
-	if (ft_strequ(argv[*index], "-v") || ft_strequ(argv[*index], "-a") ||
-		ft_strequ(argv[*index], "-b"))
+	if (ft_strequ(argv[*index], "-v") || ft_strequ(argv[*index], "-a"))
 		*index += 1;
 }
 

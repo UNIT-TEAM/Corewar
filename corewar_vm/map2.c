@@ -27,7 +27,7 @@ int			check_cycle_to_die(t_bs *bs, long *cycle_to_die,
 			tmp_champ->live = 0;
 			tmp_champ = tmp_champ->next;
 		}
-		if (check_is_live(&bs->list_proc, bs->is_beep, tmp) == 0)
+		if (check_is_live(&bs->list_proc, tmp) == 0)
 			return (0);
 		if (bs->num_live >= NBR_LIVE || *max_check == 1)
 		{

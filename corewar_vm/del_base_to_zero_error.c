@@ -63,8 +63,7 @@ void	base_to_zero(t_bs *bs)
 	bs->is_v = 0;
 	bs->is_num_flag = 0;
 	bs->is_aff = 0;
-	bs->is_beep = 0;
-	g_count = 0;
+§	g_count = 0;
 }
 
 /*
