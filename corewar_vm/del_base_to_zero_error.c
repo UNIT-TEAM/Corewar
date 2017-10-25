@@ -85,9 +85,7 @@ void	base_to_zero(t_bs *bs)
 
 void	ft_error1(int i, char *str)
 {
-	if (i == 7)
-		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
-	else if (i == 8)
+	if (i == 8)
 		ft_printf(RED"Error:"BLU"\n\t\t%s"RC" is not unsigned int\n", str);
 	else if (i == 9)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit\n");
@@ -108,13 +106,14 @@ void	ft_error1(int i, char *str)
 	else if (i == 15)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-print N]"RC" - must be a digit"\
 		"\n");
-    del_list_proc(&g_p_base->list_proc);
-    del_list_champ(&g_p_base->list_champs);
+	del_list_proc(&g_p_base->list_proc);
+	del_list_champ(&g_p_base->list_champs);
 	exit(1);
 }
 
 void	ft_error(int i, char *str)
 {
+	i == 2 ? perror("error") : 0;
 	if (i == 1)
 		ft_printf(RED"Usage:"RC"\n\t./corewar [[-dump N] [-print N] [-a] [-b]]"\
 		" | [[-n number] champion1.cor] | -v] \n\tMax players is %d\n\n#### T"\
@@ -125,8 +124,6 @@ void	ft_error(int i, char *str)
 		" process is die;\n\t-n number\t: Sets the number of the next player\n"\
 		"\n#### NCURSES OUTPUT MODE ##########################################"\
 		"#############\n\t-v\t\t\t: Ncurses output mode\n", MAX_PLAYERS);
-	else if (i == 2)
-		perror("error");
 	else if (i == 3)
 		ft_printf(RED"Error:"RC"\n\t\tFile "BLU"%s"RC" has an invalid magic na"\
 		"me\n", str);
@@ -138,5 +135,7 @@ void	ft_error(int i, char *str)
 	else if (i == 6)
 		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-n number]"RC" - must be a digit"\
 		"\n");
+	else if (i == 7)
+		ft_printf(RED"Error:"RC"\n\t\t"BLU"[-dump N]"RC" - must be a digit\n");
 	ft_error1(i, str);
 }

@@ -56,3 +56,20 @@ void	a_n_c(t_chmp **first, unsigned int flag_num, t_proc **proc,
 	add_new_process(proc);
 	close(fd);
 }
+
+void	print_champs(t_chmp *champs, unsigned short is_visual)
+{
+	t_chmp			*tmp;
+
+	tmp = champs;
+	if (is_visual == 0)
+		ft_printf(YEL"Introducing contestants...\n"RC);
+	while (tmp)
+	{
+		if (is_visual == 0)
+			ft_printf("* Player %u, weighing %u bytes, \"%s\" (\"%s\")\n",
+					tmp->num, tmp->head.prog_size, tmp->head.prog_name,
+					tmp->head.comment);
+		tmp = tmp->next;
+	}
+}

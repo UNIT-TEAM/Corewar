@@ -100,6 +100,7 @@ void	ft_fill_map(t_bs *bs)
 	if (bs->is_num_flag)
 		set_chmps_with_flag_num(bs);
 	set_chmps_without_flag_num(bs, 0, 0, tmp_proc);
+	print_champs(bs->list_champs, bs->is_visual);
 	if (bs->is_visual)
 	{
 		ncurs->cy = 0;

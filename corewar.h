@@ -112,8 +112,8 @@ extern t_op			g_tab[17];
 extern unsigned int	g_count;
 extern t_bs			*g_p_base;
 
+int					check_num_atoi(char *line, unsigned int *num);
 void				ft_error(int i, char *str);
-
 void				fill_magic(unsigned int *magic_size, unsigned char *buf,
 								char *str, int flag);
 void				ft_magic_size(char *av, t_header *p);
@@ -177,7 +177,6 @@ void				set_chmps_without_flag_num(t_bs *bs, unsigned int i, int k,
 												t_proc *tmp_proc);
 void				g_c_prep(t_ncurs *ncurs, t_bs *bs);
 void				who_win(t_chmp *champ, unsigned int *winner);
-int					check_num_atoi(char *line, unsigned int *num);
 void				parse_flag_num(t_bs **bs, char **argv, int argc,
 									int *index);
 void				parse_flag_dump(t_bs *bs, char **argv, int argc,
@@ -190,7 +189,7 @@ void				parse_flag_print(t_bs *bs, char **argv, int argc,
 void				del_list_champ(t_chmp **champ);
 void				del_list_proc(t_proc **proc);
 void				base_to_zero(t_bs *bs);
-int					check_num_atoi(char *line, unsigned int *num);
 void				reverse_champs(t_chmp **champs);
+void				print_champs(t_chmp *champs, unsigned short is_visual);
 
 #endif

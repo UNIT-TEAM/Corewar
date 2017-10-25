@@ -109,11 +109,10 @@ int			check_is_live(t_proc **procs, unsigned short is_beep, t_proc *tmp)
 			if (*procs == tmp)
 				*procs = tmp->next;
 			prev->next = tmp->next;
+			is_beep ? system("afplay die2.mp3 &") : 0;
 			free(tmp);
 		}
 		tmp = address;
 	}
-	if (*procs == NULL)
-		return (0);
-	return (1);
+	return (*procs == NULL ? 0 : 1);
 }

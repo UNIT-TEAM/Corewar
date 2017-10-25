@@ -108,15 +108,9 @@ void	num_champs(t_chmp *champs, unsigned short is_visual)
 
 	tmp = champs;
 	number = 1;
-	if (is_visual == 0)
-		ft_printf(YEL"Introducing contestants...\n"RC);
 	while (tmp)
 	{
 		tmp->num = number++;
-		if (is_visual == 0)
-			ft_printf("* Player %u, weighing %u bytes, \"%s\" (\"%s\")\n",
-						tmp->num, tmp->head.prog_size, tmp->head.prog_name,
-						tmp->head.comment);
 		tmp = tmp->next;
 	}
 }

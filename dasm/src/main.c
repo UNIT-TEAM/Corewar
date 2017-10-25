@@ -22,7 +22,7 @@ int					cw_e(int type)
 	{
 		ft_printf("Usage: ./asm [-m] <sourcefile.s>\n");
 		ft_printf("\t -m: Instead of creating 1 .cor, flag ./asm can "
-				"processing into the .cor all your files, those was"
+				"processing into the .cor all your files, those was "
 					"transferred to the ./asm argument\n");
 		return (0);
 	}
